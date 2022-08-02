@@ -1,0 +1,34 @@
+server:
+  port: 8081
+# redis配置
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/myblog?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: root
+    password: wj1324
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: 192.168.153.129
+    database: 0
+    timeout: 1800000
+    lettuce:
+      pool:
+        max-active: 20
+        max-wait: -1
+        #最大阻塞等待时间(负数表示没限制)
+        max-idle: 5
+        min-idle: 0
+  #解决spring版本过高swagger不适配的问题
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+
+#配置mapper xml文件的路径
+mybatis-plus:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
+logging:
+  level:
+    com.wj.blog.mapper: debug
+    com.wj.blog.test: debug

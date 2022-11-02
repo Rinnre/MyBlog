@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -37,6 +39,9 @@ public class Article implements Serializable {
     @ApiModelProperty(value = "文章主体内容")
     private String articleContext;
 
+    @ApiModelProperty(value = "文章描述")
+    private String articleDescription;
+
     @ApiModelProperty(value = "文章查看次数")
     private Integer articleViewCount;
 
@@ -51,6 +56,10 @@ public class Article implements Serializable {
 
     @ApiModelProperty(value = "文章状态（1：草稿，2：待发布，3：已发布）")
     private Integer articleStatus;
+
+    @ApiModelProperty(value = "文章标签")
+    @TableField(exist = false)
+    private List<Category> categoryList;
 
     @ApiModelProperty(value = "文章发布时间")
     @TableField(fill = FieldFill.INSERT)

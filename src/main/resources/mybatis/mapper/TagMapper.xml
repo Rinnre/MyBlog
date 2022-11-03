@@ -2,4 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wj.blog.mapper.TagMapper">
 
+
+    <select id="getTagsByArticleId" resultType="com.wj.blog.entity.Tag">
+        SELECT t.tag_id,t.tag_name
+        FROM tag as t
+        JOIN article_tag_ref as at
+        ON t.tag_id = at.tag_id
+        WHERE at.article_id = #{articleId}
+    </select>
+
 </mapper>

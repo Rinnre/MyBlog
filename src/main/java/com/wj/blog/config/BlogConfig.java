@@ -2,6 +2,7 @@ package com.wj.blog.config;
 
 import com.wj.blog.interceptor.HttpInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -14,10 +15,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 @MapperScan("com.wj.blog.mapper")
+@ComponentScan("com.wj.blog")
 public class BlogConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         InterceptorRegistration registration = registry.addInterceptor(new HttpInterceptor());
-        registration.addPathPatterns("/**"); //所有路径都被拦截
+        //所有路径都被拦截
+        registration.addPathPatterns("/**");
     }
 }

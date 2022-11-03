@@ -1,9 +1,14 @@
 package com.wj.blog.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.wj.blog.entity.Tag;
+import com.wj.blog.service.TagService;
+import com.wj.blog.util.ResultEntity;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
 /**
  * <p>
@@ -17,5 +22,42 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/blog/tag")
 public class TagController {
 
+    @Autowired
+    private TagService tagService;
+
+    @GetMapping("/getTags")
+    @ApiOperation("查询所有Tags")
+    public ResultEntity<List<Tag>> getAllTag(){
+        return ResultEntity.success(tagService.getBaseMapper().selectList(null));
+    }
+
+    @GetMapping("getTags/{articleId}")
+    @ApiOperation("根据文章id查询tag")
+    public ResultEntity<List<Tag>> getTagsByArticleId(@PathVariable String articleId){
+        List<Tag> tagList = tagService.getTagsByArticleId(articleId);
+        return ResultEntity.success(tagList);
+    }
+
+    @PostMapping("/addTag")
+    @ApiOperation("添加tag")
+    public ResultEntity<String> addTag(@RequestBody Tag tag){
+        boolean insertResult = tagService.save(tag);
+        if(insertResult){
+            return ResultEntity.success();
+        }else{
+            return ResultEntity.fail();
+        }
+    }
+
+    @DeleteMapping("/removeTag/{tagId}")
+    @ApiOperation("删除tag")
+    public ResultEntity<String> removeTag(@PathVariable String tagId){
+        boolean deleteResult = tagService.removeById(tagId);
+        if(deleteResult){
+            return ResultEntity.success();
+        }else{
+            return ResultEntity.fail();
+        }
+    }
 }
 

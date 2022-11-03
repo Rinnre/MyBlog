@@ -22,108 +22,26 @@ public class Swagger2Config {
     public Docket webApiConfig() {
 
         return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("mysqlApi")
-                .apiInfo(mysqlApiInfo())
+                .groupName("blogApi")
+                .apiInfo(blogApiInfo())
                 .select()
                 //只显示api路径下的页面
                 .paths(Predicates.and(PathSelectors.regex("/.*")))
                 .build();
 
     }
-    @Bean
-    public Docket ossApiConfig() {
 
-        return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("ossApi")
-                .apiInfo(mysqlApiInfo())
-                .select()
-                //只显示api路径下的页面
-                .paths(Predicates.and(PathSelectors.regex("/oss/.*")))
-                .build();
 
-    }
-
-    @Bean
-    public Docket redisApiConfig() {
-
-        return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("redisApi")
-                .apiInfo(redisApiInfo())
-                .select()
-                //只显示api路径下的页面
-                .paths(Predicates.and(PathSelectors.regex("/redis/.*")))
-                .build();
-
-    }
-
-    @Bean
-    public Docket MsmApiConfig() {
-
-        return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("msmApi")
-                .apiInfo(adminApiInfo())
-                .select()
-                //只显示api路径下的页面
-                .paths(Predicates.and(PathSelectors.regex("/message/.*")))
-                .build();
-
-    }
-
-    @Bean
-    public Docket UserApiConfig() {
-
-        return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("UserApi")
-                .apiInfo(adminApiInfo())
-                .select()
-                //只显示api路径下的页面
-                .paths(Predicates.and(PathSelectors.regex("/user/.*")))
-                .build();
-
-    }
-
-    @Bean
-    public Docket adminApiConfig() {
-
-        return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("adminApi")
-                .apiInfo(adminApiInfo())
-                .select()
-                //只显示admin路径下的页面
-                .paths(Predicates.and(PathSelectors.regex("/management/.*")))
-                .build();
-
-    }
-
-    private ApiInfo mysqlApiInfo() {
-
+    private ApiInfo blogApiInfo() {
         return new ApiInfoBuilder()
-                .title("网站-MYSQLAPI文档")
-                .description("本文档描述了网站微服务接口定义")
+                .title("Blog-API文档")
+                .description("本文档描述了个人博客接口定义")
                 .version("1.0")
                 .contact(new Contact("W", "http://localhost", "1595519431@qq.com"))
                 .build();
     }
 
-    private ApiInfo adminApiInfo() {
 
-        return new ApiInfoBuilder()
-                .title("后台管理系统-API文档")
-                .description("本文档描述了后台管理系统微服务接口定义")
-                .version("1.0")
-                .contact(new Contact("W", "http://localhost", "1595519431@qq.com"))
-                .build();
-    }
-
-    private ApiInfo redisApiInfo() {
-
-        return new ApiInfoBuilder()
-                .title("后台管理系统-API文档")
-                .description("本文档描述了后台管理系统微服务接口定义")
-                .version("1.0")
-                .contact(new Contact("W", "http://localhost", "1595519431@qq.com"))
-                .build();
-    }
 
 
 }

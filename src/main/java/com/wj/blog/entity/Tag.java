@@ -18,20 +18,17 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value="Category对象", description="")
-public class Category implements Serializable {
+@ApiModel(value="Tag对象", description="")
+public class Tag implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "分类ID")
-    @TableId(value = "id", type = IdType.ASSIGN_ID)
-    private String id;
+    @ApiModelProperty(value = "分类id")
+    @TableId(value = "tag_id", type = IdType.ASSIGN_ID)
+    private String tagId;
 
     @ApiModelProperty(value = "分类名称")
-    private String name;
-
-    @ApiModelProperty(value = "分类描述")
-    private String description;
+    private String tagName;
 
 
 }

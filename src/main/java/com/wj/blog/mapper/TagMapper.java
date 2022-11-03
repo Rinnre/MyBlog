@@ -1,6 +1,6 @@
 package com.wj.blog.mapper;
 
-import com.wj.blog.entity.Category;
+import com.wj.blog.entity.Tag;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author w
  * @since 2022-11-03
  */
-public interface CategoryMapper extends BaseMapper<Category> {
+public interface TagMapper extends BaseMapper<Tag> {
 
 }

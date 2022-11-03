@@ -20,7 +20,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author w
- * @since 2022-08-01
+ * @since 2022-11-03
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -30,8 +30,11 @@ public class Article implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "文章主键")
-    @TableId(value = "article_id", type = IdType.AUTO)
-    private Integer articleId;
+    @TableId(value = "article_id", type = IdType.ASSIGN_ID)
+    private String articleId;
+
+    @ApiModelProperty(value = "作者ID")
+    private String authorId;
 
     @ApiModelProperty(value = "文章标题")
     private String articleTitle;
@@ -51,7 +54,7 @@ public class Article implements Serializable {
     @ApiModelProperty(value = "文章喜欢次数")
     private Integer articleLikeCount;
 
-    @ApiModelProperty(value = "文章缩略图")
+    @ApiModelProperty(value = "文章头图")
     private String articleThumbnail;
 
     @ApiModelProperty(value = "文章状态（1：草稿，2：待发布，3：已发布）")
@@ -59,7 +62,15 @@ public class Article implements Serializable {
 
     @ApiModelProperty(value = "文章标签")
     @TableField(exist = false)
-    private List<Category> categoryList;
+    private List<Tag> tagList;
+
+    @ApiModelProperty(value = "文章类型")
+    @TableField(exist = false)
+    private Category category;
+
+    @ApiModelProperty(value = "文章评论")
+    @TableField(exist = false)
+    private List<Comments> comments;
 
     @ApiModelProperty(value = "文章发布时间")
     @TableField(fill = FieldFill.INSERT)

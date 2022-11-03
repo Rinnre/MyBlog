@@ -1,6 +1,6 @@
 package com.wj.blog.service;
 
-import com.wj.blog.entity.Article;
+import com.wj.blog.entity.Tag;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author w
  * @since 2022-11-03
  */
-public interface ArticleService extends IService<Article> {
+public interface TagService extends IService<Tag> {
 
 }

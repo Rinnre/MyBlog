@@ -32,12 +32,18 @@ public class CodeGenerator {
         String projectPath = System.getProperty("user.dir");
         gc.setOutputDir(projectPath + "/src/main/java");
         gc.setAuthor("w");
-        gc.setOpen(false); //生成后是否打开资源管理器
-        gc.setFileOverride(false); //重新生成时文件是否覆盖
-        gc.setServiceName("%sService");	//去掉Service接口的首字母I
-        gc.setIdType(IdType.ASSIGN_ID); //主键策略
-        gc.setDateType(DateType.ONLY_DATE);//定义生成的实体类中日期类型
-        gc.setSwagger2(true);//开启Swagger2模式
+        //生成后是否打开资源管理器
+        gc.setOpen(false);
+        //重新生成时文件是否覆盖
+        gc.setFileOverride(true);
+        //去掉Service接口的首字母I
+        gc.setServiceName("%sService");
+        //主键策略
+        gc.setIdType(IdType.ASSIGN_ID);
+        //定义生成的实体类中日期类型
+        gc.setDateType(DateType.ONLY_DATE);
+        //开启Swagger2模式
+        gc.setSwagger2(true);
 
         mpg.setGlobalConfig(gc);
 
@@ -52,7 +58,8 @@ public class CodeGenerator {
 
         // 4、包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName("blog"); //模块名
+        //模块名
+        pc.setModuleName("blog");
         pc.setParent("com.wj");
         pc.setController("controller");
         pc.setEntity("entity");
@@ -62,15 +69,20 @@ public class CodeGenerator {
 
         // 5、策略配置
         StrategyConfig strategy = new StrategyConfig();
-        strategy.setInclude("category");
-        strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的命名策略
-        strategy.setTablePrefix(pc.getModuleName() + "_"); //生成实体时去掉表前缀
+        strategy.setInclude("img_address");
+        //数据库表映射到实体的命名策略
+        strategy.setNaming(NamingStrategy.underline_to_camel);
+        //生成实体时去掉表前缀
+        strategy.setTablePrefix(pc.getModuleName() + "_");
 
-        strategy.setColumnNaming(NamingStrategy.underline_to_camel);//数据库表字段映射到实体的命名策略
-        strategy.setEntityLombokModel(true); // lombok 模型 @Accessors(chain = true) setter链式操作
+        //数据库表字段映射到实体的命名策略
+        strategy.setColumnNaming(NamingStrategy.underline_to_camel);
+        // lombok 模型 @Accessors(chain = true) setter链式操作
+        strategy.setEntityLombokModel(true);
 
-        strategy.setRestControllerStyle(true); //restful api风格控制器
-        strategy.setControllerMappingHyphenStyle(true); //url中驼峰转连字符
+        //restful api风格控制器
+        strategy.setRestControllerStyle(true);
+        //url中驼峰转连字符        strategy.setControllerMappingHyphenStyle(true);
 
         strategy.setLogicDeleteFieldName("is_delete");
 

@@ -1,7 +1,7 @@
 package com.wj.blog.mapper;
 
-import com.wj.blog.entity.Category;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.wj.blog.pojo.Category;
 
 /**
  * <p>

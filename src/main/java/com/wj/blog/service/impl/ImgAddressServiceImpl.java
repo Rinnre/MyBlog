@@ -1,9 +1,9 @@
 package com.wj.blog.service.impl;
 
-import com.wj.blog.entity.ImgAddress;
-import com.wj.blog.mapper.ImgAddressMapper;
-import com.wj.blog.service.ImgAddressService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.wj.blog.mapper.ImgAddressMapper;
+import com.wj.blog.pojo.ImgAddress;
+import com.wj.blog.service.ImgAddressService;
 import org.springframework.stereotype.Service;
 
 /**

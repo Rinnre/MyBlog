@@ -1,9 +1,9 @@
 package com.wj.blog.controller;
 
 
-import com.wj.blog.entity.Tag;
+import com.wj.blog.common.result.ResultEntity;
+import com.wj.blog.pojo.Tag;
 import com.wj.blog.service.TagService;
-import com.wj.blog.util.ResultEntity;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

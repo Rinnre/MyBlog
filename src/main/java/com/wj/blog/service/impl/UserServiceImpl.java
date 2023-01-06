@@ -1,9 +1,9 @@
 package com.wj.blog.service.impl;
 
-import com.wj.blog.entity.User;
-import com.wj.blog.mapper.UserMapper;
-import com.wj.blog.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.wj.blog.mapper.UserMapper;
+import com.wj.blog.pojo.User;
+import com.wj.blog.service.UserService;
 import org.springframework.stereotype.Service;
 
 /**

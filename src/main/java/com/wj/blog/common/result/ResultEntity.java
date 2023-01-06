@@ -1,4 +1,4 @@
-package com.wj.blog.util;
+package com.wj.blog.common.result;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -6,6 +6,9 @@ import lombok.Data;
 
 /**
  * 全局统一返回结果类
+ *
+ * @author wj
+ * @date 2023/01/06
  */
 @Data
 @ApiModel(value = "全局统一返回结果")
@@ -20,12 +23,14 @@ public class ResultEntity<T> {
     @ApiModelProperty(value = "返回数据")
     private T data;
 
-    public ResultEntity(){}
+    public ResultEntity() {
+    }
 
     protected static <T> ResultEntity<T> build(T data) {
-        ResultEntity<T> resultEntity = new ResultEntity<T>();
-        if (data != null)
+        ResultEntity<T> resultEntity = new ResultEntity<>();
+        if (data != null) {
             resultEntity.setData(data);
+        }
         return resultEntity;
     }
 
@@ -43,48 +48,50 @@ public class ResultEntity<T> {
         return resultEntity;
     }
 
-    public static<T> ResultEntity<T> success(){
+    public static <T> ResultEntity<T> success() {
         return ResultEntity.success(null);
     }
 
     /**
      * 操作成功
+     *
      * @param data
      * @param <T>
      * @return
      */
-    public static<T> ResultEntity<T> success(T data){
+    public static <T> ResultEntity<T> success(T data) {
         ResultEntity<T> resultEntity = build(data);
         return build(data, ResultCodeEnum.SUCCESS);
     }
 
-    public static<T> ResultEntity<T> fail(){
+    public static <T> ResultEntity<T> fail() {
         return ResultEntity.fail(null);
     }
 
     /**
      * 操作失败
+     *
      * @param data
      * @param <T>
      * @return
      */
-    public static<T> ResultEntity<T> fail(T data){
+    public static <T> ResultEntity<T> fail(T data) {
         ResultEntity<T> resultEntity = build(data);
         return build(data, ResultCodeEnum.FAIL);
     }
 
-    public ResultEntity<T> message(String msg){
+    public ResultEntity<T> message(String msg) {
         this.setMessage(msg);
         return this;
     }
 
-    public ResultEntity<T> code(Integer code){
+    public ResultEntity<T> code(Integer code) {
         this.setCode(code);
         return this;
     }
 
     public boolean isSuccess() {
-        if(this.getCode().intValue() == ResultCodeEnum.SUCCESS.getCode().intValue()) {
+        if (this.getCode().intValue() == ResultCodeEnum.SUCCESS.getCode().intValue()) {
             return true;
         }
         return false;

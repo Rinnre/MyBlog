@@ -1,7 +1,7 @@
 package com.wj.blog.service;
 
-import com.wj.blog.entity.Category;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.wj.blog.pojo.Category;
 
 /**
  * <p>

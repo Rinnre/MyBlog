@@ -1,6 +1,5 @@
-package com.wj.blog.util;
+package com.wj.blog.config;
 
-import com.google.common.base.Predicates;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -13,6 +12,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * Swagger2配置信息
+ *
+ * @author wj
+ * @date 2023/01/06
  */
 @Configuration
 @EnableSwagger2
@@ -26,7 +28,7 @@ public class Swagger2Config {
                 .apiInfo(blogApiInfo())
                 .select()
                 //只显示api路径下的页面
-                .paths(Predicates.and(PathSelectors.regex("/.*")))
+                .paths(PathSelectors.regex("/.*"))
                 .build();
 
     }

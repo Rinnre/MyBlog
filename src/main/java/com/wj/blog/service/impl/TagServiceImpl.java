@@ -1,9 +1,9 @@
 package com.wj.blog.service.impl;
 
-import com.wj.blog.entity.Tag;
-import com.wj.blog.mapper.TagMapper;
-import com.wj.blog.service.TagService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.wj.blog.mapper.TagMapper;
+import com.wj.blog.pojo.Tag;
+import com.wj.blog.service.TagService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

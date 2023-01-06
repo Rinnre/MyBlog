@@ -1,4 +1,4 @@
-package com.wj.blog.util;
+package com.wj.blog.util.generator;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.FieldFill;
@@ -11,19 +11,18 @@ import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
-import org.junit.Test;
 
 import java.util.ArrayList;
 
 /**
+ * mybatis-plus代码自动生成
+ *
  * @author
  * @since 2018/12/13
  */
 public class CodeGenerator {
 
-    @Test
-    public void run() {
-
+    public static void main(String[] args) {
         // 1、创建代码生成器
         AutoGenerator mpg = new AutoGenerator();
 
@@ -82,16 +81,17 @@ public class CodeGenerator {
 
         //restful api风格控制器
         strategy.setRestControllerStyle(true);
-        //url中驼峰转连字符        strategy.setControllerMappingHyphenStyle(true);
+        //url中驼峰转连字符
+        strategy.setControllerMappingHyphenStyle(true);
 
         strategy.setLogicDeleteFieldName("is_delete");
 
         // 自动填充配置
         TableFill createTime = new TableFill("create_time", FieldFill.INSERT);
-        TableFill update_Time = new TableFill("update_time", FieldFill.INSERT_UPDATE);
+        TableFill updateTime = new TableFill("updateTime", FieldFill.INSERT_UPDATE);
         ArrayList<TableFill> tableFills = new ArrayList<>();
         tableFills.add(createTime);
-        tableFills.add(update_Time);
+        tableFills.add(updateTime);
         strategy.setTableFillList(tableFills);
 
         mpg.setStrategy(strategy);

@@ -1,9 +1,9 @@
 package com.wj.blog.service.impl;
 
-import com.wj.blog.entity.Comments;
-import com.wj.blog.mapper.CommentsMapper;
-import com.wj.blog.service.CommentsService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.wj.blog.mapper.CommentsMapper;
+import com.wj.blog.pojo.Comments;
+import com.wj.blog.service.CommentsService;
 import org.springframework.stereotype.Service;
 
 /**

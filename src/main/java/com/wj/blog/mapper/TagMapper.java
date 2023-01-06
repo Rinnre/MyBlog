@@ -1,7 +1,7 @@
 package com.wj.blog.mapper;
 
-import com.wj.blog.entity.Tag;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.wj.blog.pojo.Tag;
 
 import java.util.List;
 

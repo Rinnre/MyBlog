@@ -1,7 +1,7 @@
 package com.wj.blog.service;
 
-import com.wj.blog.entity.Tag;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.wj.blog.pojo.Tag;
 
 import java.util.List;
 

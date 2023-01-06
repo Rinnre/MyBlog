@@ -1,7 +1,7 @@
 package com.wj.blog.mapper;
 
-import com.wj.blog.entity.ImgAddress;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.wj.blog.pojo.ImgAddress;
 
 /**
  * <p>

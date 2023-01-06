@@ -3,11 +3,11 @@
 <mapper namespace="com.wj.blog.mapper.TagMapper">
 
 
-    <select id="getTagsByArticleId" resultType="com.wj.blog.entity.Tag">
-        SELECT t.tag_id,t.tag_name
+    <select id="getTagsByArticleId" resultType="com.wj.blog.pojo.Tag">
+        SELECT t.tag_id, t.tag_name
         FROM tag as t
-        JOIN article_tag_ref as at
-        ON t.tag_id = at.tag_id
+                 JOIN article_tag_ref as at
+                      ON t.tag_id = at.tag_id
         WHERE at.article_id = #{articleId}
     </select>
 

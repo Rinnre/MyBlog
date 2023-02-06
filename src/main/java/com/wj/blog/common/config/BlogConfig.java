@@ -1,6 +1,6 @@
-package com.wj.blog.config;
+package com.wj.blog.common.config;
 
-import com.wj.blog.interceptor.HttpInterceptor;
+import com.wj.blog.common.interceptor.HttpInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

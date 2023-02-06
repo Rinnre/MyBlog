@@ -1,8 +1,8 @@
 package com.wj.blog.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.wj.blog.common.pojo.Article;
 import com.wj.blog.mapper.ArticleMapper;
-import com.wj.blog.pojo.Article;
 import com.wj.blog.service.ArticleService;
 import org.springframework.stereotype.Service;
 

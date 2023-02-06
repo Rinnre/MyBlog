@@ -3,7 +3,7 @@
 <mapper namespace="com.wj.blog.mapper.TagMapper">
 
 
-    <select id="getTagsByArticleId" resultType="com.wj.blog.pojo.Tag">
+    <select id="getTagsByArticleId" resultType="com.wj.blog.common.pojo.Tag">
         SELECT t.tag_id, t.tag_name
         FROM tag as t
                  JOIN article_tag_ref as at

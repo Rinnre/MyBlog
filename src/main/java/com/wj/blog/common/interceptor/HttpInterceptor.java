@@ -1,4 +1,4 @@
-package com.wj.blog.interceptor;
+package com.wj.blog.common.interceptor;
 
 
 import org.springframework.web.servlet.HandlerInterceptor;

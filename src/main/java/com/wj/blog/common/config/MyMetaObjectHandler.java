@@ -1,4 +1,4 @@
-package com.wj.blog.config;
+package com.wj.blog.common.config;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;

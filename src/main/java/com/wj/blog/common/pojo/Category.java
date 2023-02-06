@@ -1,4 +1,4 @@
-package com.wj.blog.pojo;
+package com.wj.blog.common.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author w
@@ -19,17 +19,20 @@ import java.io.Serializable;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value="Tag对象", description="")
-public class Tag implements Serializable {
+@ApiModel(value="Category对象", description="")
+public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "分类id")
-    @TableId(value = "tag_id", type = IdType.ASSIGN_ID)
-    private String tagId;
+    @ApiModelProperty(value = "分类ID")
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
+    private String id;
 
     @ApiModelProperty(value = "分类名称")
-    private String tagName;
+    private String name;
+
+    @ApiModelProperty(value = "分类描述")
+    private String description;
 
 
 }

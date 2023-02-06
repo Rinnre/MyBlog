@@ -1,4 +1,4 @@
-package com.wj.blog.config;
+package com.wj.blog.common.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;

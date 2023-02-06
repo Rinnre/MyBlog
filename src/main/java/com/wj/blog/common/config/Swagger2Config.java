@@ -1,4 +1,4 @@
-package com.wj.blog.config;
+package com.wj.blog.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

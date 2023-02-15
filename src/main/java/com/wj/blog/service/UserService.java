@@ -1,15 +1,15 @@
 package com.wj.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.wj.blog.common.pojo.User;
+import com.wj.blog.entity.User;
 
 /**
  * <p>
- *  服务类
+ * 用户 服务类
  * </p>
  *
  * @author w
- * @since 2022-11-02
+ * @since 2023-02-15
  */
 public interface UserService extends IService<User> {
 

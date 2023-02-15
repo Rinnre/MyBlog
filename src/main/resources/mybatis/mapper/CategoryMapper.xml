@@ -2,4 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wj.blog.mapper.CategoryMapper">
 
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.wj.blog.entity.Category">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="description" property="description"/>
+        <result column="type" property="type"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, description, type, update_time, create_time
+    </sql>
+
 </mapper>

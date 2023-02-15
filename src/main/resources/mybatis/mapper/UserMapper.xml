@@ -2,4 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wj.blog.mapper.UserMapper">
 
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.wj.blog.entity.User">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="phone" property="phone"/>
+        <result column="email" property="email"/>
+        <result column="password" property="password"/>
+        <result column="description" property="description"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, phone, email, password, description
+    </sql>
+
 </mapper>

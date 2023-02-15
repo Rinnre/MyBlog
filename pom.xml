@@ -22,6 +22,7 @@
         <maven.compiler.target>8</maven.compiler.target>
         <java.version>1.8</java.version>
         <mybatis-plus.version>3.5.1</mybatis-plus.version>
+        <mybatis-plus-generator.version>3.5.1</mybatis-plus-generator.version>
         <mysql.version>8.0.16</mysql.version>
         <swagger.version>2.9.2</swagger.version>
         <jwt.version>0.9.1</jwt.version>
@@ -118,24 +119,32 @@
                 <version>${jodatime.version}</version>
             </dependency>
             <!--             SpringSecurity 对 Web 应用进行权限管理 -->
-<!--            <dependency>-->
-<!--                <groupId>org.springframework.security</groupId>-->
-<!--                <artifactId>spring-security-web</artifactId>-->
-<!--                <version>${security.version}</version>-->
-<!--            </dependency>-->
-<!--            &lt;!&ndash; SpringSecurity 配置 &ndash;&gt;-->
-<!--            <dependency>-->
-<!--                <groupId>org.springframework.security</groupId>-->
-<!--                <artifactId>spring-security-config</artifactId>-->
-<!--                <version>${security.version}</version>-->
-<!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.springframework.security</groupId>-->
+            <!--                <artifactId>spring-security-web</artifactId>-->
+            <!--                <version>${security.version}</version>-->
+            <!--            </dependency>-->
+            <!--            &lt;!&ndash; SpringSecurity 配置 &ndash;&gt;-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.springframework.security</groupId>-->
+            <!--                <artifactId>spring-security-config</artifactId>-->
+            <!--                <version>${security.version}</version>-->
+            <!--            </dependency>-->
             <!--使用shiro进行权限控制-->
             <!--代码自动生成-->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-generator</artifactId>
-                <version>3.4.0</version>
+                <version>${mybatis-plus-generator.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>2.3.28</version>
+                <scope>compile</scope>
+            </dependency>
+
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>

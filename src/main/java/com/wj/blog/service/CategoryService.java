@@ -1,15 +1,15 @@
 package com.wj.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.wj.blog.common.pojo.Category;
+import com.wj.blog.entity.Category;
 
 /**
  * <p>
- *  服务类
+ * 分类、标签表 服务类
  * </p>
  *
  * @author w
- * @since 2022-11-03
+ * @since 2023-02-15
  */
 public interface CategoryService extends IService<Category> {
 

@@ -1,15 +1,15 @@
 package com.wj.blog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.wj.blog.common.pojo.Category;
+import com.wj.blog.entity.Category;
 
 /**
  * <p>
- *  Mapper 接口
+ * 分类、标签表 Mapper 接口
  * </p>
  *
  * @author w
- * @since 2022-11-03
+ * @since 2023-02-15
  */
 public interface CategoryMapper extends BaseMapper<Category> {
 

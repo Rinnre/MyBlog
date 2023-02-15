@@ -1,27 +1,16 @@
 package com.wj.blog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.wj.blog.common.pojo.Article;
-import com.wj.blog.common.pojo.Tag;
-
-import java.util.List;
+import com.wj.blog.entity.Article;
 
 /**
  * <p>
- * Mapper 接口
+ * 文章 Mapper 接口
  * </p>
  *
  * @author w
- * @since 2022-11-03
+ * @since 2023-02-15
  */
 public interface ArticleMapper extends BaseMapper<Article> {
 
-    /**
-     * 文章绑定标签
-     *
-     * @param articleId 文章id
-     * @param tagList   标签集合
-     * @return 影响的行数
-     */
-    int insertTags(String articleId, List<Tag> tagList);
 }

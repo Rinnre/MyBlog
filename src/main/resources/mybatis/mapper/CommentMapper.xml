@@ -3,7 +3,7 @@
 <mapper namespace="com.wj.blog.mapper.CommentMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.wj.blog.entity.Comment">
+    <resultMap id="BaseResultMap" type="com.wj.blog.pojo.entity.Comment">
         <id column="id" property="id"/>
         <result column="pid" property="pid"/>
         <result column="replay_user_id" property="replayUserId"/>

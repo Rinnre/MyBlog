@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8080
 # redis配置
 spring:
   datasource:
@@ -9,7 +9,7 @@ spring:
     password: wj1324
     driver-class-name: com.mysql.cj.jdbc.Driver
   redis:
-    host: 192.168.153.129
+    host: 192.168.153.139
     database: 0
     timeout: 1800000
     lettuce:

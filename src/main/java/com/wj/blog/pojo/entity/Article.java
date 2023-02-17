@@ -1,4 +1,4 @@
-package com.wj.blog.entity;
+package com.wj.blog.pojo.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
@@ -46,8 +46,8 @@ public class Article implements Serializable {
     private String categoryId;
 
     @ApiModelProperty("文章密码")
-    @TableField("article_password")
-    private String articlePassword;
+    @TableField("password")
+    private String password;
 
     @ApiModelProperty("文章转载链接")
     @TableField("source_link")
@@ -129,11 +129,11 @@ public class Article implements Serializable {
     }
 
     public String getArticlePassword() {
-        return articlePassword;
+        return password;
     }
 
     public Article setArticlePassword(String articlePassword) {
-        this.articlePassword = articlePassword;
+        this.password = articlePassword;
         return this;
     }
 
@@ -200,7 +200,7 @@ public class Article implements Serializable {
                 ", context=" + context +
                 ", thumbnail=" + thumbnail +
                 ", categoryId=" + categoryId +
-                ", articlePassword=" + articlePassword +
+                ", articlePassword=" + password +
                 ", sourceLink=" + sourceLink +
                 ", status=" + status +
                 ", createTime=" + createTime +

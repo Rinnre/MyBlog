@@ -1,8 +1,8 @@
 package com.wj.blog.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.wj.blog.entity.MessageTemplate;
 import com.wj.blog.mapper.MessageTemplateMapper;
+import com.wj.blog.pojo.entity.MessageTemplate;
 import com.wj.blog.service.MessageTemplateService;
 import org.springframework.stereotype.Service;
 

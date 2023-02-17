@@ -1,10 +1,13 @@
 package com.wj.blog.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.wj.blog.entity.Article;
 import com.wj.blog.mapper.ArticleMapper;
+import com.wj.blog.pojo.dto.ArticleDto;
+import com.wj.blog.pojo.entity.Article;
 import com.wj.blog.service.ArticleService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,7 +17,20 @@ import org.springframework.stereotype.Service;
  * @author w
  * @since 2023-02-15
  */
-@Service
+@Service("articleService")
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
 
+    @Override
+    public List<ArticleDto> searchArticleList(String title, String author, Integer page, Integer size) {
+        Integer startPageNumber = null;
+        if (null != page && null != size) {
+            startPageNumber = (page - 1) * size;
+        }
+        return baseMapper.selectArticleList(title, author, startPageNumber, size);
+    }
+
+    @Override
+    public ArticleDto searchArticleDetail(String id) {
+        return null;
+    }
 }

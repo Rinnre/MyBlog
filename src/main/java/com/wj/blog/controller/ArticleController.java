@@ -1,8 +1,17 @@
 package com.wj.blog.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.wj.blog.common.result.ResultEntity;
+import com.wj.blog.pojo.dto.ArticleDto;
+import com.wj.blog.pojo.vo.ArticleDetailVo;
+import com.wj.blog.pojo.vo.ArticleIntroductionVo;
+import com.wj.blog.service.ArticleService;
+import org.springframework.beans.BeanUtils;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -13,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2023-02-15
  */
 @RestController
-@RequestMapping("/blog/article")
+@RequestMapping("/blog")
 public class ArticleController {
 
 }

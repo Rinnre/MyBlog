@@ -1,4 +1,4 @@
-package com.wj.blog.entity;
+package com.wj.blog.pojo.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;

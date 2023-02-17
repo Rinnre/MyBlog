@@ -3,7 +3,7 @@
 <mapper namespace="com.wj.blog.mapper.UserMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.wj.blog.entity.User">
+    <resultMap id="BaseResultMap" type="com.wj.blog.pojo.entity.User">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="phone" property="phone"/>

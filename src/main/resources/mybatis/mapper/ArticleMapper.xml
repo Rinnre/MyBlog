@@ -3,14 +3,14 @@
 <mapper namespace="com.wj.blog.mapper.ArticleMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.wj.blog.entity.Article">
+    <resultMap id="BaseResultMap" type="com.wj.blog.pojo.entity.Article">
         <id column="id" property="id"/>
         <result column="user_id" property="userId"/>
         <result column="title" property="title"/>
         <result column="context" property="context"/>
         <result column="thumbnail" property="thumbnail"/>
         <result column="category_id" property="categoryId"/>
-        <result column="article_password" property="articlePassword"/>
+        <result column="password" property="password"/>
         <result column="source_link" property="sourceLink"/>
         <result column="status" property="status"/>
         <result column="create_time" property="createTime"/>

@@ -3,7 +3,7 @@
 <mapper namespace="com.wj.blog.mapper.LinkMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.wj.blog.entity.Link">
+    <resultMap id="BaseResultMap" type="com.wj.blog.pojo.entity.Link">
         <id column="id" property="id"/>
         <result column="nick_name" property="nickName"/>
         <result column="status" property="status"/>

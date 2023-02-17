@@ -1,8 +1,8 @@
 package com.wj.blog.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.wj.blog.entity.Dynamic;
 import com.wj.blog.mapper.DynamicMapper;
+import com.wj.blog.pojo.entity.Dynamic;
 import com.wj.blog.service.DynamicService;
 import org.springframework.stereotype.Service;
 

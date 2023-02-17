@@ -25,4 +25,30 @@ import java.util.List;
 @RequestMapping("/blog")
 public class ArticleController {
 
+    @Resource(name = "articleService")
+    private ArticleService articleService;
+
+    @GetMapping("/article")
+    public ResultEntity<List<ArticleIntroductionVo>> searchArticleList(@RequestParam(required = false) String title,
+                                                                       @RequestParam(required = false) String author,
+                                                                       @RequestParam(required = false) Integer page,
+                                                                       @RequestParam(required = false) Integer size) {
+        List<ArticleDto> articleDtoList = articleService.searchArticleList(title, author, page, size);
+        List<ArticleIntroductionVo> articleIntroductionVos = new ArrayList<>();
+        articleDtoList.forEach(articleDto -> {
+            ArticleIntroductionVo articleIntroductionVo = new ArticleIntroductionVo();
+            BeanUtils.copyProperties(articleDto, articleIntroductionVo);
+            articleIntroductionVos.add(articleIntroductionVo);
+        });
+        return ResultEntity.success(articleIntroductionVos);
+    }
+
+    @GetMapping("/article/{id}")
+    public ResultEntity<ArticleDetailVo> searchArticleDetail(@PathVariable String id) {
+        ArticleDto articleDto = articleService.searchArticleDetail(id);
+        ArticleDetailVo articleDetailVo = new ArticleDetailVo();
+        BeanUtils.copyProperties(articleDto, articleDetailVo);
+        // todo comments->commentsVo category->categoryVo statics->staticsVo
+        return ResultEntity.success(articleDetailVo);
+    }
 }

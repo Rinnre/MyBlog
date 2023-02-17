@@ -17,4 +17,11 @@
         id, name, description, type, update_time, create_time
     </sql>
 
+    <select id="selectArticleCategory" resultType="com.wj.blog.pojo.entity.Category">
+        SELECT id, name
+        FROM category
+                 JOIN article_tag_ref atr on category.id = atr.category_id
+        WHERE atr.article_id = #{articleId}
+    </select>
+
 </mapper>

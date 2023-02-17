@@ -19,10 +19,63 @@
         <result column="is_delete" property="isDelete"/>
     </resultMap>
 
+    <resultMap id="articleListResultMap" type="com.wj.blog.pojo.dto.ArticleDto">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="context" property="context"/>
+        <result column="thumbnail" property="thumbnail"/>
+        <result column="release_time" property="releaseTime"/>
+        <result column="user_name" property="userName"/>
+        <association property="category" column="id" select="com.wj.blog.mapper.CategoryMapper.selectArticleCategory"/>
+        <association property="statistics" javaType="com.wj.blog.pojo.entity.Statistics">
+            <id column="statistics_id" property="id"/>
+            <result column="like_count" property="likeCount"/>
+            <result column="collect_count" property="collectCount"/>
+            <result column="comment_count" property="commentCount"/>
+            <result column="view_count" property="viewCount"/>
+        </association>
+        <collection property="tags" ofType="com.wj.blog.pojo.entity.Category">
+            <id column="tag_id" property="id"/>
+            <result column="tag_name" property="name"/>
+        </collection>
+    </resultMap>
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id, user_id, title, context, thumbnail, category_id, article_password, source_link, status, create_time,
         update_time, release_time, is_delete
     </sql>
 
+    <!--    List<ArticleDto> selectArticleList(String title, String author, Integer startPageNumber, Integer size);-->
+
+    <select id="selectArticleList" resultMap="articleListResultMap">
+        SELECT article.id,
+        title,
+        context,
+        thumbnail,
+        release_time,
+        u.name AS user_name,
+        c.id AS tag_id,
+        c.name AS tag_name,
+        s.id AS statistics_id,
+        s.collect_count,
+        s.comment_count,
+        s.like_count,
+        s.view_count
+        FROM article
+        LEFT JOIN user u ON u.id = article.user_id
+        LEFT JOIN category c ON c.id = article.category_id
+        LEFT JOIN statistics s ON s.source_id = article.id
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="title!=null">
+                title LIKE concat("%",#{title},"%")
+            </if>
+            <if test="author">
+                u.name LIKE concat("%",#{author},"%")
+            </if>
+        </trim>
+        <if test="startPageNumber!=null and size!=null">
+            limit #{startPageNumber},#{size}
+        </if>
+    </select>
 </mapper>

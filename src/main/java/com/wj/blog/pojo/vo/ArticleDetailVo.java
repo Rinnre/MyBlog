@@ -25,5 +25,5 @@ public class ArticleDetailVo extends ArticleIntroductionVo {
     private String sourceLink;
 
     @ApiModelProperty("文章评论")
-    private List<CommentsVo> comments;
+    private List<CommentVo> comments;
 }

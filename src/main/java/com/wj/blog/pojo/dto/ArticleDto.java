@@ -2,7 +2,6 @@ package com.wj.blog.pojo.dto;
 
 import com.wj.blog.pojo.entity.Article;
 import com.wj.blog.pojo.entity.Category;
-import com.wj.blog.pojo.entity.Comment;
 import com.wj.blog.pojo.entity.Statistics;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -32,9 +31,9 @@ public class ArticleDto extends Article {
     private Statistics statistics;
 
     @ApiModelProperty("文章数据统计")
-    private List<Comment> comments;
+    private List<CommentDto> comments;
 
     @ApiModelProperty("文章发布者")
-    private String userName;
+    private String author;
 
 }

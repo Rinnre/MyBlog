@@ -17,7 +17,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommentsVo {
+public class CommentVo {
 
     @ApiModelProperty("评论id")
     private String id;
@@ -25,10 +25,13 @@ public class CommentsVo {
     @ApiModelProperty("评论父类id")
     private String pid;
 
-    private List<CommentsVo> childrenComments;
+    private List<CommentVo> childrenComments;
 
     @ApiModelProperty("回复用户id")
     private String replayUserId;
+
+    @ApiModelProperty("回复用户名称")
+    private String replayUserName;
 
     @ApiModelProperty("评论内容")
     private String context;

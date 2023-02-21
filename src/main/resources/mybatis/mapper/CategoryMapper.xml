@@ -24,4 +24,21 @@
         WHERE atr.article_id = #{articleId}
     </select>
 
+    <!--    List<Category> selectCategoryList(String name, Integer startNumber, Integer size);-->
+    <select id="selectCategoryList" resultType="com.wj.blog.pojo.entity.Category">
+        SELECT id,name
+        FROM category
+        <trim prefix="WHERE" prefixOverrides="and">
+            <if test="name!=null">
+                name LIKE concat('%',#{name},'%')
+            </if>
+            <if test="type!=null">
+                type = #{type}
+            </if>
+        </trim>
+
+        <if test="startNumber!=null and size!=null">
+            LIMIT #{startNumber},#{size}
+        </if>
+    </select>
 </mapper>

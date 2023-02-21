@@ -26,11 +26,12 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         if (null != page && null != size) {
             startPageNumber = (page - 1) * size;
         }
+        // todo 重构查询sql
         return baseMapper.selectArticleList(title, author, startPageNumber, size);
     }
 
     @Override
     public ArticleDto searchArticleDetail(String id) {
-        return null;
+        return baseMapper.searchArticleDetail(id);
     }
 }

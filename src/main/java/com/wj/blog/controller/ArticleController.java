@@ -3,19 +3,22 @@ package com.wj.blog.controller;
 
 import com.wj.blog.common.result.ResultEntity;
 import com.wj.blog.pojo.dto.ArticleDto;
-import com.wj.blog.pojo.vo.ArticleDetailVo;
-import com.wj.blog.pojo.vo.ArticleIntroductionVo;
+import com.wj.blog.pojo.dto.CommentDto;
+import com.wj.blog.pojo.vo.*;
 import com.wj.blog.service.ArticleService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
- * 文章 前端控制器
+ * 文章 controller
  * </p>
  *
  * @author w
@@ -23,6 +26,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/blog")
+@Slf4j
 public class ArticleController {
 
     @Resource(name = "articleService")
@@ -48,7 +52,70 @@ public class ArticleController {
         ArticleDto articleDto = articleService.searchArticleDetail(id);
         ArticleDetailVo articleDetailVo = new ArticleDetailVo();
         BeanUtils.copyProperties(articleDto, articleDetailVo);
-        // todo comments->commentsVo category->categoryVo statics->staticsVo
+        // category->categoryVo
+        CategoryVo categoryVo = new CategoryVo();
+        invertVo(articleDto.getCategory(), categoryVo);
+        articleDetailVo.setCategory(categoryVo);
+
+        // statics->staticsVo
+        StatisticsVo statisticsVo = new StatisticsVo();
+        if (articleDto.getStatistics() != null) {
+            invertVo(articleDto.getCategory(), statisticsVo);
+        }
+        // tag->tagVo
+        List<CategoryVo> tags = new ArrayList<>();
+        if (articleDto.getTags() != null) {
+            articleDto.getTags().forEach(tag -> {
+                CategoryVo tagVo = new CategoryVo();
+                invertVo(tag, tagVo);
+                tags.add(tagVo);
+            });
+        }
+        articleDetailVo.setTags(tags);
+        articleDetailVo.setStatisticsVo(statisticsVo);
+        //  comments->commentsVo 评论组装
+        List<CommentVo> commentVos = assembleComment(articleDto.getComments());
+        articleDetailVo.setComments(commentVos);
         return ResultEntity.success(articleDetailVo);
+
+    }
+
+    private List<CommentVo> assembleComment(List<CommentDto> comments) {
+        comments = comments.stream()
+                .sorted(Comparator.comparing(CommentDto::getCreateTime))
+                .collect(Collectors.toList());
+        List<CommentVo> commentRootVos = new ArrayList<>();
+        // 遍历找出根评论
+        comments.forEach(comment -> {
+            if (comment.getPid() == null) {
+                CommentVo commentVo = new CommentVo();
+                invertVo(comment, commentVo);
+                commentRootVos.add(commentVo);
+            }
+        });
+
+        // 遍历寻找子节点
+        for (CommentVo commentRoot : commentRootVos) {
+            List<CommentVo> commentChildrenVos = new ArrayList<>();
+            comments.forEach(comment -> {
+                if (commentRoot.getId().equals(comment.getPid())) {
+                    CommentVo commentVo = new CommentVo();
+                    invertVo(comment, commentVo);
+                    commentChildrenVos.add(commentVo);
+                }
+            });
+            commentRoot.setChildrenComments(commentChildrenVos);
+        }
+
+        return commentRootVos;
+    }
+
+    /**
+     * dto对象转化为vo对象
+     */
+    private void invertVo(Object source, Object target) {
+        if (source != null) {
+            BeanUtils.copyProperties(source, target);
+        }
     }
 }

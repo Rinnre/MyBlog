@@ -31,4 +31,11 @@ public interface ArticleMapper extends BaseMapper<Article> {
                                        @Param("startPageNumber") Integer startPageNumber,
                                        @Param("size") Integer size);
 
+    /**
+     * 查看文章详情
+     *
+     * @param id 文章id
+     * @return {@link ArticleDto}
+     */
+    ArticleDto searchArticleDetail(@Param("id") String id);
 }

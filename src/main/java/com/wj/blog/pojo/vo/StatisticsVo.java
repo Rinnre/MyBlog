@@ -1,6 +1,9 @@
 package com.wj.blog.pojo.vo;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 统计Vo
@@ -8,6 +11,9 @@ import io.swagger.annotations.ApiModelProperty;
  * @author wj
  * @date 2023/02/17
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class StatisticsVo {
     @ApiModelProperty("主键")
     private String id;

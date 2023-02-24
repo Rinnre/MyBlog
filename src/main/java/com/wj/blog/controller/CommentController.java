@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  * @since 2023-02-15
  */
 @RestController
-@RequestMapping("/blog/comment")
+@RequestMapping("/blog")
 public class CommentController {
 
     @Resource(name = "commentService")

@@ -29,6 +29,10 @@ public class Link implements Serializable {
     @TableField("nick_name")
     private String nickName;
 
+    @ApiModelProperty("博主头像")
+    @TableField("avatar")
+    private String avatar;
+
     @ApiModelProperty("博客链接状态")
     @TableField("status")
     private Integer status;

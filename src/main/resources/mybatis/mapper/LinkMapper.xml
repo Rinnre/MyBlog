@@ -6,6 +6,7 @@
     <resultMap id="BaseResultMap" type="com.wj.blog.pojo.entity.Link">
         <id column="id" property="id"/>
         <result column="nick_name" property="nickName"/>
+        <result column="avatar" property="avatar"/>
         <result column="status" property="status"/>
         <result column="url" property="url"/>
         <result column="description" property="description"/>
@@ -20,4 +21,17 @@
         id, nick_name, status, url, description, user_id, update_time, create_time, is_delete
     </sql>
 
+
+    <select id="selectLinkList" resultType="com.wj.blog.pojo.dto.LinkDto">
+        SELECT id,nick_name,url,avatar,description
+        FROM link
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="nickName!=null">
+                nick_name LIKE concat('%',#{nickName},'%')
+            </if>
+        </trim>
+        <if test="startNumber!=null and size!=null">
+            LIMIT #{startNumber},#{size}
+        </if>
+    </select>
 </mapper>

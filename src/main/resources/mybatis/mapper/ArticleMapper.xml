@@ -25,7 +25,7 @@
         <result column="context" property="context"/>
         <result column="thumbnail" property="thumbnail"/>
         <result column="release_time" property="releaseTime"/>
-        <result column="user_name" property="userName"/>
+        <result column="user_name" property="author"/>
         <result column="source_link" property="sourceLink"/>
         <association property="category" column="id" select="com.wj.blog.mapper.CategoryMapper.selectArticleCategory"/>
         <association property="statistics" javaType="com.wj.blog.pojo.entity.Statistics">
@@ -109,7 +109,7 @@
                 title LIKE concat("%",#{title},"%")
             </if>
             <if test="author">
-                u.name LIKE concat("%",#{author},"%")
+                AND u.name LIKE concat("%",#{author},"%")
             </if>
         </trim>
         <if test="startPageNumber!=null and size!=null">

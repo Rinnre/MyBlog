@@ -24,6 +24,14 @@ public interface CategoryMapper extends BaseMapper<Category> {
     Category selectArticleCategory(@Param("articleId") String articleId);
 
     /**
+     * 选择文章标签
+     *
+     * @param articleId 文章id
+     * @return {@link List}<{@link Category}> 文章标签
+     */
+    List<Category> selectArticleTags(@Param("articleId") String articleId);
+
+    /**
      * 查询分类列表
      *
      * @param name        名字
@@ -36,4 +44,5 @@ public interface CategoryMapper extends BaseMapper<Category> {
                                       @Param("type") Integer type,
                                       @Param("startNumber") Integer startNumber,
                                       @Param("size") Integer size);
+
 }

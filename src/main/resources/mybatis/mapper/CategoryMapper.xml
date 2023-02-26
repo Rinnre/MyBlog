@@ -22,6 +22,15 @@
         FROM category
                  JOIN article_tag_ref atr on category.id = atr.category_id
         WHERE atr.article_id = #{articleId}
+          AND category.type = 0
+    </select>
+    <!--    List<Category> selectArticleTags(@Param("articleId") String articleId);-->
+    <select id="selectArticleTags" resultType="com.wj.blog.pojo.entity.Category">
+        SELECT id, name
+        FROM category
+                 JOIN article_tag_ref atr on category.id = atr.category_id
+        WHERE atr.article_id = #{articleId}
+          AND category.type = 1
     </select>
 
     <!--    List<Category> selectCategoryList(String name, Integer startNumber, Integer size);-->

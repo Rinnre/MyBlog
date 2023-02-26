@@ -34,7 +34,7 @@ public class ArticleIntroductionVo {
     private LocalDateTime releaseTime;
 
     @ApiModelProperty("文章发布作者")
-    private String author;
+    private UserVo author;
 
     @ApiModelProperty("文章所属分类")
     private CategoryVo category;
@@ -44,4 +44,5 @@ public class ArticleIntroductionVo {
 
     @ApiModelProperty("文章数据统计")
     private StatisticsVo statisticsVo;
+
 }

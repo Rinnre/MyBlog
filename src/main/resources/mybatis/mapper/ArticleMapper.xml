@@ -25,9 +25,16 @@
         <result column="context" property="context"/>
         <result column="thumbnail" property="thumbnail"/>
         <result column="release_time" property="releaseTime"/>
-        <result column="user_name" property="author"/>
         <result column="source_link" property="sourceLink"/>
-        <association property="category" column="id" select="com.wj.blog.mapper.CategoryMapper.selectArticleCategory"/>
+        <association property="category" javaType="com.wj.blog.pojo.entity.Category">
+            <id column="category_id" property="id"/>
+            <result column="category_name" property="name"/>
+        </association>
+        <association property="author" javaType="com.wj.blog.pojo.dto.UserDto">
+            <id column="user_id" property="id"/>
+            <result column="user_name" property="name"/>
+            <result column="avatar" property="avatar"/>
+        </association>
         <association property="statistics" javaType="com.wj.blog.pojo.entity.Statistics">
             <id column="statistics_id" property="id"/>
             <result column="like_count" property="likeCount"/>
@@ -35,10 +42,7 @@
             <result column="comment_count" property="commentCount"/>
             <result column="view_count" property="viewCount"/>
         </association>
-        <collection property="tags" ofType="com.wj.blog.pojo.entity.Category">
-            <id column="tag_id" property="id"/>
-            <result column="tag_name" property="name"/>
-        </collection>
+        <collection property="tags" column="id" select="com.wj.blog.mapper.CategoryMapper.selectArticleTags"/>
     </resultMap>
 
     <resultMap id="articleDetailResultMap" type="com.wj.blog.pojo.dto.ArticleDto">
@@ -47,8 +51,11 @@
         <result column="context" property="context"/>
         <result column="thumbnail" property="thumbnail"/>
         <result column="release_time" property="releaseTime"/>
-        <result column="user_name" property="author"/>
-        <result column="user_id" property="userId"/>
+        <association property="author" javaType="com.wj.blog.pojo.dto.UserDto">
+            <id column="user_id" property="id"/>
+            <result column="user_name" property="name"/>
+            <result column="avatar" property="avatar"/>
+        </association>
         <association property="category" javaType="com.wj.blog.pojo.entity.Category">
             <id column="category_id" property="id"/>
             <result column="category_name" property="name"/>
@@ -88,11 +95,11 @@
         context,
         thumbnail,
         release_time,
+        u.id AS user_id,
         u.name AS user_name,
-        c.id AS tag_id,
-        c.name AS tag_name,
-        c2.id AS category_id,
-        c2.name AS category_name,
+        u.avatar,
+        c.id AS category_id,
+        c.name AS category_name,
         s.id AS statistics_id,
         s.collect_count,
         s.comment_count,
@@ -102,18 +109,21 @@
         LEFT JOIN user u ON u.id = article.user_id
         LEFT JOIN category c ON c.id = article.category_id
         LEFT JOIN statistics s ON s.source_id = article.id
-        LEFT JOIN article_tag_ref atr ON article.id = atr.article_id
-        LEFT JOIN category c2 on c2.id = atr.category_id
-        <trim prefix="WHERE" prefixOverrides="AND">
-            <if test="title!=null">
-                title LIKE concat("%",#{title},"%")
+        <if test="null!=articleQueryParam">
+            <trim prefix="WHERE" prefixOverrides="AND">
+                <if test="articleQueryParam.title!=null">
+                    title LIKE concat("%",#{articleQueryParam.title},"%")
+                </if>
+                <if test="articleQueryParam.author">
+                    AND u.name LIKE concat("%",#{articleQueryParam.author},"%")
+                </if>
+                <if test="articleQueryParam.categoryId">
+                    AND c.id =#{articleQueryParam.categoryId}
+                </if>
+            </trim>
+            <if test="articleQueryParam.page!=null and articleQueryParam.size!=null">
+                limit #{articleQueryParam.page},#{articleQueryParam.size}
             </if>
-            <if test="author">
-                AND u.name LIKE concat("%",#{author},"%")
-            </if>
-        </trim>
-        <if test="startPageNumber!=null and size!=null">
-            limit #{startPageNumber},#{size}
         </if>
     </select>
 
@@ -124,7 +134,9 @@
                article.context,
                thumbnail,
                release_time,
+               u.id       AS user_id,
                u.name     AS user_name,
+               avatar,
                c.id       AS tag_id,
                c.name     AS tag_name,
                c2.id      AS category_id,

@@ -32,6 +32,10 @@ public class User implements Serializable {
     private String name;
 
     @ApiModelProperty("手机号")
+    @TableField("avatar")
+    private String avatar;
+
+    @ApiModelProperty("手机号")
     @TableField("phone")
     private String phone;
 
@@ -90,6 +94,14 @@ public class User implements Serializable {
     public User setPassword(String password) {
         this.password = password;
         return this;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getDescription() {

@@ -1,5 +1,6 @@
 package com.wj.blog.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wj.blog.common.enums.DynamicStatusEnum;
@@ -45,7 +46,6 @@ public class DynamicServiceImpl extends ServiceImpl<DynamicMapper, Dynamic> impl
         Dynamic dynamic = new Dynamic();
         BeanUtils.copyProperties(dynamicDto, dynamic);
         // 初始化部分信息
-        dynamic.setUserId(dynamicDto.getUser().getId());
         dynamic.setStatus(DynamicStatusEnum.NORMAL.getValue());
         baseMapper.insert(dynamic);
 
@@ -68,5 +68,24 @@ public class DynamicServiceImpl extends ServiceImpl<DynamicMapper, Dynamic> impl
         // 保存动态图片
         imageMapper.insertBatch(images, ImageEnum.DYNAMIC.getValue(), id);
 
+    }
+
+    @Override
+    public List<DynamicDto> searchDynamicList(String userName, String userId, String content, Integer page, Integer size) {
+        Integer startNumber = null;
+        if (page != null && size != null) {
+            startNumber = (page - 1) * size;
+        }
+        return baseMapper.selectDynamicList(userName, userId, content, startNumber, size);
+    }
+
+    @Override
+    public void removeDynamic(String uid, String id) {
+        LambdaQueryWrapper<Dynamic> dynamicLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        dynamicLambdaQueryWrapper.eq(Dynamic::getId, id);
+        Dynamic dynamic = baseMapper.selectOne(dynamicLambdaQueryWrapper);
+        if (dynamic.getUserId().equals(uid)) {
+            baseMapper.deleteById(id);
+        }
     }
 }

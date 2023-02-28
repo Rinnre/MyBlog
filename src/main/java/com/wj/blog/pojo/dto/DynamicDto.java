@@ -1,5 +1,6 @@
 package com.wj.blog.pojo.dto;
 
+import com.wj.blog.pojo.entity.Category;
 import com.wj.blog.pojo.entity.Image;
 import com.wj.blog.pojo.entity.Statistics;
 import io.swagger.annotations.ApiModelProperty;
@@ -7,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -42,5 +44,11 @@ public class DynamicDto {
     private Statistics statistics;
 
     @ApiModelProperty("动态评论")
-    private CommentDto commentDto;
+    private List<CommentDto> commentDtoList;
+
+    @ApiModelProperty("动态标签")
+    private List<Category> tags;
+
+    @ApiModelProperty("创建时间")
+    private LocalDateTime createTime;
 }

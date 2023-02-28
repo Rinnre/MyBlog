@@ -39,8 +39,6 @@ public class DynamicVo {
     @ApiModelProperty("动态数据")
     private StatisticsVo statisticsVo;
 
-    @ApiModelProperty("动态评论")
-    private List<CommentVo> commentVo;
 
     @ApiModelProperty("创建时间")
     private LocalDateTime createTime;

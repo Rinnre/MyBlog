@@ -3,8 +3,10 @@ package com.wj.blog.pojo.vo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 /**
@@ -16,9 +18,11 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class LinkDetailVo extends LinkVo {
 
     @ApiModelProperty("申请人id")
+    @NotBlank(message = "申请人id不能为空")
     private String userId;
 
     @ApiModelProperty("更新时间")
@@ -28,6 +32,7 @@ public class LinkDetailVo extends LinkVo {
     private LocalDateTime createTime;
 
     @ApiModelProperty("申请用户名称")
+    @NotBlank(message = "申请用户名称不能为空")
     private String userName;
 
     @ApiModelProperty("博客链接状态")

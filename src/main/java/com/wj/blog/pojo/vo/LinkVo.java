@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * 友链vo对象
  *
@@ -21,9 +23,11 @@ public class LinkVo {
     private String id;
 
     @ApiModelProperty("博主名称")
+    @NotBlank(message = "博主名称不能为空")
     private String nickName;
 
     @ApiModelProperty("友链地址")
+    @NotBlank(message = "友链地址不能为空")
     private String url;
 
     @ApiModelProperty("博主简介")

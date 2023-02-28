@@ -7,6 +7,7 @@ import com.wj.blog.pojo.vo.LinkDetailVo;
 import com.wj.blog.pojo.vo.LinkVo;
 import com.wj.blog.service.LinkService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -43,7 +44,7 @@ public class LinkController {
     }
 
     @PostMapping("/link")
-    public ResultEntity<String> applyLink(@RequestBody LinkDetailVo linkDetailVo) {
+    public ResultEntity<String> applyLink(@RequestBody @Validated LinkDetailVo linkDetailVo) {
         LinkDto linkDto = new LinkDto();
         BeanUtils.copyProperties(linkDetailVo, linkDto);
         linkService.applyLink(linkDto);

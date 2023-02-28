@@ -1,9 +1,12 @@
 package com.wj.blog.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.wj.blog.common.enums.CategoryTypeEnum;
 import com.wj.blog.mapper.CategoryMapper;
 import com.wj.blog.pojo.entity.Category;
+import com.wj.blog.pojo.vo.CategoryVo;
 import com.wj.blog.service.CategoryService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,4 +31,11 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         return baseMapper.selectCategoryList(name, type, startNumber, size);
     }
 
+    @Override
+    public void createTag(CategoryVo tagVo) {
+        Category category = new Category();
+        BeanUtils.copyProperties(tagVo, category);
+        category.setType(CategoryTypeEnum.TAG.getValue());
+        baseMapper.insert(category);
+    }
 }

@@ -6,12 +6,10 @@ import com.wj.blog.pojo.entity.Category;
 import com.wj.blog.pojo.vo.CategoryVo;
 import com.wj.blog.service.CategoryService;
 import org.springframework.beans.BeanUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +43,12 @@ public class CategoryController {
             });
         }
         return ResultEntity.success(categoryVoList);
+    }
+
+    @PostMapping("/tag")
+    public ResultEntity<String> createTag(@RequestBody @Valid CategoryVo tagVo) {
+        categoryService.createTag(tagVo);
+        return ResultEntity.success();
     }
 
 }

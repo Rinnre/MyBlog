@@ -2,6 +2,7 @@ package com.wj.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wj.blog.pojo.entity.Category;
+import com.wj.blog.pojo.vo.CategoryVo;
 
 import java.util.List;
 
@@ -25,4 +26,11 @@ public interface CategoryService extends IService<Category> {
      * @return {@link List}<{@link Category}> 分类列表
      */
     List<Category> searchCategoryList(String name, Integer type, Integer page, Integer size);
+
+    /**
+     * 创建标签
+     *
+     * @param tagVo 标签
+     */
+    void createTag(CategoryVo tagVo);
 }

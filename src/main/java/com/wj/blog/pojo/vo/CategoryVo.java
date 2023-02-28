@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * 类别Vo
  *
@@ -20,6 +22,7 @@ public class CategoryVo {
     private String id;
 
     @ApiModelProperty("分类名称")
+    @NotBlank(message = "名称不能为空")
     private String name;
 
 

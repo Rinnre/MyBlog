@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * 评论Vo对象
@@ -25,7 +24,6 @@ public class CommentVo {
     @ApiModelProperty("评论父类id")
     private String pid;
 
-    private List<CommentVo> childrenComments;
 
     @ApiModelProperty("回复用户id")
     private String replayUserId;

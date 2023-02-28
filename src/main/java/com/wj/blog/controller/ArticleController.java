@@ -56,40 +56,48 @@ public class ArticleController {
         BeanUtils.copyProperties(articleDto, articleDetailVo);
         invertArticleDtoToVo(articleDto, articleDetailVo);
         //  comments->commentsVo 评论组装
-        List<CommentVo> commentVos = assembleComment(articleDto.getComments());
+        List<CommentDetailVo> commentVos = assembleComment(articleDto.getComments());
         articleDetailVo.setComments(commentVos);
         return ResultEntity.success(articleDetailVo);
 
     }
 
-    private List<CommentVo> assembleComment(List<CommentDto> comments) {
+    private List<CommentDetailVo> assembleComment(List<CommentDto> comments) {
         comments = comments.stream()
                 .sorted(Comparator.comparing(CommentDto::getCreateTime))
                 .collect(Collectors.toList());
-        List<CommentVo> commentRootVos = new ArrayList<>();
+        List<CommentDetailVo> commentRootVos = new ArrayList<>();
         // 遍历找出根评论
         comments.forEach(comment -> {
             if (comment.getPid() == null) {
-                CommentVo commentVo = new CommentVo();
-                invertVo(comment, commentVo);
-                commentRootVos.add(commentVo);
+                convertDtoToVo(commentRootVos, comment);
             }
         });
 
         // 遍历寻找子节点
-        for (CommentVo commentRoot : commentRootVos) {
-            List<CommentVo> commentChildrenVos = new ArrayList<>();
+        for (CommentDetailVo commentRoot : commentRootVos) {
+            List<CommentDetailVo> commentChildrenVos = new ArrayList<>();
             comments.forEach(comment -> {
                 if (commentRoot.getId().equals(comment.getPid())) {
-                    CommentVo commentVo = new CommentVo();
-                    invertVo(comment, commentVo);
-                    commentChildrenVos.add(commentVo);
+                    convertDtoToVo(commentChildrenVos, comment);
                 }
             });
             commentRoot.setChildrenComments(commentChildrenVos);
         }
 
         return commentRootVos;
+    }
+
+    private void convertDtoToVo(List<CommentDetailVo> commentChildrenVos, CommentDto comment) {
+        CommentDetailVo commentVo = new CommentDetailVo();
+        invertVo(comment, commentVo);
+        UserVo userVo = new UserVo();
+        invertVo(comment.getUser(), userVo);
+        commentVo.setUser(userVo);
+        userVo = new UserVo();
+        invertVo(comment.getReplayUser(), userVo);
+        commentVo.setReplayUser(userVo);
+        commentChildrenVos.add(commentVo);
     }
 
     /**

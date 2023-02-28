@@ -34,8 +34,8 @@ public class CommentDto {
     @ApiModelProperty("回复用户id")
     private String replayUserId;
 
-    @ApiModelProperty("回复用户名称")
-    private String replayUserName;
+    @ApiModelProperty("回复用户")
+    private UserDto replayUser;
 
     @ApiModelProperty("评论所属文章、动态、留言")
     @NotBlank(message = "来源id不能为空")
@@ -56,4 +56,7 @@ public class CommentDto {
     @ApiModelProperty("评论发布人")
     @NotBlank(message = "评论发布人不能为空")
     private String userId;
+
+    @ApiModelProperty("评论发布人")
+    private UserDto user;
 }

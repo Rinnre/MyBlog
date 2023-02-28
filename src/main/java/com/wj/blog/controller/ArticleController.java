@@ -2,9 +2,9 @@ package com.wj.blog.controller;
 
 
 import com.wj.blog.common.result.ResultEntity;
+import com.wj.blog.common.util.CommentUtil;
 import com.wj.blog.pojo.dto.ArticleDto;
 import com.wj.blog.pojo.dto.ArticleQueryParam;
-import com.wj.blog.pojo.dto.CommentDto;
 import com.wj.blog.pojo.vo.*;
 import com.wj.blog.service.ArticleService;
 import lombok.extern.slf4j.Slf4j;
@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -56,50 +54,11 @@ public class ArticleController {
         BeanUtils.copyProperties(articleDto, articleDetailVo);
         invertArticleDtoToVo(articleDto, articleDetailVo);
         //  comments->commentsVo 评论组装
-        List<CommentDetailVo> commentVos = assembleComment(articleDto.getComments());
+        List<CommentDetailVo> commentVos = CommentUtil.assembleComment(articleDto.getComments());
         articleDetailVo.setComments(commentVos);
         return ResultEntity.success(articleDetailVo);
 
     }
-
-    private List<CommentDetailVo> assembleComment(List<CommentDto> comments) {
-        comments = comments.stream()
-                .sorted(Comparator.comparing(CommentDto::getCreateTime))
-                .collect(Collectors.toList());
-        List<CommentDetailVo> commentRootVos = new ArrayList<>();
-        // 遍历找出根评论
-        comments.forEach(comment -> {
-            if (comment.getPid() == null) {
-                convertDtoToVo(commentRootVos, comment);
-            }
-        });
-
-        // 遍历寻找子节点
-        for (CommentDetailVo commentRoot : commentRootVos) {
-            List<CommentDetailVo> commentChildrenVos = new ArrayList<>();
-            comments.forEach(comment -> {
-                if (commentRoot.getId().equals(comment.getPid())) {
-                    convertDtoToVo(commentChildrenVos, comment);
-                }
-            });
-            commentRoot.setChildrenComments(commentChildrenVos);
-        }
-
-        return commentRootVos;
-    }
-
-    private void convertDtoToVo(List<CommentDetailVo> commentChildrenVos, CommentDto comment) {
-        CommentDetailVo commentVo = new CommentDetailVo();
-        invertVo(comment, commentVo);
-        UserVo userVo = new UserVo();
-        invertVo(comment.getUser(), userVo);
-        commentVo.setUser(userVo);
-        userVo = new UserVo();
-        invertVo(comment.getReplayUser(), userVo);
-        commentVo.setReplayUser(userVo);
-        commentChildrenVos.add(commentVo);
-    }
-
     /**
      * 部分articleDto属性转vo
      */

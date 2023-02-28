@@ -27,8 +27,8 @@ spring:
 #配置mapper xml文件的路径
 mybatis-plus:
   mapper-locations: classpath:mybatis/mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-logging:
-  level:
-    com.wj.blog.mapper: debug
-    com.wj.blog.test: debug
+# mybatis-plus配置控制台打印完整带参数SQL语句
+

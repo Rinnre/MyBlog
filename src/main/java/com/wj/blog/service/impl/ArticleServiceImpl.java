@@ -36,6 +36,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Override
     public ArticleDto searchArticleDetail(String id) {
+        // TODO 访问量增加
         return baseMapper.searchArticleDetail(id);
     }
 }

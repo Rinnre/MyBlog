@@ -1,6 +1,7 @@
 package com.wj.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.wj.blog.pojo.dto.DynamicDto;
 import com.wj.blog.pojo.entity.Dynamic;
 
 /**
@@ -13,4 +14,10 @@ import com.wj.blog.pojo.entity.Dynamic;
  */
 public interface DynamicService extends IService<Dynamic> {
 
+    /**
+     * 创建动态
+     *
+     * @param dynamicDto 动态dto
+     */
+    void createDynamic(DynamicDto dynamicDto);
 }

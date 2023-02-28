@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     public ResultEntity<String> exceptionHandler(Exception e) {
         log.error("GlobalExceptionHandler.exceptionHandler , 异常信息", e);
-        return ResultEntity.fail(e.getMessage());
+        return ResultEntity.fail("发生异常，请联系管理员");
     }
 
     /**

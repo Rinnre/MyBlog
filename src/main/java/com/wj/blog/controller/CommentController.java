@@ -7,6 +7,7 @@ import com.wj.blog.service.CommentService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  * <p>
@@ -24,7 +25,7 @@ public class CommentController {
     private CommentService commentService;
 
     @PostMapping("comment")
-    public ResultEntity<String> addComment(@RequestBody CommentDto commentDto) {
+    public ResultEntity<String> addComment(@RequestBody @Valid CommentDto commentDto) {
         commentService.addComment(commentDto);
         return ResultEntity.success();
     }

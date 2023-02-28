@@ -32,6 +32,9 @@ public class DynamicDto {
     @ApiModelProperty("发布人")
     private UserDto user;
 
+    @ApiModelProperty("发布人id")
+    private String userId;
+
     @ApiModelProperty("动态图片")
     private List<Image> images;
 

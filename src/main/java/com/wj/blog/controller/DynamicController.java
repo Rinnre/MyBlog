@@ -48,7 +48,7 @@ public class DynamicController {
             });
         }
         UserDto userDto = new UserDto();
-        userDto.setId(dynamicVo.getUser().getId());
+        userDto.setId(dynamicVo.getUserId());
         dynamicDto.setUser(userDto);
         dynamicDto.setImages(imageList);
         dynamicService.createDynamic(dynamicDto);

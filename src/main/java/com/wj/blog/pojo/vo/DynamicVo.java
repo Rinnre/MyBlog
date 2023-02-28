@@ -29,9 +29,9 @@ public class DynamicVo {
     @Size(min = 0, max = 255, message = "内容不得超过255个字符")
     private String context;
 
-    @ApiModelProperty("发布人")
-    @NotBlank(message = "发布人不能为空")
-    private UserVo user;
+    @ApiModelProperty("发布人id")
+    @NotBlank(message = "发布人id不能为空")
+    private String userId;
 
     @ApiModelProperty("图片墙")
     private List<ImageVo> imageVoList;

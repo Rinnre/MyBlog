@@ -2,6 +2,10 @@ server:
   port: 8080
 # redis配置
 spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://localhost:3306/blog?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true
@@ -31,4 +35,10 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 # mybatis-plus配置控制台打印完整带参数SQL语句
+aliyun:
+  oss:
+    endpoint:
+    accessKeyId:
+    secret:
+    bucket:
 

@@ -29,16 +29,6 @@ public class GlobalExceptionHandler {
         return ResultEntity.fail("发生异常，请联系管理员");
     }
 
-    /**
-     * 业务异常
-     */
-    /// 业务异常
-    //@ResponseBody
-    //@ExceptionHandler(value = BplCommonException.class)
-    //public ResultEntity<String> bplCommonExceptionHandler(BplCommonException e) {
-    //    log.warn("",e);
-    //    return ResultEntity.fail(e.getMessage());
-    //}
 
     /**
      * 处理所有RequestBody注解参数验证异常

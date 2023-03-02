@@ -1,6 +1,7 @@
 package com.wj.blog.controller;
 
 
+import com.wj.blog.common.exception.system.FileUploadException;
 import com.wj.blog.common.result.ResultEntity;
 import com.wj.blog.service.ImageService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +28,11 @@ public class ImageController {
 
     @PostMapping("/file")
     public ResultEntity<String> uploadFile(MultipartFile file) {
-        String url = imageService.uploadFile(file);
-        return ResultEntity.success(url);
+        try {
+            String url = imageService.uploadFile(file);
+            return ResultEntity.success(url);
+        } catch (FileUploadException e) {
+            return ResultEntity.fail(e.getMessage());
+        }
     }
 }

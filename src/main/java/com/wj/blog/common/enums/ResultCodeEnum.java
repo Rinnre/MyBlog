@@ -1,4 +1,4 @@
-package com.wj.blog.common.result;
+package com.wj.blog.common.enums;
 
 import lombok.Getter;
 

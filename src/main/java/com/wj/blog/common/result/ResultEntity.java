@@ -1,5 +1,6 @@
 package com.wj.blog.common.result;
 
+import com.wj.blog.common.enums.ResultCodeEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

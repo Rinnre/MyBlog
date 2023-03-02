@@ -4,7 +4,7 @@ import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.OSSException;
 import com.wj.blog.common.config.OssProperties;
-import com.wj.blog.common.result.ResultCodeEnum;
+import com.wj.blog.common.exception.system.FileUploadException;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
@@ -53,7 +53,7 @@ public class OssUtil {
             log.info("Error Code:" + oe.getErrorCode());
             log.info("Request ID:" + oe.getRequestId());
             log.info("Host ID:" + oe.getHostId());
-            throw new RuntimeException(ResultCodeEnum.FAIL.getMessage());
+            throw new FileUploadException("file upload failed!");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

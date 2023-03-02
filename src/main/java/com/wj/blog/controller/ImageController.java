@@ -3,13 +3,13 @@ package com.wj.blog.controller;
 
 import com.wj.blog.common.exception.system.FileUploadException;
 import com.wj.blog.common.result.ResultEntity;
+import com.wj.blog.pojo.vo.ImageVo;
 import com.wj.blog.service.ImageService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -34,5 +34,11 @@ public class ImageController {
         } catch (FileUploadException e) {
             return ResultEntity.fail(e.getMessage());
         }
+    }
+
+    @DeleteMapping("/file")
+    public ResultEntity<String> deleteFile(@RequestParam List<ImageVo> file) {
+        imageService.deleteFile(file);
+        return ResultEntity.success();
     }
 }

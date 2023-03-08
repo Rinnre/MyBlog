@@ -32,7 +32,6 @@ public class LinkDetailVo extends LinkVo {
     private LocalDateTime createTime;
 
     @ApiModelProperty("申请用户名称")
-    @NotBlank(message = "申请用户名称不能为空")
     private String userName;
 
     @ApiModelProperty("博客链接状态")

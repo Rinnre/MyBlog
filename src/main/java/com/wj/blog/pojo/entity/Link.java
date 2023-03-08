@@ -134,6 +134,22 @@ public class Link implements Serializable {
         return this;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public Boolean getDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(Boolean delete) {
+        isDelete = delete;
+    }
+
     public Boolean getIsDelete() {
         return isDelete;
     }

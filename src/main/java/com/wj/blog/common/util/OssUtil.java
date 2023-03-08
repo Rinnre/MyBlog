@@ -7,7 +7,7 @@ import com.aliyun.oss.OSSException;
 import com.aliyun.oss.model.DeleteObjectsRequest;
 import com.aliyun.oss.model.DeleteObjectsResult;
 import com.wj.blog.common.config.OssProperties;
-import com.wj.blog.common.exception.system.FileUploadException;
+import com.wj.blog.common.exception.cdn.FileUploadException;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;

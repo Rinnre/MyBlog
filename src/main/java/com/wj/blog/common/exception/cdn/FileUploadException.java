@@ -1,4 +1,4 @@
-package com.wj.blog.common.exception.system;
+package com.wj.blog.common.exception.cdn;
 
 /**
  * 文件上传异常

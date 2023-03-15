@@ -16,6 +16,7 @@ spring:
     host: 192.168.153.139
     database: 0
     timeout: 1800000
+    password: wj1324
     lettuce:
       pool:
         max-active: 20

@@ -30,7 +30,7 @@ public class ArticleDto extends Article {
     @ApiModelProperty("文章数据统计")
     private Statistics statistics;
 
-    @ApiModelProperty("文章数据统计")
+    @ApiModelProperty("文章评论")
     private List<CommentDto> comments;
 
     @ApiModelProperty("文章作者")

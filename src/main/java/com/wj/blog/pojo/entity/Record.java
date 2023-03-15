@@ -7,7 +7,10 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -15,7 +18,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author w
- * @since 2023-02-15
+ * @since 2023-03-08
  */
 @TableName("record")
 @ApiModel(value = "Record对象", description = "点赞、收藏记录")
@@ -29,11 +32,22 @@ public class Record implements Serializable {
 
     @ApiModelProperty("用户id")
     @TableField("user_id")
+    @NotBlank(message = "用户id不允许为空")
     private String userId;
 
     @ApiModelProperty("记录类型")
     @TableField("type")
+    @NotEmpty(message = "类型不允许空")
     private Integer type;
+
+    @ApiModelProperty("所属id")
+    @NotBlank(message = "所属id不允许为空")
+    @TableField("source_id")
+    private String sourceId;
+
+    @ApiModelProperty("所属id")
+    @TableField("create_time")
+    private LocalDateTime createTime;
 
     public String getId() {
         return id;
@@ -62,12 +76,30 @@ public class Record implements Serializable {
         return this;
     }
 
+    public String getSourceId() {
+        return sourceId;
+    }
+
+    public Record setSourceId(String sourceId) {
+        this.sourceId = sourceId;
+        return this;
+    }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
+
     @Override
     public String toString() {
         return "Record{" +
                 "id=" + id +
                 ", userId=" + userId +
                 ", type=" + type +
+                ", sourceId=" + sourceId +
                 "}";
     }
 }

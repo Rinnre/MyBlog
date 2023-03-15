@@ -2,6 +2,7 @@ package com.wj.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.wj.blog.common.aop.annation.NumberCount;
 import com.wj.blog.mapper.CommentMapper;
 import com.wj.blog.pojo.dto.CommentDto;
 import com.wj.blog.pojo.entity.Comment;
@@ -24,6 +25,7 @@ import java.util.List;
 public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> implements CommentService {
 
 
+    @NumberCount(mode = "addComment")
     @Override
     public void addComment(CommentDto commentDto) {
         Comment comment = new Comment();
@@ -31,6 +33,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         baseMapper.insert(comment);
     }
 
+    @NumberCount(mode = "subComment")
     @Override
     public void removeComment(String id, String userId) {
         LambdaQueryWrapper<Comment> commentLambdaQueryWrapper = new LambdaQueryWrapper<>();

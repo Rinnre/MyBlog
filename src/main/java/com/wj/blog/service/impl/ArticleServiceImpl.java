@@ -29,6 +29,10 @@ import java.util.List;
 @Service("articleService")
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
 
+    @Resource
+    private StatisticsMapper statisticsMapper;
+
+    @NumberCount(mode = "list")
     @Override
     public List<ArticleDto> searchArticleList(ArticleQueryParam articleQueryParam) {
 
@@ -42,6 +46,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return baseMapper.selectArticleList(articleQueryParam);
     }
 
+    @NumberCount(mode = "addView")
     @Override
     public ArticleDto searchArticleDetail(String id) {
         //  访问量增加

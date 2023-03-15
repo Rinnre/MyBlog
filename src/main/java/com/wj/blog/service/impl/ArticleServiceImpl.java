@@ -1,13 +1,21 @@
 package com.wj.blog.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.wj.blog.common.aop.annation.NumberCount;
+import com.wj.blog.common.enums.StatisticsEnum;
 import com.wj.blog.mapper.ArticleMapper;
+import com.wj.blog.mapper.StatisticsMapper;
 import com.wj.blog.pojo.dto.ArticleDto;
 import com.wj.blog.pojo.dto.ArticleQueryParam;
 import com.wj.blog.pojo.entity.Article;
+import com.wj.blog.pojo.entity.Category;
+import com.wj.blog.pojo.entity.Statistics;
 import com.wj.blog.service.ArticleService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -36,7 +44,29 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Override
     public ArticleDto searchArticleDetail(String id) {
-        // TODO 访问量增加
+        //  访问量增加
         return baseMapper.searchArticleDetail(id);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void createArticle(ArticleDto articleDto) {
+        // 文章信息保存
+        Article article = new Article();
+        BeanUtils.copyProperties(articleDto, article);
+        baseMapper.insert(article);
+        // TODO 定时发布文章需创建定时任务
+
+        // 文章tag保存
+        List<Category> tags = articleDto.getTags();
+        if (tags != null && !tags.isEmpty()) {
+            baseMapper.insertTags(tags, article.getId());
+        }
+        // 初始化文章附属信息
+        Statistics statistics = new Statistics();
+        statistics.setSourceType(StatisticsEnum.ARTICLE.getValue());
+        statistics.setSourceId(article.getId());
+        // 异步存入redis
+        statisticsMapper.insert(statistics);
     }
 }

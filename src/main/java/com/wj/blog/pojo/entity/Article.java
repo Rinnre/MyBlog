@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -31,18 +33,22 @@ public class Article implements Serializable {
 
     @ApiModelProperty("文章标题")
     @TableField("title")
+    @NotBlank(message = "文章标题不能为空")
     private String title;
 
     @ApiModelProperty("文章主体内容")
     @TableField("context")
+    @NotBlank(message = "文章内容不能为空")
     private String context;
 
     @ApiModelProperty("文章头图")
     @TableField("thumbnail")
+    @NotBlank(message = "文章头图不能为空")
     private String thumbnail;
 
     @ApiModelProperty("文章分类id")
     @TableField("category_id")
+    @NotBlank(message = "文章分类不能为空")
     private String categoryId;
 
     @ApiModelProperty("文章密码")
@@ -55,6 +61,7 @@ public class Article implements Serializable {
 
     @ApiModelProperty("文章状态（1：草稿，2：待发布，3：已发布）")
     @TableField("status")
+    @NotEmpty(message = "文章状态不能为空")
     private Integer status;
 
     @ApiModelProperty("文章创建时间")

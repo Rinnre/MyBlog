@@ -12,6 +12,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +60,13 @@ public class ArticleController {
         return ResultEntity.success(articleDetailVo);
 
     }
+
+    @PostMapping("/article")
+    public ResultEntity<String> createArticle(@RequestBody @Valid ArticleDto articleDto) {
+        articleService.createArticle(articleDto);
+        return ResultEntity.success();
+    }
+
     /**
      * 部分articleDto属性转vo
      */

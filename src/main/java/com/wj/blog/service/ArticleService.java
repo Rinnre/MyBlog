@@ -32,4 +32,11 @@ public interface ArticleService extends IService<Article> {
      * @return {@link ArticleDto} 文章详情
      */
     ArticleDto searchArticleDetail(String id);
+
+    /**
+     * 创建文章
+     *
+     * @param articleDto 文章dto
+     */
+    void createArticle(ArticleDto articleDto);
 }

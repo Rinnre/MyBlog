@@ -5,7 +5,10 @@ import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wj.blog.common.enums.DynamicStatusEnum;
 import com.wj.blog.common.enums.ImageEnum;
+import com.wj.blog.common.enums.RedisOperationEnum;
 import com.wj.blog.common.enums.StatisticsEnum;
+import com.wj.blog.common.thread.AsyncManager;
+import com.wj.blog.common.thread.TaskFactory;
 import com.wj.blog.mapper.DynamicMapper;
 import com.wj.blog.mapper.ImageMapper;
 import com.wj.blog.mapper.StatisticsMapper;
@@ -39,6 +42,10 @@ public class DynamicServiceImpl extends ServiceImpl<DynamicMapper, Dynamic> impl
     @Resource
     private ImageMapper imageMapper;
 
+    private static final String REDIS_HEAD = "statistics";
+    @Resource
+    private TaskFactory taskFactory;
+
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void createDynamic(DynamicDto dynamicDto) {
@@ -55,6 +62,7 @@ public class DynamicServiceImpl extends ServiceImpl<DynamicMapper, Dynamic> impl
         statistics.setSourceId(id);
         statistics.setSourceType(StatisticsEnum.DYNAMIC.getValue());
         statisticsMapper.insert(statistics);
+        AsyncManager.me().execute(taskFactory.redisOperation(REDIS_HEAD + id, statistics, RedisOperationEnum.DELETE.getValue()));
 
         // 初始化图片数据
         List<Image> images = dynamicDto.getImages();
@@ -86,6 +94,7 @@ public class DynamicServiceImpl extends ServiceImpl<DynamicMapper, Dynamic> impl
         Dynamic dynamic = baseMapper.selectOne(dynamicLambdaQueryWrapper);
         if (dynamic.getUserId().equals(uid)) {
             baseMapper.deleteById(id);
+            AsyncManager.me().execute(taskFactory.redisOperation(REDIS_HEAD + id, null, RedisOperationEnum.DELETE.getValue()));
         }
     }
 }

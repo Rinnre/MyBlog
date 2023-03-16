@@ -2,7 +2,10 @@ package com.wj.blog.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wj.blog.common.aop.annation.NumberCount;
+import com.wj.blog.common.enums.RedisOperationEnum;
 import com.wj.blog.common.enums.StatisticsEnum;
+import com.wj.blog.common.thread.AsyncManager;
+import com.wj.blog.common.thread.TaskFactory;
 import com.wj.blog.mapper.ArticleMapper;
 import com.wj.blog.mapper.StatisticsMapper;
 import com.wj.blog.pojo.dto.ArticleDto;
@@ -31,6 +34,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Resource
     private StatisticsMapper statisticsMapper;
+
+    private final String REDIS_HEAD = "statistics";
+    @Resource
+    private TaskFactory taskFactory;
 
     @NumberCount(mode = "list")
     @Override
@@ -72,6 +79,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         statistics.setSourceType(StatisticsEnum.ARTICLE.getValue());
         statistics.setSourceId(article.getId());
         // 异步存入redis
+        AsyncManager.me().execute(taskFactory.redisOperation(REDIS_HEAD + article.getId(), statistics, RedisOperationEnum.DELETE.getValue()));
         statisticsMapper.insert(statistics);
     }
 }

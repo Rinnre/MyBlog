@@ -39,4 +39,12 @@ public interface ArticleService extends IService<Article> {
      * @param articleDto 文章dto
      */
     void createArticle(ArticleDto articleDto);
+
+    /**
+     * 删除文章
+     *
+     * @param uid uid 用户id
+     * @param id  id 文章id
+     */
+    void removeArticle(String uid, String id);
 }

@@ -25,14 +25,14 @@ import java.util.List;
  * @since 2023-02-15
  */
 @RestController
-@RequestMapping("/blog")
+@RequestMapping("/blog/article")
 @Slf4j
 public class ArticleController {
 
     @Resource(name = "articleService")
     private ArticleService articleService;
 
-    @GetMapping("/article")
+    @GetMapping()
     public ResultEntity<List<ArticleIntroductionVo>> searchArticleList(@RequestParam(required = false) ArticleQueryParam articleQueryParam) {
         List<ArticleDto> articleDtoList = articleService.searchArticleList(articleQueryParam);
         List<ArticleIntroductionVo> articleIntroductionVos = new ArrayList<>();
@@ -48,7 +48,7 @@ public class ArticleController {
         return ResultEntity.success(articleIntroductionVos);
     }
 
-    @GetMapping("/article/{id}")
+    @GetMapping("/id}")
     public ResultEntity<ArticleDetailVo> searchArticleDetail(@PathVariable String id) {
         ArticleDto articleDto = articleService.searchArticleDetail(id);
         ArticleDetailVo articleDetailVo = new ArticleDetailVo();
@@ -61,9 +61,16 @@ public class ArticleController {
 
     }
 
-    @PostMapping("/article")
+    @PostMapping()
     public ResultEntity<String> createArticle(@RequestBody @Valid ArticleDto articleDto) {
         articleService.createArticle(articleDto);
+        return ResultEntity.success();
+    }
+
+    @DeleteMapping("/{uid}/{id}")
+    public ResultEntity<String> removeArticle(@PathVariable String uid,
+                                              @PathVariable String id) {
+        articleService.removeArticle(uid, id);
         return ResultEntity.success();
     }
 

@@ -1,5 +1,6 @@
 package com.wj.blog.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wj.blog.common.aop.annation.NumberCount;
 import com.wj.blog.common.enums.RedisOperationEnum;
@@ -79,7 +80,18 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         statistics.setSourceType(StatisticsEnum.ARTICLE.getValue());
         statistics.setSourceId(article.getId());
         // 异步存入redis
-        AsyncManager.me().execute(taskFactory.redisOperation(REDIS_HEAD + article.getId(), statistics, RedisOperationEnum.DELETE.getValue()));
+        AsyncManager.me().execute(taskFactory.redisOperation(REDIS_HEAD + article.getId(), statistics, RedisOperationEnum.INSERT_UPDATE.getValue()));
         statisticsMapper.insert(statistics);
+    }
+
+    @Override
+    public void removeArticle(String uid, String id) {
+        LambdaQueryWrapper<Article> articleLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        articleLambdaQueryWrapper.eq(Article::getId, id).eq(Article::getUserId, uid);
+        Article article = baseMapper.selectOne(articleLambdaQueryWrapper);
+        if (null != article) {
+            baseMapper.deleteById(id);
+            AsyncManager.me().execute(taskFactory.redisOperation(REDIS_HEAD + id, null, RedisOperationEnum.DELETE.getValue()));
+        }
     }
 }

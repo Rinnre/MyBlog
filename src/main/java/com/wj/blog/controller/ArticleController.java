@@ -32,7 +32,7 @@ public class ArticleController {
     @Resource(name = "articleService")
     private ArticleService articleService;
 
-    @GetMapping()
+    @GetMapping
     public ResultEntity<List<ArticleIntroductionVo>> searchArticleList(@RequestParam(required = false) ArticleQueryParam articleQueryParam) {
         List<ArticleDto> articleDtoList = articleService.searchArticleList(articleQueryParam);
         List<ArticleIntroductionVo> articleIntroductionVos = new ArrayList<>();
@@ -48,7 +48,7 @@ public class ArticleController {
         return ResultEntity.success(articleIntroductionVos);
     }
 
-    @GetMapping("/id}")
+    @GetMapping("/{id}")
     public ResultEntity<ArticleDetailVo> searchArticleDetail(@PathVariable String id) {
         ArticleDto articleDto = articleService.searchArticleDetail(id);
         ArticleDetailVo articleDetailVo = new ArticleDetailVo();
@@ -61,7 +61,7 @@ public class ArticleController {
 
     }
 
-    @PostMapping()
+    @PostMapping
     public ResultEntity<String> createArticle(@RequestBody @Valid ArticleDto articleDto) {
         articleService.createArticle(articleDto);
         return ResultEntity.success();

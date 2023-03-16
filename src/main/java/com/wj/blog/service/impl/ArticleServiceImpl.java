@@ -8,11 +8,13 @@ import com.wj.blog.common.enums.StatisticsEnum;
 import com.wj.blog.common.thread.AsyncManager;
 import com.wj.blog.common.thread.TaskFactory;
 import com.wj.blog.mapper.ArticleMapper;
+import com.wj.blog.mapper.CommentMapper;
 import com.wj.blog.mapper.StatisticsMapper;
 import com.wj.blog.pojo.dto.ArticleDto;
 import com.wj.blog.pojo.dto.ArticleQueryParam;
 import com.wj.blog.pojo.entity.Article;
 import com.wj.blog.pojo.entity.Category;
+import com.wj.blog.pojo.entity.Comment;
 import com.wj.blog.pojo.entity.Statistics;
 import com.wj.blog.service.ArticleService;
 import org.springframework.beans.BeanUtils;
@@ -35,6 +37,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Resource
     private StatisticsMapper statisticsMapper;
+
+    @Resource
+    private CommentMapper commentMapper;
 
     private final String REDIS_HEAD = "statistics";
     @Resource
@@ -80,10 +85,12 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         statistics.setSourceType(StatisticsEnum.ARTICLE.getValue());
         statistics.setSourceId(article.getId());
         // 异步存入redis
-        AsyncManager.me().execute(taskFactory.redisOperation(REDIS_HEAD + article.getId(), statistics, RedisOperationEnum.INSERT_UPDATE.getValue()));
+        AsyncManager.me().execute(taskFactory.redisOperation(REDIS_HEAD + article.getId(),
+                statistics, RedisOperationEnum.INSERT_UPDATE.getValue()));
         statisticsMapper.insert(statistics);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void removeArticle(String uid, String id) {
         LambdaQueryWrapper<Article> articleLambdaQueryWrapper = new LambdaQueryWrapper<>();
@@ -91,7 +98,12 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         Article article = baseMapper.selectOne(articleLambdaQueryWrapper);
         if (null != article) {
             baseMapper.deleteById(id);
-            AsyncManager.me().execute(taskFactory.redisOperation(REDIS_HEAD + id, null, RedisOperationEnum.DELETE.getValue()));
+            // 移除文章统计数据
+            statisticsMapper.delete(new LambdaQueryWrapper<Statistics>().eq(Statistics::getSourceId, id));
+            AsyncManager.me().execute(taskFactory.redisOperation(REDIS_HEAD + id, null,
+                    RedisOperationEnum.DELETE.getValue()));
+            // 移除文章评论
+            commentMapper.delete(new LambdaQueryWrapper<Comment>().eq(Comment::getSourceId, id));
         }
     }
 }

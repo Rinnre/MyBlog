@@ -57,11 +57,6 @@ public class Comment implements Serializable {
     @TableField("status")
     private Integer status;
 
-    @ApiModelProperty("是否删除")
-    @TableField("is_delete")
-    @TableLogic
-    private Integer isDelete;
-
     public String getId() {
         return id;
     }
@@ -143,14 +138,6 @@ public class Comment implements Serializable {
         return this;
     }
 
-    public Integer getIsDelete() {
-        return isDelete;
-    }
-
-    public Comment setIsDelete(Integer isDelete) {
-        this.isDelete = isDelete;
-        return this;
-    }
 
     @Override
     public String toString() {
@@ -164,7 +151,6 @@ public class Comment implements Serializable {
                 ", createTime=" + createTime +
                 ", userId=" + userId +
                 ", status=" + status +
-                ", isDelete=" + isDelete +
                 "}";
     }
 }

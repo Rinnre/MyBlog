@@ -76,10 +76,6 @@ public class Article implements Serializable {
     @TableField("release_time")
     private LocalDateTime releaseTime;
 
-    @ApiModelProperty("逻辑删除（0：未删除，1：已删除）")
-    @TableField("is_delete")
-    @TableLogic
-    private Boolean isDelete;
 
     public String getId() {
         return id;
@@ -189,14 +185,6 @@ public class Article implements Serializable {
         return this;
     }
 
-    public Boolean getIsDelete() {
-        return isDelete;
-    }
-
-    public Article setIsDelete(Boolean isDelete) {
-        this.isDelete = isDelete;
-        return this;
-    }
 
     @Override
     public String toString() {
@@ -213,7 +201,6 @@ public class Article implements Serializable {
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", releaseTime=" + releaseTime +
-                ", isDelete=" + isDelete +
                 "}";
     }
 }

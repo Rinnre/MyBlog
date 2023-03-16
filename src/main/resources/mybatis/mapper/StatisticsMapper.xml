@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wj.blog.mapper.StatisticsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.wj.blog.pojo.entity.Statistics">
+        <id column="id" property="id"/>
+        <result column="like_count" property="likeCount"/>
+        <result column="collect_count" property="collectCount"/>
+        <result column="comment_count" property="commentCount"/>
+        <result column="view_count" property="viewCount"/>
+        <result column="source_id" property="sourceId"/>
+        <result column="source_type" property="sourceType"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, like_count, collect_count, comment_count, view_count, source_id, source_type
+    </sql>
+
+</mapper>

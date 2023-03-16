@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wj.blog.mapper.DynamicMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.wj.blog.pojo.entity.Dynamic">
+        <id column="id" property="id"/>
+        <result column="context" property="context"/>
+        <result column="status" property="status"/>
+        <result column="user_id" property="userId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <resultMap id="DynamicListResultMap" type="com.wj.blog.pojo.dto.DynamicDto">
+        <id column="id" property="id"/>
+        <result column="context" property="context"/>
+        <result column="create_time" property="createTime"/>
+        <association property="user" javaType="com.wj.blog.pojo.dto.UserDto">
+            <id column="user_id" property="id"/>
+            <result column="avatar" property="avatar"/>
+            <result column="user_name" property="name"/>
+        </association>
+        <association property="statistics" javaType="com.wj.blog.pojo.entity.Statistics">
+            <id column="statistics_id" property="id"/>
+            <result column="like_count" property="likeCount"/>
+            <result column="comment_count" property="commentCount"/>
+            <result column="view_count" property="viewCount"/>
+        </association>
+        <collection property="images" ofType="com.wj.blog.pojo.entity.Image">
+            <id column="image_id" property="id"/>
+            <result column="url" property="url"/>
+        </collection>
+        <collection property="commentDtoList" column="id"
+                    select="com.wj.blog.mapper.CommentMapper.selectCommentListById"/>
+
+        <collection property="tags" ofType="com.wj.blog.pojo.entity.Category">
+            <id column="tag_id" property="id"/>
+            <result column="tag_name" property="name"/>
+        </collection>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, context, status, user_id, create_time, update_time
+    </sql>
+    <!--    List<DynamicDto> selectDynamicList(@Param("userName") String userName,-->
+    <!--    @Param("userId") String userId,-->
+    <!--    @Param("content") String content,-->
+    <!--    @Param("startNumber") Integer startNumber,-->
+    <!--    @Param("size") Integer size);-->
+    <select id="selectDynamicList" resultMap="DynamicListResultMap">
+        SELECT d.id, context, d.create_time,u.id AS user_id,u.name AS user_name,
+        s.id AS statistics_id,s.view_count,s.like_count,s.comment_count,
+        i.id AS image_id,i.url,
+        c.id As tag_id,c.name AS tag_name
+        FROM dynamic AS d
+        LEFT JOIN user u on d.user_id = u.id
+        LEFT JOIN statistics s on s.source_id = d.id
+        LEFT JOIN image i on i.source_id = d.id
+        LEFT JOIN article_tag_ref atr on atr.article_id = d.id
+        LEFT JOIN category c on atr.category_id = c.id
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="userName!=null">
+                u.name LIKE concat('%',#{userName},'%')
+            </if>
+            <if test="userId!=null">
+                AND u.id = #{userId}
+            </if>
+            <if test="content!=null">
+                AND d.content LIKE concat('%',#{content},'%')
+            </if>
+        </trim>
+        <if test="startNumber!=null and size!=null">
+            LIMIT #{startNumber},#{size}
+        </if>
+    </select>
+
+</mapper>

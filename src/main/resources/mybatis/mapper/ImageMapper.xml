@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wj.blog.mapper.ImageMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.wj.blog.pojo.entity.Image">
+        <id column="id" property="id"/>
+        <result column="url" property="url"/>
+        <result column="source_id" property="sourceId"/>
+        <result column="source_type" property="sourceType"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_delete" property="isDelete"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, url, source_id, source_type, create_time, update_time, is_delete
+    </sql>
+    <!--    void insertBatch(List<Image> images);-->
+    <insert id="insertBatch">
+        INSERT INTO image(id, url, source_id, source_type, create_time, update_time, is_delete)
+        VALUES
+        <foreach collection="images" item="image" separator=",">
+            (#{image.id},#{image.url},#{id},#{type},#{image.createTime},#{image.updateTime},#{image.isDelete})
+        </foreach>
+    </insert>
+</mapper>

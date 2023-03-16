@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wj.blog.mapper.RecordMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.wj.blog.pojo.entity.Record">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="type" property="type"/>
+        <result column="source_id" property="sourceId"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <resultMap id="RecordListResultMap" type="com.wj.blog.pojo.dto.RecordDto">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="type" property="type"/>
+        <result column="source_id" property="sourceId"/>
+        <result column="create_time" property="createTime"/>
+        <association property="article" javaType="com.wj.blog.pojo.dto.ArticleDto">
+            <id column="article_id" property="id"/>
+            <result column="article_title" property="title"/>
+        </association>
+        <association property="user" javaType="com.wj.blog.pojo.dto.UserDto">
+            <id column="user_id" property="id"/>
+            <result column="user_name" property="name"/>
+            <result column="user_avatar" property="avatar"/>
+        </association>
+        <association property="dynamic" javaType="com.wj.blog.pojo.dto.DynamicDto">
+            <id column="dynamic_id" property="id"/>
+            <result column="dynamic_context" property="context"/>
+        </association>
+    </resultMap>
+
+    <!--    List<RecordDto> selectRecordList(@Param("userId") String userId,-->
+    <!--    @Param("sourceId") String sourceId,-->
+    <!--    @Param("startNumber") Integer startNumber,-->
+    <!--    @Param("size") Integer size);-->
+    <select id="selectRecordList" resultMap="RecordListResultMap">
+        SELECT record.id, record.create_time, u.id AS user_id,
+        u.name AS user_name, u.avatar AS user_avatar,
+        a.id AS aritcle_id,a.title AS article_title,
+        d.id AS dynamic_id,d.context AS dynamic_context
+        FROM record
+        LEFT JOIN user u on record.user_id = u.id
+        LEFT JOIN article a on record.source_id = a.id
+        LEFT JOIN dynamic d on d.id = record.source_id
+        WHERE record.type = #{type}
+        <if test="userId!=null and userId !=''">
+            AND record.user_id = #{userId}
+        </if>
+        <if test="sourceId!=null and sourceId !=''">
+            AND record.source_id = #{sourceId}
+        </if>
+        <if test="startNumber!=null and size !=null">
+            LIMIT #{startNumber},#{size}
+        </if>
+    </select>
+</mapper>

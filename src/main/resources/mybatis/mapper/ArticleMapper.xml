@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wj.blog.mapper.ArticleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.wj.blog.pojo.entity.Article">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="title" property="title"/>
+        <result column="context" property="context"/>
+        <result column="thumbnail" property="thumbnail"/>
+        <result column="category_id" property="categoryId"/>
+        <result column="password" property="password"/>
+        <result column="source_link" property="sourceLink"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="release_time" property="releaseTime"/>
+        <result column="is_delete" property="isDelete"/>
+    </resultMap>
+
+    <resultMap id="articleListResultMap" type="com.wj.blog.pojo.dto.ArticleDto">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="context" property="context"/>
+        <result column="thumbnail" property="thumbnail"/>
+        <result column="release_time" property="releaseTime"/>
+        <result column="source_link" property="sourceLink"/>
+        <association property="category" javaType="com.wj.blog.pojo.entity.Category">
+            <id column="category_id" property="id"/>
+            <result column="category_name" property="name"/>
+        </association>
+        <association property="author" javaType="com.wj.blog.pojo.dto.UserDto">
+            <id column="user_id" property="id"/>
+            <result column="user_name" property="name"/>
+            <result column="avatar" property="avatar"/>
+        </association>
+        <association property="statistics" javaType="com.wj.blog.pojo.entity.Statistics">
+            <id column="statistics_id" property="id"/>
+            <result column="like_count" property="likeCount"/>
+            <result column="collect_count" property="collectCount"/>
+            <result column="comment_count" property="commentCount"/>
+            <result column="view_count" property="viewCount"/>
+        </association>
+        <collection property="tags" column="id" select="com.wj.blog.mapper.CategoryMapper.selectArticleTags"/>
+    </resultMap>
+
+    <resultMap id="articleDetailResultMap" type="com.wj.blog.pojo.dto.ArticleDto">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="context" property="context"/>
+        <result column="thumbnail" property="thumbnail"/>
+        <result column="release_time" property="releaseTime"/>
+        <association property="author" javaType="com.wj.blog.pojo.dto.UserDto">
+            <id column="user_id" property="id"/>
+            <result column="user_name" property="name"/>
+            <result column="avatar" property="avatar"/>
+        </association>
+        <association property="category" javaType="com.wj.blog.pojo.entity.Category">
+            <id column="category_id" property="id"/>
+            <result column="category_name" property="name"/>
+        </association>
+        <association property="statistics" javaType="com.wj.blog.pojo.entity.Statistics">
+            <id column="statistics_id" property="id"/>
+            <result column="like_count" property="likeCount"/>
+            <result column="collect_count" property="collectCount"/>
+            <result column="comment_count" property="commentCount"/>
+            <result column="view_count" property="viewCount"/>
+        </association>
+        <collection property="tags" ofType="com.wj.blog.pojo.entity.Category">
+            <id column="tag_id" property="id"/>
+            <result column="tag_name" property="name"/>
+        </collection>
+        <collection property="comments" column="id" select="com.wj.blog.mapper.CommentMapper.selectCommentListById"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_id, title, context, thumbnail, category_id, article_password, source_link, status, create_time,
+        update_time, release_time, is_delete
+    </sql>
+
+    <!--    List<ArticleDto> selectArticleList(String title, String author, Integer startPageNumber, Integer size);-->
+
+    <select id="selectArticleList" resultMap="articleListResultMap">
+        SELECT article.id,
+        title,
+        context,
+        thumbnail,
+        release_time,
+        u.id AS user_id,
+        u.name AS user_name,
+        u.avatar,
+        c.id AS category_id,
+        c.name AS category_name,
+        s.id AS statistics_id,
+        s.collect_count,
+        s.comment_count,
+        s.like_count,
+        s.view_count
+        FROM article
+        LEFT JOIN user u ON u.id = article.user_id
+        LEFT JOIN category c ON c.id = article.category_id
+        LEFT JOIN statistics s ON s.source_id = article.id
+        <if test="null!=articleQueryParam">
+            <trim prefix="WHERE" prefixOverrides="AND">
+                <if test="articleQueryParam.title!=null">
+                    title LIKE concat("%",#{articleQueryParam.title},"%")
+                </if>
+                <if test="articleQueryParam.author">
+                    AND u.name LIKE concat("%",#{articleQueryParam.author},"%")
+                </if>
+                <if test="articleQueryParam.categoryId">
+                    AND c.id =#{articleQueryParam.categoryId}
+                </if>
+            </trim>
+            <if test="articleQueryParam.page!=null and articleQueryParam.size!=null">
+                limit #{articleQueryParam.page},#{articleQueryParam.size}
+            </if>
+        </if>
+    </select>
+
+    <!--    ArticleDto searchArticleDetail(@Param("id") String id);-->
+    <select id="searchArticleDetail" resultMap="articleDetailResultMap">
+        SELECT article.id,
+               title,
+               article.context,
+               thumbnail,
+               release_time,
+               u.id    AS user_id,
+               u.name  AS user_name,
+               avatar,
+               c.id    AS tag_id,
+               c.name  AS tag_name,
+               c2.id   AS category_id,
+               c2.name AS category_name,
+               s.id    AS statistics_id,
+               s.collect_count,
+               s.comment_count,
+               s.like_count,
+               s.view_count
+        FROM article
+                 LEFT JOIN user u ON u.id = article.user_id
+                 LEFT JOIN category c ON c.id = article.category_id
+                 LEFT JOIN statistics s ON s.source_id = article.id
+                 LEFT JOIN article_tag_ref atr ON article.id = atr.article_id
+                 LEFT JOIN category c2 on c2.id = atr.category_id
+        WHERE article_id = #{id}
+    </select>
+
+    <insert id="insertTags">
+        INSERT INTO article_tag_ref(article_id, category_id)
+        VALUES
+        <foreach collection="tags" separator="," item="tag">
+            #{id},#{tag.id}
+        </foreach>
+    </insert>
+
+</mapper>

@@ -4,6 +4,7 @@ package com.wj.blog.common.aop.aspect;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.wj.blog.common.aop.annation.NumberCount;
 import com.wj.blog.common.enums.RecordTypeEnum;
+import com.wj.blog.common.enums.StatisticsEnum;
 import com.wj.blog.common.enums.StatisticsTypeEnum;
 import com.wj.blog.common.util.RedisUtil;
 import com.wj.blog.mapper.CommentMapper;
@@ -61,6 +62,13 @@ public class NumberCountAspect {
     public void numberCountPointcut() {
     }
 
+    /**
+     * 处理数量计数
+     *
+     *
+     * @param proceedingJoinPoint 切入点
+     * @return {@link Object}
+     */
     @Around(value = "numberCountPointcut()")
     public Object handleNumberCount(ProceedingJoinPoint proceedingJoinPoint) {
         MethodSignature methodSignature = (MethodSignature) proceedingJoinPoint.getSignature();
@@ -144,6 +152,14 @@ public class NumberCountAspect {
         return proceed;
     }
 
+    /**
+     * 删除评论-评论数减少
+     *
+     * @param key      关键
+     * @param number   数量
+     * @param sourceId 源id
+     * @return {@link Statistics}
+     */
     private Statistics handleSubCount(String key, Integer number, String sourceId) {
         Object object = redisUtil.getObjectByKey(key);
         Statistics statistics;
@@ -153,10 +169,18 @@ public class NumberCountAspect {
             statistics = statisticsMapper.selectOne(new LambdaQueryWrapper<Statistics>()
                     .eq(Statistics::getSourceId, sourceId));
         }
-        statistics.setCommentCount(statistics.getCommentCount() - number);
+        if (null != statistics) {
+            statistics.setCommentCount(statistics.getCommentCount() - number);
+        }
         return statistics;
     }
 
+    /**
+     * @param key      关键
+     * @param mode     模式
+     * @param sourceId 源id
+     * @return {@link Statistics}
+     */
     private Statistics handleCount(String key, String mode, String sourceId) {
         Object object = redisUtil.getObjectByKey(key);
         Statistics statistics;
@@ -170,6 +194,16 @@ public class NumberCountAspect {
         return statistics;
     }
 
+    /**
+     * 增加记录 - 增加对应的统计数据
+     * 删除记录 - 减少对应的统计数据
+     *
+     * @param record   记录
+     * @param key      关键
+     * @param mode     模式
+     * @param sourceId 源id
+     * @return {@link Statistics}
+     */
     private Statistics handleCount(RecordDto record, String key, String mode, String sourceId) {
         Object object = redisUtil.getObjectByKey(key);
         Statistics statistics;
@@ -184,15 +218,28 @@ public class NumberCountAspect {
         } else if (record.getType().equals(RecordTypeEnum.COLLECT.getValue())) {
             mode = mode + RecordTypeEnum.COLLECT.getName();
         }
-        countNumber(statistics, mode);
+        if (null != statistics) {
+            countNumber(statistics, mode);
+        }
         return statistics;
     }
 
+    /**
+     * 查询动态统计数据
+     *
+     * @param dynamic 动态
+     * @param key     关键
+     * @param mode    模式
+     * @return {@link Statistics}
+     */
     private Statistics handleCount(DynamicDto dynamic, String key, String mode) {
         Object objectByKey = redisUtil.getObjectByKey(key);
         Statistics statistics;
         if (objectByKey == null) {
             statistics = dynamic.getStatistics();
+            if (null == statistics) {
+                statistics =initStatistics(dynamic.getId(), StatisticsEnum.DYNAMIC.getValue());
+            }
             statistics.setSourceId(dynamic.getId());
         } else {
             statistics = (Statistics) objectByKey;
@@ -202,6 +249,14 @@ public class NumberCountAspect {
         return statistics;
     }
 
+    /**
+     * 查询文章统计数据
+     *
+     * @param article 文章
+     * @param key     关键
+     * @param mode    模式
+     * @return {@link Statistics}
+     */
     private Statistics handleCount(ArticleDto article, String key, String mode) {
         Object objectByKey = redisUtil.getObjectByKey(key);
         Statistics statistics;
@@ -210,9 +265,28 @@ public class NumberCountAspect {
             article.setStatistics((Statistics) objectByKey);
         } else {
             statistics = article.getStatistics();
+            if (null == statistics) {
+                statistics =initStatistics(article.getId(), StatisticsEnum.ARTICLE.getValue());
+            }
             statistics.setSourceId(article.getId());
         }
         countNumber(statistics, mode);
+        return statistics;
+    }
+
+    /**
+     * 初始化数据
+     *
+     * @return {@link Statistics}
+     */
+    private Statistics initStatistics(String id, Integer type) {
+        Statistics statistics = new Statistics();
+        statistics.setCommentCount(0);
+        statistics.setCollectCount(0);
+        statistics.setViewCount(0);
+        statistics.setLikeCount(0);
+        statistics.setSourceType(type);
+        statistics.setSourceId(id);
         return statistics;
     }
 

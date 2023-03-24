@@ -17,7 +17,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ArticleQueryParam {
+public class ArticleQueryParam extends QueryParam{
 
     @ApiModelProperty("文章标题")
     private String title;
@@ -31,16 +31,6 @@ public class ArticleQueryParam {
     @ApiModelProperty("文章所属标签")
     private List<String> tags;
 
-    @ApiModelProperty("开始时间")
-    private LocalDateTime startTime;
 
-    @ApiModelProperty("结束时间")
-    private LocalDateTime endTime;
-
-    @ApiModelProperty("页码")
-    private Integer page;
-
-    @ApiModelProperty("页码条数")
-    private Integer size;
 
 }

@@ -1,8 +1,15 @@
 package com.wj.blog.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.wj.blog.common.result.ResultEntity;
+import com.wj.blog.pojo.dto.MessageTemplateDto;
+import com.wj.blog.pojo.dto.MessageTemplateQueryParam;
+import com.wj.blog.service.MessageTemplateService;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -13,7 +20,36 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2023-02-15
  */
 @RestController
-@RequestMapping("/blog/message-template")
+@RequestMapping("/blog/message_template")
 public class MessageTemplateController {
+
+    @Resource
+    private MessageTemplateService messageTemplateService;
+
+    @PostMapping
+    public ResultEntity<String> createTemplate(@RequestBody @Validated MessageTemplateDto messageTemplateDto) {
+        messageTemplateService.save(messageTemplateDto);
+        return ResultEntity.success();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResultEntity<String> removeTemplate(@PathVariable String id) {
+        messageTemplateService.removeById(id);
+        return ResultEntity.success();
+    }
+
+    @PutMapping
+    public ResultEntity<String> modifyTemplate(@RequestBody MessageTemplateDto messageTemplateDto) {
+        messageTemplateService.modifyTemplate(messageTemplateDto);
+        return ResultEntity.success();
+    }
+
+    @GetMapping
+    public ResultEntity<List<MessageTemplateDto>> searchMessageTemplateList(
+            @RequestParam MessageTemplateQueryParam messageTemplateQueryParam) {
+        List<MessageTemplateDto> messageTemplateDtoList =
+                messageTemplateService.searchMessageTemplateList(messageTemplateQueryParam);
+        return ResultEntity.success(messageTemplateDtoList);
+    }
 
 }

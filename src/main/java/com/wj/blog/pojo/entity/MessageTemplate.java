@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -27,14 +28,17 @@ public class MessageTemplate implements Serializable {
 
     @ApiModelProperty("模板名称")
     @TableField("name")
+    @NotBlank(message = "模板名称不能为空")
     private String name;
 
     @ApiModelProperty("标题")
     @TableField("title")
+    @NotBlank(message = "消息标题不能为空")
     private String title;
 
     @ApiModelProperty("内容")
     @TableField("content")
+    @NotBlank(message = "消息内容不能为空")
     private String content;
 
     @ApiModelProperty("创建时间")

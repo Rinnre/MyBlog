@@ -48,7 +48,7 @@ public class ArticleController {
         return ResultEntity.success(articleIntroductionVos);
     }
 
-    @GetMapping("/id}")
+    @GetMapping("/{id}")
     public ResultEntity<ArticleDetailVo> searchArticleDetail(@PathVariable String id) {
         ArticleDto articleDto = articleService.searchArticleDetail(id);
         ArticleDetailVo articleDetailVo = new ArticleDetailVo();

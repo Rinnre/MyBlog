@@ -18,19 +18,19 @@ import javax.validation.Valid;
  * @since 2023-02-15
  */
 @RestController
-@RequestMapping("/blog")
+@RequestMapping("/blog/comment")
 public class CommentController {
 
     @Resource(name = "commentService")
     private CommentService commentService;
 
-    @PostMapping("comment")
+    @PostMapping
     public ResultEntity<String> addComment(@RequestBody @Valid CommentDto commentDto) {
         commentService.addComment(commentDto);
         return ResultEntity.success();
     }
 
-    @DeleteMapping("comment/{id}/{userId}")
+    @DeleteMapping("/{id}/{userId}")
     public ResultEntity<String> removeComment(@PathVariable String id,
                                               @PathVariable String userId) {
         commentService.removeComment(id, userId);

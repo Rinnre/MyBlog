@@ -4,8 +4,11 @@ package com.wj.blog.common.aop.aspect;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.wj.blog.common.aop.annation.NumberCount;
 import com.wj.blog.common.enums.RecordTypeEnum;
+import com.wj.blog.common.enums.RedisOperationEnum;
 import com.wj.blog.common.enums.StatisticsEnum;
 import com.wj.blog.common.enums.StatisticsTypeEnum;
+import com.wj.blog.common.thread.AsyncManager;
+import com.wj.blog.common.thread.TaskFactory;
 import com.wj.blog.common.util.RedisUtil;
 import com.wj.blog.mapper.CommentMapper;
 import com.wj.blog.mapper.RecordMapper;
@@ -57,6 +60,9 @@ public class NumberCountAspect {
 
     @Resource
     private RedisUtil redisUtil;
+
+    @Resource
+    private TaskFactory taskFactory;
 
     @Pointcut("@annotation(com.wj.blog.common.aop.annation.NumberCount)")
     public void numberCountPointcut() {
@@ -144,6 +150,7 @@ public class NumberCountAspect {
             }
             // 异步任务数据存储到redis中
             if (statistics != null && key != null) {
+                AsyncManager.me().execute(taskFactory.redisOperation(key, statistics, RedisOperationEnum.INSERT_UPDATE.getValue()));
                 redisUtil.setKeyObject(key, statistics);
             }
         } catch (Throwable e) {

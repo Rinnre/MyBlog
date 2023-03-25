@@ -24,13 +24,13 @@ import java.util.List;
  * @since 2023-02-15
  */
 @RestController
-@RequestMapping("/blog")
+@RequestMapping("/blog/dynamic")
 public class DynamicController {
 
     @Resource
     private DynamicService dynamicService;
 
-    @PostMapping("/dynamic")
+    @PostMapping
     public ResultEntity<String> createDynamic(@RequestBody @Valid DynamicVo dynamicVo) {
         DynamicDto dynamicDto = new DynamicDto();
         BeanUtils.copyProperties(dynamicVo, dynamicDto);
@@ -51,7 +51,7 @@ public class DynamicController {
     /**
      * 删除动态
      */
-    @DeleteMapping("/dynamic/{uid}/{id}")
+    @DeleteMapping("/{uid}/{id}")
     public ResultEntity<String> removeDynamic(@PathVariable String uid, @PathVariable String id) {
         dynamicService.removeDynamic(uid, id);
         return ResultEntity.success();
@@ -60,7 +60,7 @@ public class DynamicController {
     /**
      * 查询动态
      */
-    @GetMapping("/dynamic")
+    @GetMapping
     public ResultEntity<List<DynamicDetailVo>> searchDynamicList(@RequestParam(required = false) String userName,
                                                                  @RequestParam(required = false) String userId,
                                                                  @RequestParam(required = false) String content,

@@ -1,7 +1,11 @@
 package com.wj.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.wj.blog.pojo.dto.MessageTemplateDto;
+import com.wj.blog.pojo.dto.MessageTemplateQueryParam;
 import com.wj.blog.pojo.entity.MessageTemplate;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +17,18 @@ import com.wj.blog.pojo.entity.MessageTemplate;
  */
 public interface MessageTemplateService extends IService<MessageTemplate> {
 
+    /**
+     * 修改模板
+     *
+     * @param messageTemplateDto 消息模板dto
+     */
+    void modifyTemplate(MessageTemplateDto messageTemplateDto);
+
+    /**
+     * 查询信息模板列表
+     *
+     * @param messageTemplateQueryParam 消息模板查询参数
+     * @return {@link List}<{@link MessageTemplateDto}>
+     */
+    List<MessageTemplateDto> searchMessageTemplateList(MessageTemplateQueryParam messageTemplateQueryParam);
 }

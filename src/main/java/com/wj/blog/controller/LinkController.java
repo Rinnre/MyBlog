@@ -23,13 +23,13 @@ import java.util.List;
  * @since 2023-02-15
  */
 @RestController
-@RequestMapping("/blog")
+@RequestMapping("/blog/link")
 public class LinkController {
 
     @Resource(name = "linkService")
     private LinkService linkService;
 
-    @GetMapping("/link")
+    @GetMapping
     public ResultEntity<List<LinkVo>> searchLinkList(@RequestParam(required = false) String nickName,
                                                      @RequestParam(required = false) Integer page,
                                                      @RequestParam(required = false) Integer size) {
@@ -43,7 +43,7 @@ public class LinkController {
         return ResultEntity.success(linkVoList);
     }
 
-    @PostMapping("/link")
+    @PostMapping
     public ResultEntity<String> applyLink(@RequestBody @Validated LinkDetailVo linkDetailVo) {
         LinkDto linkDto = new LinkDto();
         BeanUtils.copyProperties(linkDetailVo, linkDto);
@@ -51,7 +51,7 @@ public class LinkController {
         return ResultEntity.success();
     }
 
-    @DeleteMapping("/link/{id}/{uid}")
+    @DeleteMapping("/{id}/{uid}")
     public ResultEntity<String> removeLink(@PathVariable String id, @PathVariable String uid) {
         linkService.removeLink(id, uid);
         return ResultEntity.success();

@@ -29,7 +29,7 @@ public class LinkServiceImpl extends ServiceImpl<LinkMapper, Link> implements Li
         if (page != null && size != null) {
             startNumber = (page - 1) * size;
         }
-        return baseMapper.selectLinkList(nickName, startNumber, size);
+        return baseMapper.selectLinkList(nickName,LinkStatusEnum.NORMAL.getValue(),startNumber, size);
     }
 
     @Override

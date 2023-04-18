@@ -33,7 +33,7 @@ public class ArticleController {
     private ArticleService articleService;
 
     @GetMapping
-    public ResultEntity<List<ArticleIntroductionVo>> searchArticleList(@RequestParam(required = false) ArticleQueryParam articleQueryParam) {
+    public ResultEntity<List<ArticleIntroductionVo>> searchArticleList(ArticleQueryParam articleQueryParam) {
         List<ArticleDto> articleDtoList = articleService.searchArticleList(articleQueryParam);
         List<ArticleIntroductionVo> articleIntroductionVos = new ArrayList<>();
         articleDtoList.forEach(articleDto -> {

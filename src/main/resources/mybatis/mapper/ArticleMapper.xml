@@ -16,7 +16,6 @@
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
         <result column="release_time" property="releaseTime"/>
-        <result column="is_delete" property="isDelete"/>
     </resultMap>
 
     <resultMap id="articleListResultMap" type="com.wj.blog.pojo.dto.ArticleDto">
@@ -107,11 +106,17 @@
                 <if test="articleQueryParam.title!=null">
                     title LIKE concat("%",#{articleQueryParam.title},"%")
                 </if>
-                <if test="articleQueryParam.author">
+                <if test="articleQueryParam.author!=null">
                     AND u.name LIKE concat("%",#{articleQueryParam.author},"%")
                 </if>
-                <if test="articleQueryParam.categoryId">
+                <if test="articleQueryParam.categoryId!=null">
                     AND c.id =#{articleQueryParam.categoryId}
+                </if>
+                <if test="articleQueryParam.startTime!=null">
+                    AND release_time >= #{articleQueryParam.startTime}
+                </if>
+                <if test="articleQueryParam.endTime!=null">
+                    AND #{articleQueryParam.endTime} >=release_time
                 </if>
             </trim>
             <if test="articleQueryParam.page!=null and articleQueryParam.size!=null">

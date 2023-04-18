@@ -130,7 +130,7 @@ public class NumberCountAspect {
                 String sourceId = comments.get(0).getSourceId();
                 key = REDIS_HEAD + sourceId;
                 statistics = handleSubCount(key, comments.size(), sourceId);
-            } else if (StatisticsTypeEnum.LIST.getType().equals(mode)) {
+            } else if (StatisticsTypeEnum.ARTICLE_LIST.getType().equals(mode)) {
                 List<ArticleDto> articleList = (List<ArticleDto>) proceedingJoinPoint.proceed();
                 List<String> keys = articleList.stream()
                         .map(articleDto -> REDIS_HEAD + articleDto.getId())
@@ -148,8 +148,26 @@ public class NumberCountAspect {
                 }
                 proceed = articleList;
             }
+            else if (StatisticsTypeEnum.DYNAMIC_LIST.getType().equals(mode)) {
+                List<DynamicDto> dynamicList = (List<DynamicDto>) proceedingJoinPoint.proceed();
+                List<String> keys = dynamicList.stream()
+                        .map(dynamicDto -> REDIS_HEAD + dynamicDto.getId())
+                        .collect(Collectors.toList());
+                List<Object> objects = redisUtil.mGetObjectByKey(keys);
+                for (Object object : objects) {
+                    if (object != null) {
+                        Statistics s = (Statistics) object;
+                        for (DynamicDto dynamicDto : dynamicList) {
+                            if (dynamicDto.getId().equals(s.getSourceId())) {
+                                dynamicDto.setStatistics(s);
+                            }
+                        }
+                    }
+                }
+                proceed = dynamicList;
+            }
             // 异步任务数据存储到redis中
-            if (statistics != null && key != null) {
+            if (statistics != null) {
                 AsyncManager.me().execute(taskFactory.redisOperation(key, statistics, RedisOperationEnum.INSERT_UPDATE.getValue()));
                 redisUtil.setKeyObject(key, statistics);
             }

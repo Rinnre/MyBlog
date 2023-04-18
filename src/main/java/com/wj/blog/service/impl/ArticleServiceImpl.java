@@ -45,7 +45,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Resource
     private TaskFactory taskFactory;
 
-    @NumberCount(mode = "list")
+    @NumberCount(mode = "articleList")
     @Override
     public List<ArticleDto> searchArticleList(ArticleQueryParam articleQueryParam) {
 

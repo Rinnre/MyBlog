@@ -44,11 +44,7 @@
     <sql id="Base_Column_List">
         id, context, status, user_id, create_time, update_time
     </sql>
-    <!--    List<DynamicDto> selectDynamicList(@Param("userName") String userName,-->
-    <!--    @Param("userId") String userId,-->
-    <!--    @Param("content") String content,-->
-    <!--    @Param("startNumber") Integer startNumber,-->
-    <!--    @Param("size") Integer size);-->
+
     <select id="selectDynamicList" resultMap="DynamicListResultMap">
         SELECT d.id, context, d.create_time,u.id AS user_id,u.name AS user_name,
         s.id AS statistics_id,s.view_count,s.like_count,s.comment_count,

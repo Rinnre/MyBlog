@@ -26,9 +26,13 @@
         SELECT id,nick_name,url,avatar,description
         FROM link
         <trim prefix="WHERE" prefixOverrides="AND">
-            <if test="nickName!=null">
+            <if test="nickName!=null and nickName!=''">
                 nick_name LIKE concat('%',#{nickName},'%')
             </if>
+            <if test="status!=null">
+                AND status = #{status}
+            </if>
+            AND is_delete = 0
         </trim>
         <if test="startNumber!=null and size!=null">
             LIMIT #{startNumber},#{size}

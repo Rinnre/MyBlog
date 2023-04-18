@@ -23,9 +23,11 @@ public interface LinkMapper extends BaseMapper<Link> {
      * @param nickName    昵称
      * @param startNumber 开始条数
      * @param size        页面大小
-     * @return {@link List}<{@link LinkDto}>友链列表
+     * @param status      状态
+     * @return {@link List}<{@link LinkDto}>
      */
     List<LinkDto> selectLinkList(@Param("nickName") String nickName,
+                                 @Param("status") Integer status,
                                  @Param("startNumber") Integer startNumber,
                                  @Param("size") Integer size);
 }

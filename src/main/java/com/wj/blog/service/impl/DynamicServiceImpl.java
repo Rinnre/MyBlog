@@ -3,6 +3,7 @@ package com.wj.blog.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.wj.blog.common.aop.annation.NumberCount;
 import com.wj.blog.common.enums.DynamicStatusEnum;
 import com.wj.blog.common.enums.ImageEnum;
 import com.wj.blog.common.enums.RedisOperationEnum;
@@ -62,6 +63,7 @@ public class DynamicServiceImpl extends ServiceImpl<DynamicMapper, Dynamic> impl
         statistics.setSourceId(id);
         statistics.setSourceType(StatisticsEnum.DYNAMIC.getValue());
         statisticsMapper.insert(statistics);
+        // 异步初始化redis中的统计数据
         AsyncManager.me().execute(taskFactory.redisOperation(REDIS_HEAD + id, statistics, RedisOperationEnum.INSERT_UPDATE.getValue()));
 
         // 初始化图片数据
@@ -78,6 +80,7 @@ public class DynamicServiceImpl extends ServiceImpl<DynamicMapper, Dynamic> impl
 
     }
 
+    @NumberCount(mode = "dynamicList")
     @Override
     public List<DynamicDto> searchDynamicList(String userName, String userId, String content, Integer page, Integer size) {
         Integer startNumber = null;
@@ -87,6 +90,7 @@ public class DynamicServiceImpl extends ServiceImpl<DynamicMapper, Dynamic> impl
         return baseMapper.selectDynamicList(userName, userId, content, startNumber, size);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void removeDynamic(String uid, String id) {
         LambdaQueryWrapper<Dynamic> dynamicLambdaQueryWrapper = new LambdaQueryWrapper<>();

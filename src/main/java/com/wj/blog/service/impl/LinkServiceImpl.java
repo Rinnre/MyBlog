@@ -29,7 +29,7 @@ public class LinkServiceImpl extends ServiceImpl<LinkMapper, Link> implements Li
         if (page != null && size != null) {
             startNumber = (page - 1) * size;
         }
-        return baseMapper.selectLinkList(nickName, startNumber, size);
+        return baseMapper.selectLinkList(nickName,LinkStatusEnum.NORMAL.getValue(),startNumber, size);
     }
 
     @Override
@@ -39,6 +39,7 @@ public class LinkServiceImpl extends ServiceImpl<LinkMapper, Link> implements Li
         Link link = new Link();
         BeanUtils.copyProperties(linkDto, link);
         // todo 生成通知后台审批
+        link.setDelete(false);
         baseMapper.insert(link);
     }
 

@@ -86,7 +86,9 @@ public class DynamicController {
                 });
             }
             StatisticsVo statisticsVo = new StatisticsVo();
-            BeanUtils.copyProperties(dynamicDto.getStatistics(), statisticsVo);
+            if (dynamicDto.getStatistics() != null) {
+                BeanUtils.copyProperties(dynamicDto.getStatistics(), statisticsVo);
+            }
             UserVo userVo = new UserVo();
             BeanUtils.copyProperties(dynamicDto.getUser(), userVo);
             //  comments->commentsVo 评论组装

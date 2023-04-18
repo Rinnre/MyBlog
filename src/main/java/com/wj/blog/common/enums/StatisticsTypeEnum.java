@@ -17,7 +17,8 @@ public enum StatisticsTypeEnum {
     SUB_COMMENT("subComment"),
     SUB_LIKE("subLike"),
     SUB_COLLECT("subCollect"),
-    LIST("list");
+    ARTICLE_LIST("articleList"),
+    DYNAMIC_LIST("dynamicList");
     private final String type;
 
     StatisticsTypeEnum(String type) {

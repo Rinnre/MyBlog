@@ -3,6 +3,7 @@ package com.wj.blog.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.wj.blog.common.aop.annation.NumberCount;
 import com.wj.blog.common.enums.DynamicStatusEnum;
 import com.wj.blog.common.enums.ImageEnum;
 import com.wj.blog.common.enums.RedisOperationEnum;
@@ -79,6 +80,7 @@ public class DynamicServiceImpl extends ServiceImpl<DynamicMapper, Dynamic> impl
 
     }
 
+    @NumberCount(mode = "dynamicList")
     @Override
     public List<DynamicDto> searchDynamicList(String userName, String userId, String content, Integer page, Integer size) {
         Integer startNumber = null;
@@ -88,6 +90,7 @@ public class DynamicServiceImpl extends ServiceImpl<DynamicMapper, Dynamic> impl
         return baseMapper.selectDynamicList(userName, userId, content, startNumber, size);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void removeDynamic(String uid, String id) {
         LambdaQueryWrapper<Dynamic> dynamicLambdaQueryWrapper = new LambdaQueryWrapper<>();

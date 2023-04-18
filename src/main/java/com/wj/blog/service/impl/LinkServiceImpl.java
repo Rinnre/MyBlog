@@ -39,6 +39,7 @@ public class LinkServiceImpl extends ServiceImpl<LinkMapper, Link> implements Li
         Link link = new Link();
         BeanUtils.copyProperties(linkDto, link);
         // todo 生成通知后台审批
+        link.setDelete(false);
         baseMapper.insert(link);
     }
 

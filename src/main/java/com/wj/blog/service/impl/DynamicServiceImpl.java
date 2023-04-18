@@ -62,6 +62,7 @@ public class DynamicServiceImpl extends ServiceImpl<DynamicMapper, Dynamic> impl
         statistics.setSourceId(id);
         statistics.setSourceType(StatisticsEnum.DYNAMIC.getValue());
         statisticsMapper.insert(statistics);
+        // 异步初始化redis中的统计数据
         AsyncManager.me().execute(taskFactory.redisOperation(REDIS_HEAD + id, statistics, RedisOperationEnum.INSERT_UPDATE.getValue()));
 
         // 初始化图片数据

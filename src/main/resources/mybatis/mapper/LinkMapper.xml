@@ -32,6 +32,7 @@
             <if test="status!=null">
                 AND status = #{status}
             </if>
+            AND is_delete = 0
         </trim>
         <if test="startNumber!=null and size!=null">
             LIMIT #{startNumber},#{size}

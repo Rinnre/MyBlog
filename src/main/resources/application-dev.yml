@@ -1,0 +1,50 @@
+# redis配置
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://192.168.56.137:32006/blog?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: root
+    password: wj123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: 192.168.56.137
+    database: 0
+    timeout: 1800000
+    password:
+    lettuce:
+      pool:
+        max-active: 20
+        max-wait: -1
+        #最大阻塞等待时间(负数表示没限制)
+        max-idle: 5
+        min-idle: 0
+  #解决spring版本过高swagger不适配的问题
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+# 线程池参数
+thread:
+  pool:
+    corePoolSize: 5
+    maxPoolSize: 8
+    queueCapacity: 100
+    keepAliveSeconds: 300
+
+#配置mapper xml文件的路径
+mybatis-plus:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# mybatis-plus配置控制台打印完整带参数SQL语句
+aliyun:
+  oss:
+    endpoint:
+    accessKeyId:
+    secret:
+    bucket:
+

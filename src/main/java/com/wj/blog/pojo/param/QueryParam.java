@@ -1,4 +1,4 @@
-package com.wj.blog.pojo.dto;
+package com.wj.blog.pojo.param;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

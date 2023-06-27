@@ -2,7 +2,7 @@ package com.wj.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wj.blog.pojo.dto.ArticleDto;
-import com.wj.blog.pojo.dto.ArticleQueryParam;
+import com.wj.blog.pojo.param.ArticleQueryParam;
 import com.wj.blog.pojo.entity.Article;
 
 import java.util.List;

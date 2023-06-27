@@ -5,7 +5,7 @@ import com.wj.blog.common.exception.user.ParamIncorrectException;
 import com.wj.blog.common.exception.user.ResourceNotExistException;
 import com.wj.blog.mapper.MessageTemplateMapper;
 import com.wj.blog.pojo.dto.MessageTemplateDto;
-import com.wj.blog.pojo.dto.MessageTemplateQueryParam;
+import com.wj.blog.pojo.param.MessageTemplateQueryParam;
 import com.wj.blog.pojo.entity.MessageTemplate;
 import com.wj.blog.service.MessageTemplateService;
 import org.springframework.stereotype.Service;

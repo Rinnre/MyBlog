@@ -11,7 +11,7 @@ import com.wj.blog.mapper.ArticleMapper;
 import com.wj.blog.mapper.CommentMapper;
 import com.wj.blog.mapper.StatisticsMapper;
 import com.wj.blog.pojo.dto.ArticleDto;
-import com.wj.blog.pojo.dto.ArticleQueryParam;
+import com.wj.blog.pojo.param.ArticleQueryParam;
 import com.wj.blog.pojo.entity.Article;
 import com.wj.blog.pojo.entity.Category;
 import com.wj.blog.pojo.entity.Comment;

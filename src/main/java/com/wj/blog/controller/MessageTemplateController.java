@@ -3,7 +3,7 @@ package com.wj.blog.controller;
 
 import com.wj.blog.common.result.ResultEntity;
 import com.wj.blog.pojo.dto.MessageTemplateDto;
-import com.wj.blog.pojo.dto.MessageTemplateQueryParam;
+import com.wj.blog.pojo.param.MessageTemplateQueryParam;
 import com.wj.blog.service.MessageTemplateService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;

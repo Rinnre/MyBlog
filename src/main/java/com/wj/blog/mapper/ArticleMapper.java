@@ -2,7 +2,7 @@ package com.wj.blog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.wj.blog.pojo.dto.ArticleDto;
-import com.wj.blog.pojo.dto.ArticleQueryParam;
+import com.wj.blog.pojo.param.ArticleQueryParam;
 import com.wj.blog.pojo.entity.Article;
 import com.wj.blog.pojo.entity.Category;
 import org.apache.ibatis.annotations.Param;

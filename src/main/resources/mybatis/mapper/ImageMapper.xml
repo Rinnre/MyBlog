@@ -3,7 +3,7 @@
 <mapper namespace="com.wj.blog.mapper.ImageMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.wj.blog.pojo.entity.Image">
+    <resultMap id="BaseResultMap" type="com.wj.blog.model.entity.Image">
         <id column="id" property="id"/>
         <result column="url" property="url"/>
         <result column="source_id" property="sourceId"/>

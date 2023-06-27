@@ -1,8 +1,8 @@
 package com.wj.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.wj.blog.pojo.dto.RecordDto;
-import com.wj.blog.pojo.entity.Record;
+import com.wj.blog.model.dto.RecordDto;
+import com.wj.blog.model.entity.Record;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

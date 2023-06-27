@@ -1,8 +1,8 @@
 package com.wj.blog.common.util;
 
-import com.wj.blog.pojo.dto.CommentDto;
-import com.wj.blog.pojo.vo.CommentDetailVo;
-import com.wj.blog.pojo.vo.UserVo;
+import com.wj.blog.model.dto.CommentDto;
+import com.wj.blog.model.vo.CommentDetailVo;
+import com.wj.blog.model.vo.UserVo;
 import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;

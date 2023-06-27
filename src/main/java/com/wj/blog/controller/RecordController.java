@@ -2,11 +2,11 @@ package com.wj.blog.controller;
 
 
 import com.wj.blog.common.result.ResultEntity;
-import com.wj.blog.pojo.dto.RecordDto;
-import com.wj.blog.pojo.vo.ArticleDetailVo;
-import com.wj.blog.pojo.vo.DynamicVo;
-import com.wj.blog.pojo.vo.RecordVo;
-import com.wj.blog.pojo.vo.UserVo;
+import com.wj.blog.model.dto.RecordDto;
+import com.wj.blog.model.vo.ArticleDetailVo;
+import com.wj.blog.model.vo.DynamicVo;
+import com.wj.blog.model.vo.RecordVo;
+import com.wj.blog.model.vo.UserVo;
 import com.wj.blog.service.RecordService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;

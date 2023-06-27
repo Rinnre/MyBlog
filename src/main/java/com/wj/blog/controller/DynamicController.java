@@ -3,9 +3,9 @@ package com.wj.blog.controller;
 
 import com.wj.blog.common.result.ResultEntity;
 import com.wj.blog.common.util.CommentUtil;
-import com.wj.blog.pojo.dto.DynamicDto;
-import com.wj.blog.pojo.entity.Image;
-import com.wj.blog.pojo.vo.*;
+import com.wj.blog.model.dto.DynamicDto;
+import com.wj.blog.model.entity.Image;
+import com.wj.blog.model.vo.*;
 import com.wj.blog.service.DynamicService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;

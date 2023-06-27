@@ -1,8 +1,8 @@
 package com.wj.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.wj.blog.pojo.dto.CommentDto;
-import com.wj.blog.pojo.entity.Comment;
+import com.wj.blog.model.dto.CommentDto;
+import com.wj.blog.model.entity.Comment;
 
 /**
  * <p>

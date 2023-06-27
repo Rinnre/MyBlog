@@ -2,7 +2,7 @@ package com.wj.blog.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wj.blog.mapper.StatisticsMapper;
-import com.wj.blog.pojo.entity.Statistics;
+import com.wj.blog.model.entity.Statistics;
 import com.wj.blog.service.StatisticsService;
 import org.springframework.stereotype.Service;
 

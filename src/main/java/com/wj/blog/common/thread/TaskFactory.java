@@ -3,8 +3,7 @@ package com.wj.blog.common.thread;
 import com.wj.blog.common.enums.RedisOperationEnum;
 import com.wj.blog.common.enums.SysnchroDataOperationEnum;
 import com.wj.blog.common.util.RedisUtil;
-import com.wj.blog.mapper.StatisticsMapper;
-import com.wj.blog.pojo.entity.Statistics;
+import com.wj.blog.model.entity.Statistics;
 import com.wj.blog.service.StatisticsService;
 import org.springframework.stereotype.Component;
 

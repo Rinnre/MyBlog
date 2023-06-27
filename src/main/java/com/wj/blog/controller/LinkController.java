@@ -2,9 +2,9 @@ package com.wj.blog.controller;
 
 
 import com.wj.blog.common.result.ResultEntity;
-import com.wj.blog.pojo.dto.LinkDto;
-import com.wj.blog.pojo.vo.LinkDetailVo;
-import com.wj.blog.pojo.vo.LinkVo;
+import com.wj.blog.model.dto.LinkDto;
+import com.wj.blog.model.vo.LinkDetailVo;
+import com.wj.blog.model.vo.LinkVo;
 import com.wj.blog.service.LinkService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.validation.annotation.Validated;

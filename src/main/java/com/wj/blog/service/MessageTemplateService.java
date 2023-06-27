@@ -1,9 +1,9 @@
 package com.wj.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.wj.blog.pojo.dto.MessageTemplateDto;
-import com.wj.blog.pojo.param.MessageTemplateQueryParam;
-import com.wj.blog.pojo.entity.MessageTemplate;
+import com.wj.blog.model.dto.MessageTemplateDto;
+import com.wj.blog.model.param.MessageTemplateQueryParam;
+import com.wj.blog.model.entity.MessageTemplate;
 
 import java.util.List;
 

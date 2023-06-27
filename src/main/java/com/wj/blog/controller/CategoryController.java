@@ -2,8 +2,8 @@ package com.wj.blog.controller;
 
 
 import com.wj.blog.common.result.ResultEntity;
-import com.wj.blog.pojo.entity.Category;
-import com.wj.blog.pojo.vo.CategoryVo;
+import com.wj.blog.model.entity.Category;
+import com.wj.blog.model.vo.CategoryVo;
 import com.wj.blog.service.CategoryService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;

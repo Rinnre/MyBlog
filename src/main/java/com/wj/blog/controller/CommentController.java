@@ -2,7 +2,7 @@ package com.wj.blog.controller;
 
 
 import com.wj.blog.common.result.ResultEntity;
-import com.wj.blog.pojo.dto.CommentDto;
+import com.wj.blog.model.dto.CommentDto;
 import com.wj.blog.service.CommentService;
 import org.springframework.web.bind.annotation.*;
 

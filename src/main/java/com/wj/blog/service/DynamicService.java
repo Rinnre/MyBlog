@@ -1,8 +1,8 @@
 package com.wj.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.wj.blog.pojo.dto.DynamicDto;
-import com.wj.blog.pojo.entity.Dynamic;
+import com.wj.blog.model.dto.DynamicDto;
+import com.wj.blog.model.entity.Dynamic;
 
 import java.util.List;
 

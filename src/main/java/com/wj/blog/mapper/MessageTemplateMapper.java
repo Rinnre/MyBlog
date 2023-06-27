@@ -1,7 +1,7 @@
 package com.wj.blog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.wj.blog.pojo.entity.MessageTemplate;
+import com.wj.blog.model.entity.MessageTemplate;
 
 /**
  * <p>

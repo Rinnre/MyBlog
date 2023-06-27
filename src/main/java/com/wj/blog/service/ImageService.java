@@ -1,8 +1,8 @@
 package com.wj.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.wj.blog.pojo.entity.Image;
-import com.wj.blog.pojo.vo.ImageVo;
+import com.wj.blog.model.entity.Image;
+import com.wj.blog.model.vo.ImageVo;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;

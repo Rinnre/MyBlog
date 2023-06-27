@@ -3,7 +3,7 @@
 <mapper namespace="com.wj.blog.mapper.DynamicMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.wj.blog.pojo.entity.Dynamic">
+    <resultMap id="BaseResultMap" type="com.wj.blog.model.entity.Dynamic">
         <id column="id" property="id"/>
         <result column="context" property="context"/>
         <result column="status" property="status"/>
@@ -12,29 +12,29 @@
         <result column="update_time" property="updateTime"/>
     </resultMap>
 
-    <resultMap id="DynamicListResultMap" type="com.wj.blog.pojo.dto.DynamicDto">
+    <resultMap id="DynamicListResultMap" type="com.wj.blog.model.dto.DynamicDto">
         <id column="id" property="id"/>
         <result column="context" property="context"/>
         <result column="create_time" property="createTime"/>
-        <association property="user" javaType="com.wj.blog.pojo.dto.UserDto">
+        <association property="user" javaType="com.wj.blog.model.dto.UserDto">
             <id column="user_id" property="id"/>
             <result column="avatar" property="avatar"/>
             <result column="user_name" property="name"/>
         </association>
-        <association property="statistics" javaType="com.wj.blog.pojo.entity.Statistics">
+        <association property="statistics" javaType="com.wj.blog.model.entity.Statistics">
             <id column="statistics_id" property="id"/>
             <result column="like_count" property="likeCount"/>
             <result column="comment_count" property="commentCount"/>
             <result column="view_count" property="viewCount"/>
         </association>
-        <collection property="images" ofType="com.wj.blog.pojo.entity.Image">
+        <collection property="images" ofType="com.wj.blog.model.entity.Image">
             <id column="image_id" property="id"/>
             <result column="url" property="url"/>
         </collection>
         <collection property="commentDtoList" column="id"
                     select="com.wj.blog.mapper.CommentMapper.selectCommentListById"/>
 
-        <collection property="tags" ofType="com.wj.blog.pojo.entity.Category">
+        <collection property="tags" ofType="com.wj.blog.model.entity.Category">
             <id column="tag_id" property="id"/>
             <result column="tag_name" property="name"/>
         </collection>

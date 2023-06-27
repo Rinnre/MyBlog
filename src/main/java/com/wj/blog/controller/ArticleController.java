@@ -3,9 +3,9 @@ package com.wj.blog.controller;
 
 import com.wj.blog.common.result.ResultEntity;
 import com.wj.blog.common.util.CommentUtil;
-import com.wj.blog.pojo.dto.ArticleDto;
-import com.wj.blog.pojo.param.ArticleQueryParam;
-import com.wj.blog.pojo.vo.*;
+import com.wj.blog.model.dto.ArticleDto;
+import com.wj.blog.model.param.ArticleQueryParam;
+import com.wj.blog.model.vo.*;
 import com.wj.blog.service.ArticleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;

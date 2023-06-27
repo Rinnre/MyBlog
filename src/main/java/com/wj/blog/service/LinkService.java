@@ -1,8 +1,8 @@
 package com.wj.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.wj.blog.pojo.dto.LinkDto;
-import com.wj.blog.pojo.entity.Link;
+import com.wj.blog.model.dto.LinkDto;
+import com.wj.blog.model.entity.Link;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
 package com.wj.blog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.wj.blog.pojo.dto.RecordDto;
-import com.wj.blog.pojo.entity.Record;
+import com.wj.blog.model.dto.RecordDto;
+import com.wj.blog.model.entity.Record;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

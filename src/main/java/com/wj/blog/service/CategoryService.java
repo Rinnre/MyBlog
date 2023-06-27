@@ -1,8 +1,8 @@
 package com.wj.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.wj.blog.pojo.entity.Category;
-import com.wj.blog.pojo.vo.CategoryVo;
+import com.wj.blog.model.entity.Category;
+import com.wj.blog.model.vo.CategoryVo;
 
 import java.util.List;
 

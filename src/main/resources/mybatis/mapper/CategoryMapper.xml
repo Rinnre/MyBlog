@@ -3,7 +3,7 @@
 <mapper namespace="com.wj.blog.mapper.CategoryMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.wj.blog.pojo.entity.Category">
+    <resultMap id="BaseResultMap" type="com.wj.blog.model.entity.Category">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="description" property="description"/>
@@ -17,7 +17,7 @@
         id, name, description, type, update_time, create_time
     </sql>
 
-    <select id="selectArticleCategory" resultType="com.wj.blog.pojo.entity.Category">
+    <select id="selectArticleCategory" resultType="com.wj.blog.model.entity.Category">
         SELECT id, name
         FROM category
                  JOIN article_tag_ref atr on category.id = atr.category_id
@@ -25,7 +25,7 @@
           AND category.type = 0
     </select>
     <!--    List<Category> selectArticleTags(@Param("articleId") String articleId);-->
-    <select id="selectArticleTags" resultType="com.wj.blog.pojo.entity.Category">
+    <select id="selectArticleTags" resultType="com.wj.blog.model.entity.Category">
         SELECT id, name
         FROM category
                  JOIN article_tag_ref atr on category.id = atr.category_id
@@ -34,7 +34,7 @@
     </select>
 
     <!--    List<Category> selectCategoryList(String name, Integer startNumber, Integer size);-->
-    <select id="selectCategoryList" resultType="com.wj.blog.pojo.entity.Category">
+    <select id="selectCategoryList" resultType="com.wj.blog.model.entity.Category">
         SELECT id,name
         FROM category
         <trim prefix="WHERE" prefixOverrides="and">

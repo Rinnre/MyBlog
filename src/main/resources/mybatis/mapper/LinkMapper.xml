@@ -3,7 +3,7 @@
 <mapper namespace="com.wj.blog.mapper.LinkMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.wj.blog.pojo.entity.Link">
+    <resultMap id="BaseResultMap" type="com.wj.blog.model.entity.Link">
         <id column="id" property="id"/>
         <result column="nick_name" property="nickName"/>
         <result column="avatar" property="avatar"/>
@@ -22,7 +22,7 @@
     </sql>
 
 
-    <select id="selectLinkList" resultType="com.wj.blog.pojo.dto.LinkDto">
+    <select id="selectLinkList" resultType="com.wj.blog.model.dto.LinkDto">
         SELECT id,nick_name,url,avatar,description
         FROM link
         <trim prefix="WHERE" prefixOverrides="AND">

@@ -3,7 +3,7 @@ package com.wj.blog.controller;
 
 import com.wj.blog.common.exception.cdn.FileUploadException;
 import com.wj.blog.common.result.ResultEntity;
-import com.wj.blog.pojo.vo.ImageVo;
+import com.wj.blog.model.vo.ImageVo;
 import com.wj.blog.service.ImageService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

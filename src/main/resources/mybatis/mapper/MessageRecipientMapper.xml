@@ -3,7 +3,7 @@
 <mapper namespace="com.wj.blog.mapper.MessageRecipientMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.wj.blog.pojo.entity.MessageRecipient">
+    <resultMap id="BaseResultMap" type="com.wj.blog.model.entity.MessageRecipient">
         <id column="id" property="id"/>
         <result column="message_id" property="messageId"/>
         <result column="recipient_id" property="recipientId"/>

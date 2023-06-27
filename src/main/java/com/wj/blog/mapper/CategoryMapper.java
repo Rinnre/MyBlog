@@ -1,7 +1,7 @@
 package com.wj.blog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.wj.blog.pojo.entity.Category;
+import com.wj.blog.model.entity.Category;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

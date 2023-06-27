@@ -3,7 +3,7 @@
 <mapper namespace="com.wj.blog.mapper.CommentMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.wj.blog.pojo.entity.Comment">
+    <resultMap id="BaseResultMap" type="com.wj.blog.model.entity.Comment">
         <id column="id" property="id"/>
         <result column="pid" property="pid"/>
         <result column="replay_user_id" property="replayUserId"/>
@@ -16,17 +16,17 @@
         <result column="is_delete" property="isDelete"/>
     </resultMap>
 
-    <resultMap id="CommentListResultMap" type="com.wj.blog.pojo.dto.CommentDto">
+    <resultMap id="CommentListResultMap" type="com.wj.blog.model.dto.CommentDto">
         <id column="id" property="id"/>
         <result column="pid" property="pid"/>
         <result column="context" property="context"/>
         <result column="create_time" property="createTime"/>
-        <association property="user" javaType="com.wj.blog.pojo.dto.UserDto">
+        <association property="user" javaType="com.wj.blog.model.dto.UserDto">
             <id column="user_id" property="id"/>
             <result column="user_name" property="name"/>
             <result column="avatar" property="avatar"/>
         </association>
-        <association property="replayUser" javaType="com.wj.blog.pojo.dto.UserDto">
+        <association property="replayUser" javaType="com.wj.blog.model.dto.UserDto">
             <id column="replay_id" property="id"/>
             <result column="replay_name" property="name"/>
             <result column="replay_avatar" property="avatar"/>

@@ -1,12 +1,13 @@
 package com.wj.blog.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.common.collect.ImmutableMap;
 import com.wj.blog.common.exception.user.ParamIncorrectException;
 import com.wj.blog.common.exception.user.ResourceNotExistException;
 import com.wj.blog.mapper.MessageTemplateMapper;
 import com.wj.blog.model.dto.MessageTemplateDto;
-import com.wj.blog.model.param.MessageTemplateQueryParam;
 import com.wj.blog.model.entity.MessageTemplate;
+import com.wj.blog.model.param.MessageTemplateQueryParam;
 import com.wj.blog.service.MessageTemplateService;
 import org.springframework.stereotype.Service;
 
@@ -28,11 +29,11 @@ public class MessageTemplateServiceImpl extends ServiceImpl<MessageTemplateMappe
     public void modifyTemplate(MessageTemplateDto messageTemplateDto) {
         String id = messageTemplateDto.getId();
         if (Objects.equals(id, "") || null == id) {
-            throw new ParamIncorrectException("消息模板id不能为空");
+            throw new ParamIncorrectException(ImmutableMap.of("id", "不为空"));
         }
         MessageTemplate messageTemplate = baseMapper.selectById(id);
         if (null == messageTemplate) {
-            throw new ResourceNotExistException("模板不存在");
+            throw new ResourceNotExistException(ImmutableMap.of("", "模板不存在"));
         }
         if (messageTemplateDto.getName() != null || !"".equals(messageTemplateDto.getName())) {
             messageTemplate.setName(messageTemplateDto.getName());

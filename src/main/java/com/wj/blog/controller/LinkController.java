@@ -3,7 +3,6 @@ package com.wj.blog.controller;
 
 import com.wj.blog.common.result.ResultEntity;
 import com.wj.blog.model.dto.LinkDto;
-import com.wj.blog.model.vo.LinkDetailVo;
 import com.wj.blog.model.vo.LinkVo;
 import com.wj.blog.service.LinkService;
 import org.springframework.beans.BeanUtils;
@@ -15,9 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>
- * 友链 前端控制器
- * </p>
+ * 友链
  *
  * @author w
  * @since 2023-02-15
@@ -29,6 +26,14 @@ public class LinkController {
     @Resource(name = "linkService")
     private LinkService linkService;
 
+    /**
+     * 查询友链列表
+     *
+     * @param nickName 昵称
+     * @param page     页面
+     * @param size     大小
+     * @return {@link ResultEntity}<{@link List}<{@link LinkVo}>>
+     */
     @GetMapping
     public ResultEntity<List<LinkVo>> searchLinkList(@RequestParam(required = false) String nickName,
                                                      @RequestParam(required = false) Integer page,
@@ -43,14 +48,25 @@ public class LinkController {
         return ResultEntity.success(linkVoList);
     }
 
+    /**
+     * 申请友链
+     *
+     * @param linkDto 链接dto
+     * @return {@link ResultEntity}<{@link String}>
+     */
     @PostMapping
-    public ResultEntity<String> applyLink(@RequestBody @Validated LinkDetailVo linkDetailVo) {
-        LinkDto linkDto = new LinkDto();
-        BeanUtils.copyProperties(linkDetailVo, linkDto);
+    public ResultEntity<String> applyLink(@RequestBody @Validated LinkDto linkDto) {
         linkService.applyLink(linkDto);
         return ResultEntity.success();
     }
 
+    /**
+     * 删除友链
+     *
+     * @param id  友链id
+     * @param uid 用户id
+     * @return {@link ResultEntity}<{@link String}>
+     */
     @DeleteMapping("/{id}/{uid}")
     public ResultEntity<String> removeLink(@PathVariable String id, @PathVariable String uid) {
         linkService.removeLink(id, uid);

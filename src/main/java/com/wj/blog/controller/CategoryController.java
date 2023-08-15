@@ -14,9 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>
- * 分类、标签表 前端控制器
- * </p>
+ * 分类、标签
  *
  * @author w
  * @since 2023-02-15
@@ -28,6 +26,15 @@ public class CategoryController {
     @Resource(name = "categoryService")
     private CategoryService categoryService;
 
+    /**
+     * 查询类别列表
+     *
+     * @param name 名字
+     * @param type 类型
+     * @param page 页面
+     * @param size 大小
+     * @return {@link ResultEntity}<{@link List}<{@link CategoryVo}>>
+     */
     @GetMapping("/category")
     public ResultEntity<List<CategoryVo>> searchCategoryList(@RequestParam(required = false) String name,
                                                              @RequestParam(required = false) Integer type,
@@ -45,6 +52,12 @@ public class CategoryController {
         return ResultEntity.success(categoryVoList);
     }
 
+    /**
+     * 创建tag
+     *
+     * @param tagVo 标签签证官
+     * @return {@link ResultEntity}<{@link String}>
+     */
     @PostMapping("/tag")
     public ResultEntity<String> createTag(@RequestBody @Valid CategoryVo tagVo) {
         categoryService.createTag(tagVo);

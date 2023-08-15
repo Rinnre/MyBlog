@@ -17,9 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>
- * 点赞、收藏记录 前端控制器
- * </p>
+ * 点赞、收藏记录
  *
  * @author w
  * @since 2023-03-08
@@ -37,6 +35,16 @@ public class RecordController {
         return ResultEntity.success();
     }
 
+    /**
+     * 查询记录列表
+     *
+     * @param userId   用户id
+     * @param sourceId 源id
+     * @param type     类型
+     * @param page     页面
+     * @param size     大小
+     * @return {@link ResultEntity}<{@link List}<{@link RecordVo}>>
+     */
     @GetMapping
     public ResultEntity<List<RecordVo>> searchRecordList(@RequestParam(required = false) String userId,
                                                          @RequestParam(required = false) String sourceId,
@@ -53,6 +61,13 @@ public class RecordController {
         return ResultEntity.success(recordVoList);
     }
 
+    /**
+     * 删除记录
+     *
+     * @param uid 用户id
+     * @param id  记录id
+     * @return {@link ResultEntity}<{@link String}>
+     */
     @DeleteMapping("/{uid}/{id}")
     public ResultEntity<String> removeRecord(@PathVariable String uid, @PathVariable String id) {
         recordService.removeRecord(id, uid);

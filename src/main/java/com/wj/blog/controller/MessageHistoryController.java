@@ -5,9 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p>
- * 消息历史 前端控制器
- * </p>
+ * 消息历史
  *
  * @author w
  * @since 2023-02-15

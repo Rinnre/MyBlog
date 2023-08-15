@@ -10,9 +10,7 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 
 /**
- * <p>
- * 评论 前端控制器
- * </p>
+ * 评论
  *
  * @author w
  * @since 2023-02-15
@@ -24,12 +22,25 @@ public class CommentController {
     @Resource(name = "commentService")
     private CommentService commentService;
 
+    /**
+     * 添加评论
+     *
+     * @param commentDto 评论dto
+     * @return {@link ResultEntity}<{@link String}>
+     */
     @PostMapping
     public ResultEntity<String> addComment(@RequestBody @Valid CommentDto commentDto) {
         commentService.addComment(commentDto);
         return ResultEntity.success();
     }
 
+    /**
+     * 删除评论
+     *
+     * @param id     id
+     * @param userId 用户id
+     * @return {@link ResultEntity}<{@link String}>
+     */
     @DeleteMapping("/{id}/{userId}")
     public ResultEntity<String> removeComment(@PathVariable String id,
                                               @PathVariable String userId) {

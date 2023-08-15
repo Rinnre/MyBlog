@@ -5,9 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p>
- * 文章、动态数据统计 前端控制器
- * </p>
+ * 数据统计
  *
  * @author w
  * @since 2023-02-15

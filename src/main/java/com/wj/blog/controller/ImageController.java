@@ -12,9 +12,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * <p>
- * 图片地址存储 前端控制器
- * </p>
+ * 图片存储
  *
  * @author w
  * @since 2023-02-15
@@ -26,6 +24,12 @@ public class ImageController {
     @Resource
     private ImageService imageService;
 
+    /**
+     * 上传文件
+     *
+     * @param file 文件
+     * @return {@link ResultEntity}<{@link String}>
+     */
     @PostMapping("/file")
     public ResultEntity<String> uploadFile(MultipartFile file) {
         try {
@@ -36,6 +40,12 @@ public class ImageController {
         }
     }
 
+    /**
+     * 删除文件
+     *
+     * @param file 文件
+     * @return {@link ResultEntity}<{@link String}>
+     */
     @DeleteMapping("/file")
     public ResultEntity<String> deleteFile(@RequestParam List<ImageVo> file) {
         imageService.deleteFile(file);

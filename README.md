@@ -41,3 +41,23 @@
 6. 重写maven配置
 
    ![image-20230227150755238](C:/Users/wj/AppData/Roaming/Typora/typora-user-images/image-20230227150755238.png)
+
+### docker MYSQL 挂载
+
+```sh
+docker run -d -p 32006:3306 \
+--restart=always \
+-v /auroras/mysql/log:/var/log/mysql \
+-v /auroras/mysql/data:/var/lib/mysql \
+-v /auroras/mysql/conf:/etc/mysql/conf.d  \
+-e MYSQL_ROOT_PASSWORD=wj1324  \
+--name mysql mysql:8.0
+```
+
+### docker REDIS 挂载
+
+```shell
+docker run --name redis \
+ --restart=always -p 6379:6379 \
+ -d redis:6.0 --requirepass "wj1324" //启动Redis
+```

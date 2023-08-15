@@ -16,9 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>
- * 动态表 前端控制器
- * </p>
+ * 动态
  *
  * @author w
  * @since 2023-02-15
@@ -30,19 +28,15 @@ public class DynamicController {
     @Resource
     private DynamicService dynamicService;
 
+    /**
+     * 创建动态
+     *
+     * @param dynamicDto 动态dto
+     * @return {@link ResultEntity}<{@link String}>
+     */
     @PostMapping
-    public ResultEntity<String> createDynamic(@RequestBody @Valid DynamicVo dynamicVo) {
-        DynamicDto dynamicDto = new DynamicDto();
-        BeanUtils.copyProperties(dynamicVo, dynamicDto);
-        List<ImageVo> imageVoList = dynamicVo.getImageVoList();
-        List<Image> imageList = new ArrayList<>();
-        if (imageVoList != null) {
-            imageVoList.forEach(imageVo -> {
-                Image image = new Image();
-                BeanUtils.copyProperties(imageVo, image);
-                imageList.add(image);
-            });
-        }
+    public ResultEntity<String> createDynamic(@RequestBody @Valid DynamicDto dynamicDto) {
+        List<Image> imageList = dynamicDto.getImages();
         dynamicDto.setImages(imageList);
         dynamicService.createDynamic(dynamicDto);
         return ResultEntity.success();
@@ -50,6 +44,10 @@ public class DynamicController {
 
     /**
      * 删除动态
+     *
+     * @param uid uid
+     * @param id  id
+     * @return {@link ResultEntity}<{@link String}>
      */
     @DeleteMapping("/{uid}/{id}")
     public ResultEntity<String> removeDynamic(@PathVariable String uid, @PathVariable String id) {
@@ -59,6 +57,13 @@ public class DynamicController {
 
     /**
      * 查询动态
+     *
+     * @param userName 用户名
+     * @param userId   用户id
+     * @param content  内容
+     * @param page     页面
+     * @param size     大小
+     * @return {@link ResultEntity}<{@link List}<{@link DynamicDetailVo}>>
      */
     @GetMapping
     public ResultEntity<List<DynamicDetailVo>> searchDynamicList(@RequestParam(required = false) String userName,

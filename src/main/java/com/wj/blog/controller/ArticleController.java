@@ -17,9 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>
- * 文章 controller
- * </p>
+ * 文章
  *
  * @author w
  * @since 2023-02-15
@@ -32,6 +30,12 @@ public class ArticleController {
     @Resource(name = "articleService")
     private ArticleService articleService;
 
+    /**
+     * 搜索文章列表
+     *
+     * @param articleQueryParam 文章查询参数
+     * @return {@link ResultEntity}<{@link List}<{@link ArticleIntroductionVo}>>
+     */
     @GetMapping
     public ResultEntity<List<ArticleIntroductionVo>> searchArticleList(ArticleQueryParam articleQueryParam) {
         List<ArticleDto> articleDtoList = articleService.searchArticleList(articleQueryParam);
@@ -48,6 +52,12 @@ public class ArticleController {
         return ResultEntity.success(articleIntroductionVos);
     }
 
+    /**
+     * 搜索文章细节
+     *
+     * @param id 文章id
+     * @return {@link ResultEntity}<{@link ArticleDetailVo}>
+     */
     @GetMapping("/{id}")
     public ResultEntity<ArticleDetailVo> searchArticleDetail(@PathVariable String id) {
         ArticleDto articleDto = articleService.searchArticleDetail(id);
@@ -61,12 +71,25 @@ public class ArticleController {
 
     }
 
+    /**
+     * 创建文章
+     *
+     * @param articleDto 文章dto
+     * @return {@link ResultEntity}<{@link String}>
+     */
     @PostMapping
     public ResultEntity<String> createArticle(@RequestBody @Valid ArticleDto articleDto) {
         articleService.createArticle(articleDto);
         return ResultEntity.success();
     }
 
+    /**
+     * 删除文章
+     *
+     * @param uid 用户id
+     * @param id  文章id
+     * @return {@link ResultEntity}<{@link String}>
+     */
     @DeleteMapping("/{uid}/{id}")
     public ResultEntity<String> removeArticle(@PathVariable String uid,
                                               @PathVariable String id) {
@@ -75,7 +98,11 @@ public class ArticleController {
     }
 
     /**
+     * 反转文章dto签证官
      * 部分articleDto属性转vo
+     *
+     * @param articleDto      文章dto
+     * @param articleDetailVo 文章详细签证官
      */
     public void invertArticleDtoToVo(ArticleDto articleDto, ArticleIntroductionVo articleDetailVo) {
         // category->categoryVo

@@ -34,7 +34,7 @@ public class LinkServiceImpl extends ServiceImpl<LinkMapper, Link> implements Li
 
     @Override
     public void applyLink(LinkDto linkDto) {
-        // 完善dto
+        // todo 需校验url有效性
         linkDto.setStatus(LinkStatusEnum.UNDER_REVIEW.getValue());
         Link link = new Link();
         BeanUtils.copyProperties(linkDto, link);

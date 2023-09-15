@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 /**
@@ -22,6 +23,7 @@ public class LinkDto {
     private String id;
 
     @ApiModelProperty("博主名称")
+    @NotBlank
     private String nickName;
 
     @ApiModelProperty("博主头像")
@@ -37,6 +39,7 @@ public class LinkDto {
     private String description;
 
     @ApiModelProperty("申请用户id")
+    @NotBlank
     private String userId;
 
     @ApiModelProperty("申请用户名称")

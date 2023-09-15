@@ -19,7 +19,7 @@ import javax.validation.Valid;
 @RequestMapping("/blog/comment")
 public class CommentController {
 
-    @Resource(name = "commentService")
+    @Resource(name = "commentServiceImpl")
     private CommentService commentService;
 
     /**
@@ -28,7 +28,7 @@ public class CommentController {
      * @param commentDto 评论dto
      * @return {@link ResultEntity}<{@link String}>
      */
-    @PostMapping
+    @PostMapping("/add")
     public ResultEntity<String> addComment(@RequestBody @Valid CommentDto commentDto) {
         commentService.addComment(commentDto);
         return ResultEntity.success();

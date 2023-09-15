@@ -21,7 +21,7 @@ import java.util.List;
  * @author w
  * @since 2023-02-15
  */
-@Service("commentService")
+@Service
 public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> implements CommentService {
 
 

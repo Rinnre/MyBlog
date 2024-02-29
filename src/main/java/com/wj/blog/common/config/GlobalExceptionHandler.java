@@ -40,6 +40,7 @@ public class GlobalExceptionHandler {
      * 处理所有RequestParam注解数据验证异常
      */
     @ExceptionHandler(BindException.class)
+    @ResponseBody
     public Result<String> handleBindException(BindException ex) {
         FieldError fieldError = ex.getBindingResult().getFieldError();
         log.warn("必填校验异常:{}({})", fieldError.getDefaultMessage(), fieldError.getField());
@@ -54,6 +55,7 @@ public class GlobalExceptionHandler {
      * @description 空指针异常定义为前端传参错误，返回400
      */
     @ExceptionHandler(value = NullPointerException.class)
+    @ResponseBody
     public Result<String> nullPointerException(NullPointerException e) {
         log.error("空指针异常 NullPointerException ", e);
         return Result.fail(ErrorCodeEnum.W400.getCode(), ErrorCodeEnum.W400.getMessage());
@@ -66,6 +68,7 @@ public class GlobalExceptionHandler {
      * @return
      */
     @ExceptionHandler(NoHandlerFoundException.class)
+    @ResponseBody
     public Result<String> noHandlerFoundException(HttpServletRequest req, Exception e) {
         log.error("404异常 NoHandlerFoundException, method = {}, path = {} ", req.getMethod(), req.getServletPath(), e);
         return Result.fail(ErrorCodeEnum.W404.getCode(), ErrorCodeEnum.W404.getMessage());
@@ -78,6 +81,7 @@ public class GlobalExceptionHandler {
      * @return
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    @ResponseBody
     public Result<String> httpRequestMethodNotSupportedException(HttpServletRequest req, Exception e) {
         log.error("请求方式错误(405)异常 HttpRequestMethodNotSupportedException, method = {}, path = {}", req.getMethod(), req.getServletPath(), e);
         return Result.fail(ErrorCodeEnum.W405.getCode(), ErrorCodeEnum.W405.getMessage());
@@ -90,6 +94,7 @@ public class GlobalExceptionHandler {
      * @return
      */
     @ExceptionHandler(Exception.class)
+    @ResponseBody
     public Result<String> exception(Exception e) {
         log.error("未知异常 exception = {}", e.getMessage(), e);
         return Result.fail(ErrorCodeEnum.W500.getCode(), ErrorCodeEnum.W500.getMessage());

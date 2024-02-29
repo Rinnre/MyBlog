@@ -39,6 +39,7 @@ public class Result<T> {
         result.setCode(ErrorCodeEnum.W200.getCode());
         result.setMessage(ErrorCodeEnum.W200.getMessage());
         result.setData(data);
+        result.setTimestamp(System.currentTimeMillis() / 1000);
         return result;
     }
 
@@ -54,6 +55,7 @@ public class Result<T> {
         Result<T> result = new Result<>();
         result.setCode(code);
         result.setMessage(message);
+        result.setTimestamp(System.currentTimeMillis() / 1000);
         return result;
     }
 

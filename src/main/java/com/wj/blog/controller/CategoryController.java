@@ -3,6 +3,7 @@ package com.wj.blog.controller;
 
 import com.wj.blog.common.result.Result;
 import com.wj.blog.model.entity.Category;
+import com.wj.blog.model.param.CategoryQueryParam;
 import com.wj.blog.model.vo.CategoryVo;
 import com.wj.blog.service.CategoryService;
 import org.springframework.beans.BeanUtils;
@@ -20,7 +21,7 @@ import java.util.List;
  * @since 2023-02-15
  */
 @RestController
-@RequestMapping("/blog")
+@RequestMapping("/blog/category")
 public class CategoryController {
 
     @Resource(name = "categoryService")
@@ -29,18 +30,12 @@ public class CategoryController {
     /**
      * 查询类别列表
      *
-     * @param name 名字
-     * @param type 类型
-     * @param page 页面
-     * @param size 大小
+     * @param categoryQueryParam 查询过滤参数
      * @return {@link Result}<{@link List}<{@link CategoryVo}>>
      */
-    @GetMapping("/category")
-    public Result<List<CategoryVo>> searchCategoryList(@RequestParam(required = false) String name,
-                                                       @RequestParam(required = false) Integer type,
-                                                       @RequestParam(required = false) Integer page,
-                                                       @RequestParam(required = false) Integer size) {
-        List<Category> categories = categoryService.searchCategoryList(name, type, page, size);
+    @GetMapping
+    public Result<List<CategoryVo>> searchCategoryList(@RequestBody CategoryQueryParam categoryQueryParam) {
+        List<Category> categories = categoryService.searchCategoryList(categoryQueryParam);
         List<CategoryVo> categoryVoList = new ArrayList<>();
         if (null != categories) {
             categories.forEach(category -> {
@@ -53,14 +48,14 @@ public class CategoryController {
     }
 
     /**
-     * 创建tag
+     * 创建分类-多级别分类
      *
-     * @param tagVo 标签签证官
+     * @param categoryVo 类别实体类
      * @return {@link Result}<{@link String}>
      */
-    @PostMapping("/tag")
-    public Result<String> createTag(@RequestBody @Valid CategoryVo tagVo) {
-        categoryService.createTag(tagVo);
+    @PostMapping
+    public Result<String> createTag(@RequestBody @Valid CategoryVo categoryVo) {
+        categoryService.createTag(categoryVo);
         return Result.success(null);
     }
 

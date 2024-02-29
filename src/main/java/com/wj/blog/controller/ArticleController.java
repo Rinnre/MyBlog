@@ -45,9 +45,6 @@ public class ArticleController {
         articleDtoList.forEach(articleDto -> {
             ArticleIntroductionVo articleIntroductionVo = new ArticleIntroductionVo();
             BeanUtils.copyProperties(articleDto, articleIntroductionVo);
-            // category->categoryVo
-            // statics->staticsVo
-            // tag->tagVo
             invertArticleDtoToVo(articleDto, articleIntroductionVo);
             articleIntroductionVos.add(articleIntroductionVo);
         });
@@ -66,7 +63,6 @@ public class ArticleController {
         ArticleDetailVo articleDetailVo = new ArticleDetailVo();
         BeanUtils.copyProperties(articleDto, articleDetailVo);
         invertArticleDtoToVo(articleDto, articleDetailVo);
-        //  comments->commentsVo 评论组装
         return Result.success(articleDetailVo);
 
     }
@@ -85,15 +81,15 @@ public class ArticleController {
 
     /**
      * 删除文章
+     * 校验文章-用户在token验证中做
+     * 后续需考虑批量删除、url长度有限
      *
-     * @param uid 用户id
-     * @param id  文章id
+     * @param id 文章id
      * @return {@link Result}<{@link String}>
      */
-    @DeleteMapping("/{uid}/{id}")
-    public Result<String> removeArticle(@PathVariable String uid,
-                                        @PathVariable String id) {
-        articleService.removeArticle(uid, id);
+    @DeleteMapping("/{id}")
+    public Result<String> removeArticle(@PathVariable String id) {
+        articleService.removeArticle(id);
         return Result.success(null);
     }
 
@@ -110,16 +106,6 @@ public class ArticleController {
         invertVo(articleDto.getCategory(), categoryVo);
         articleDetailVo.setCategory(categoryVo);
 
-        // tag->tagVo
-        List<CategoryVo> tags = new ArrayList<>();
-        if (articleDto.getTags() != null) {
-            articleDto.getTags().forEach(tag -> {
-                CategoryVo tagVo = new CategoryVo();
-                invertVo(tag, tagVo);
-                tags.add(tagVo);
-            });
-        }
-        articleDetailVo.setTags(tags);
         // user->userVo
         UserVo userVo = new UserVo();
         if (articleDto.getAuthor() != null) {

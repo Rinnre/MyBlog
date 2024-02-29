@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wj.blog.mapper.ArticleMapper;
 import com.wj.blog.model.dto.ArticleDto;
 import com.wj.blog.model.entity.Article;
-import com.wj.blog.model.entity.Category;
 import com.wj.blog.model.param.ArticleQueryParam;
 import com.wj.blog.service.ArticleService;
 import org.springframework.beans.BeanUtils;
@@ -52,21 +51,13 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         Article article = new Article();
         BeanUtils.copyProperties(articleDto, article);
         baseMapper.insert(article);
-        // TODO 定时发布文章需创建定时任务
-
-        // 文章tag保存
-        List<Category> tags = articleDto.getTags();
-        if (tags != null && !tags.isEmpty()) {
-            baseMapper.insertTags(tags, article.getId());
-        }
-
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void removeArticle(String uid, String id) {
+    public void removeArticle(String id) {
         LambdaQueryWrapper<Article> articleLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        articleLambdaQueryWrapper.eq(Article::getId, id).eq(Article::getUserId, uid);
+        articleLambdaQueryWrapper.eq(Article::getId, id);
         Article article = baseMapper.selectOne(articleLambdaQueryWrapper);
         if (null != article) {
             baseMapper.deleteById(id);

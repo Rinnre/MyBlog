@@ -2,8 +2,8 @@ package com.wj.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wj.blog.model.dto.ArticleDto;
-import com.wj.blog.model.param.ArticleQueryParam;
 import com.wj.blog.model.entity.Article;
+import com.wj.blog.model.param.ArticleQueryParam;
 
 import java.util.List;
 
@@ -43,8 +43,7 @@ public interface ArticleService extends IService<Article> {
     /**
      * 删除文章
      *
-     * @param uid uid 用户id
-     * @param id  id 文章id
+     * @param id id 文章id
      */
-    void removeArticle(String uid, String id);
+    void removeArticle(String id);
 }

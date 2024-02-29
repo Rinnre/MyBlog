@@ -18,21 +18,19 @@
     </sql>
 
 
-    <!--    List<Category> selectCategoryList(String name, Integer startNumber, Integer size);-->
     <select id="selectCategoryList" resultType="com.wj.blog.model.entity.Category">
         SELECT id,name
         FROM category
-        <trim prefix="WHERE" prefixOverrides="and">
-            <if test="name!=null">
-                name LIKE concat('%',#{name},'%')
+        <if test="null != categoryQueryParam">
+            <trim prefix="WHERE" prefixOverrides="and">
+                <if test="categoryQueryParam.name!=null">
+                    name LIKE concat('%',#{categoryQueryParam.name},'%')
+                </if>
+            </trim>
+            <if test="categoryQueryParam.page!=null and categoryQueryParam.size!=null">
+                LIMIT #{categoryQueryParam.page},#{categoryQueryParam.size}
             </if>
-            <if test="type!=null">
-                type = #{type}
-            </if>
-        </trim>
-
-        <if test="startNumber!=null and size!=null">
-            LIMIT #{startNumber},#{size}
         </if>
+
     </select>
 </mapper>

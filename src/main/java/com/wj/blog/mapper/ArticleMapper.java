@@ -2,9 +2,8 @@ package com.wj.blog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.wj.blog.model.dto.ArticleDto;
-import com.wj.blog.model.param.ArticleQueryParam;
 import com.wj.blog.model.entity.Article;
-import com.wj.blog.model.entity.Category;
+import com.wj.blog.model.param.ArticleQueryParam;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -35,11 +34,4 @@ public interface ArticleMapper extends BaseMapper<Article> {
      */
     ArticleDto searchArticleDetail(@Param("id") String id);
 
-    /**
-     * 插入标签
-     *
-     * @param tags 标签
-     * @param id   id
-     */
-    void insertTags(@Param("tags") List<Category> tags, @Param("id") String id);
 }

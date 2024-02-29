@@ -34,7 +34,6 @@
             <result column="user_name" property="name"/>
             <result column="avatar" property="avatar"/>
         </association>
-        <collection property="tags" column="id" select="com.wj.blog.mapper.CategoryMapper.selectArticleTags"/>
     </resultMap>
 
     <resultMap id="articleDetailResultMap" type="com.wj.blog.model.dto.ArticleDto">
@@ -52,10 +51,6 @@
             <id column="category_id" property="id"/>
             <result column="category_name" property="name"/>
         </association>
-        <collection property="tags" ofType="com.wj.blog.model.entity.Category">
-            <id column="tag_id" property="id"/>
-            <result column="tag_name" property="name"/>
-        </collection>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -67,7 +62,8 @@
     <!--    List<ArticleDto> selectArticleList(String title, String author, Integer startPageNumber, Integer size);-->
 
     <select id="selectArticleList" resultMap="articleListResultMap">
-        SELECT article.id,
+        SELECT
+        article.id,
         title,
         context,
         thumbnail,
@@ -76,7 +72,7 @@
         u.name AS user_name,
         u.avatar,
         c.id AS category_id,
-        c.name AS category_name,
+        c.name AS category_name
         FROM article
         LEFT JOIN user u ON u.id = article.user_id
         LEFT JOIN category c ON c.id = article.category_id

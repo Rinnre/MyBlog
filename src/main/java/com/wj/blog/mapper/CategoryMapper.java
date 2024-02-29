@@ -2,6 +2,7 @@ package com.wj.blog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.wj.blog.model.entity.Category;
+import com.wj.blog.model.param.CategoryQueryParam;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -20,15 +21,9 @@ public interface CategoryMapper extends BaseMapper<Category> {
     /**
      * 查询分类列表
      *
-     * @param name        名字
-     * @param type        类型
-     * @param startNumber 开始页数
-     * @param size        页面大小
-     * @return {@link List}<{@link Category}> 分类列表
+     * @param categoryQueryParam 类别列表过滤参数
+     * @return {@link List}<{@link Category}>
      */
-    List<Category> selectCategoryList(@Param("name") String name,
-                                      @Param("type") Integer type,
-                                      @Param("startNumber") Integer startNumber,
-                                      @Param("size") Integer size);
+    List<Category> selectCategoryList(@Param("categoryParam") CategoryQueryParam categoryQueryParam);
 
 }

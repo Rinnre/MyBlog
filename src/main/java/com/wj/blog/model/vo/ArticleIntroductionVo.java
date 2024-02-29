@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * 文章简介Vo对象
@@ -38,9 +37,6 @@ public class ArticleIntroductionVo {
 
     @ApiModelProperty("文章所属分类")
     private CategoryVo category;
-
-    @ApiModelProperty("文章所属标签")
-    private List<CategoryVo> tags;
 
 
 }

@@ -66,7 +66,6 @@ public class GlobalExceptionHandler {
      * @return
      */
     @ExceptionHandler(NoHandlerFoundException.class)
-    //@ResponseStatus(HttpStatus.NOT_FOUND)
     public Result<String> noHandlerFoundException(HttpServletRequest req, Exception e) {
         log.error("404异常 NoHandlerFoundException, method = {}, path = {} ", req.getMethod(), req.getServletPath(), e);
         return Result.fail(ErrorCodeEnum.W404.getCode(), ErrorCodeEnum.W404.getMessage());

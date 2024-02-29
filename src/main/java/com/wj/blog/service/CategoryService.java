@@ -2,6 +2,7 @@ package com.wj.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wj.blog.model.entity.Category;
+import com.wj.blog.model.param.CategoryQueryParam;
 import com.wj.blog.model.vo.CategoryVo;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public interface CategoryService extends IService<Category> {
      * @param size 大小
      * @return {@link List}<{@link Category}> 分类列表
      */
-    List<Category> searchCategoryList(String name, Integer type, Integer page, Integer size);
+    List<Category> searchCategoryList(CategoryQueryParam categoryQueryParam);
 
     /**
      * 创建标签

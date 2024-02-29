@@ -24,6 +24,6 @@ public interface CategoryMapper extends BaseMapper<Category> {
      * @param categoryQueryParam 类别列表过滤参数
      * @return {@link List}<{@link Category}>
      */
-    List<Category> selectCategoryList(@Param("categoryParam") CategoryQueryParam categoryQueryParam);
+    List<Category> selectCategoryList(@Param("categoryQueryParam") CategoryQueryParam categoryQueryParam);
 
 }

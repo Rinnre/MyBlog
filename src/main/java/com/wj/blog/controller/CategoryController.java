@@ -1,7 +1,7 @@
 package com.wj.blog.controller;
 
 
-import com.wj.blog.common.result.ResultEntity;
+import com.wj.blog.common.result.Result;
 import com.wj.blog.model.entity.Category;
 import com.wj.blog.model.vo.CategoryVo;
 import com.wj.blog.service.CategoryService;
@@ -33,13 +33,13 @@ public class CategoryController {
      * @param type 类型
      * @param page 页面
      * @param size 大小
-     * @return {@link ResultEntity}<{@link List}<{@link CategoryVo}>>
+     * @return {@link Result}<{@link List}<{@link CategoryVo}>>
      */
     @GetMapping("/category")
-    public ResultEntity<List<CategoryVo>> searchCategoryList(@RequestParam(required = false) String name,
-                                                             @RequestParam(required = false) Integer type,
-                                                             @RequestParam(required = false) Integer page,
-                                                             @RequestParam(required = false) Integer size) {
+    public Result<List<CategoryVo>> searchCategoryList(@RequestParam(required = false) String name,
+                                                       @RequestParam(required = false) Integer type,
+                                                       @RequestParam(required = false) Integer page,
+                                                       @RequestParam(required = false) Integer size) {
         List<Category> categories = categoryService.searchCategoryList(name, type, page, size);
         List<CategoryVo> categoryVoList = new ArrayList<>();
         if (null != categories) {
@@ -49,19 +49,19 @@ public class CategoryController {
                 categoryVoList.add(categoryVo);
             });
         }
-        return ResultEntity.success(categoryVoList);
+        return Result.success(categoryVoList);
     }
 
     /**
      * 创建tag
      *
      * @param tagVo 标签签证官
-     * @return {@link ResultEntity}<{@link String}>
+     * @return {@link Result}<{@link String}>
      */
     @PostMapping("/tag")
-    public ResultEntity<String> createTag(@RequestBody @Valid CategoryVo tagVo) {
+    public Result<String> createTag(@RequestBody @Valid CategoryVo tagVo) {
         categoryService.createTag(tagVo);
-        return ResultEntity.success();
+        return Result.success(null);
     }
 
 }

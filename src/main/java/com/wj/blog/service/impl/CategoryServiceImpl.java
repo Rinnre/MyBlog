@@ -1,7 +1,6 @@
 package com.wj.blog.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.wj.blog.common.enums.CategoryTypeEnum;
 import com.wj.blog.mapper.CategoryMapper;
 import com.wj.blog.model.entity.Category;
 import com.wj.blog.model.vo.CategoryVo;
@@ -35,7 +34,6 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     public void createTag(CategoryVo tagVo) {
         Category category = new Category();
         BeanUtils.copyProperties(tagVo, category);
-        category.setType(CategoryTypeEnum.TAG.getValue());
         baseMapper.insert(category);
     }
 }

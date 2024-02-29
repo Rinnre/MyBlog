@@ -1,8 +1,9 @@
 package com.wj.blog.controller;
 
 
+import com.wj.blog.common.enums.ErrorCodeEnum;
 import com.wj.blog.common.exception.cdn.FileUploadException;
-import com.wj.blog.common.result.ResultEntity;
+import com.wj.blog.common.result.Result;
 import com.wj.blog.model.vo.ImageVo;
 import com.wj.blog.service.ImageService;
 import org.springframework.web.bind.annotation.*;
@@ -28,15 +29,15 @@ public class ImageController {
      * 上传文件
      *
      * @param file 文件
-     * @return {@link ResultEntity}<{@link String}>
+     * @return {@link Result}<{@link String}>
      */
     @PostMapping("/file")
-    public ResultEntity<String> uploadFile(MultipartFile file) {
+    public Result<String> uploadFile(MultipartFile file) {
         try {
             String url = imageService.uploadFile(file);
-            return ResultEntity.success(url);
+            return Result.success(url);
         } catch (FileUploadException e) {
-            return ResultEntity.fail(e.getMessage());
+            return Result.fail(ErrorCodeEnum.W201.getCode(), e.getMessage());
         }
     }
 
@@ -44,11 +45,11 @@ public class ImageController {
      * 删除文件
      *
      * @param file 文件
-     * @return {@link ResultEntity}<{@link String}>
+     * @return {@link Result}<{@link String}>
      */
     @DeleteMapping("/file")
-    public ResultEntity<String> deleteFile(@RequestParam List<ImageVo> file) {
+    public Result<String> deleteFile(@RequestParam List<ImageVo> file) {
         imageService.deleteFile(file);
-        return ResultEntity.success();
+        return Result.success(null);
     }
 }

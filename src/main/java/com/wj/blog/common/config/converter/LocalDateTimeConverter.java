@@ -1,5 +1,6 @@
 package com.wj.blog.common.config.converter;
 
+import com.wj.blog.common.enums.ErrorCodeEnum;
 import com.wj.blog.common.exception.user.ParamIncorrectException;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -13,17 +14,16 @@ import java.util.Locale;
  * 用于格式化@RequestParam LocalDateTime dateTime接收参数
  * 统一日期格式转换器
  *
- *
  * @author wj
  * @date 2020/12/31 15:21
  */
 @Component
 public class LocalDateTimeConverter implements Converter<String, LocalDateTime> {
 
-    private static DateTimeFormatter dateTimeFormatter;
+    private static final DateTimeFormatter DATE_TIME_FORMATTER;
 
     static{
-        dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
+        DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
     }
 
     @Override
@@ -38,9 +38,9 @@ public class LocalDateTimeConverter implements Converter<String, LocalDateTime> 
         }
         return Instant.ofEpochMilli(timestamp).atZone(ZoneOffset.ofHours(8)).toLocalDateTime();*/
         try {
-            return LocalDateTime.parse(value,dateTimeFormatter);
+            return LocalDateTime.parse(value, DATE_TIME_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new ParamIncorrectException("日期参数格式不正确！");
+            throw new ParamIncorrectException(ErrorCodeEnum.W500, "日期参数格式不正确！");
         }
     }
 }

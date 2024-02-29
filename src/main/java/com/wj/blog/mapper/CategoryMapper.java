@@ -15,21 +15,7 @@ import java.util.List;
  * @since 2023-02-15
  */
 public interface CategoryMapper extends BaseMapper<Category> {
-    /**
-     * 查询文章类别
-     *
-     * @param articleId 文章id
-     * @return {@link Category} 文章类别
-     */
-    Category selectArticleCategory(@Param("articleId") String articleId);
 
-    /**
-     * 选择文章标签
-     *
-     * @param articleId 文章id
-     * @return {@link List}<{@link Category}> 文章标签
-     */
-    List<Category> selectArticleTags(@Param("articleId") String articleId);
 
     /**
      * 查询分类列表

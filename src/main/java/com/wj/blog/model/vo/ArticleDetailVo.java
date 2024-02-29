@@ -4,9 +4,8 @@ package com.wj.blog.model.vo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 /**
  * 文章详细vo
@@ -14,6 +13,7 @@ import java.util.List;
  * @author wj
  * @date 2023/02/17
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,6 +24,4 @@ public class ArticleDetailVo extends ArticleIntroductionVo {
     @ApiModelProperty("文章转载链接")
     private String sourceLink;
 
-    @ApiModelProperty("文章评论")
-    private List<CommentDetailVo> comments;
 }

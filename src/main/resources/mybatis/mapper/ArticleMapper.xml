@@ -34,13 +34,6 @@
             <result column="user_name" property="name"/>
             <result column="avatar" property="avatar"/>
         </association>
-        <association property="statistics" javaType="com.wj.blog.model.entity.Statistics">
-            <id column="statistics_id" property="id"/>
-            <result column="like_count" property="likeCount"/>
-            <result column="collect_count" property="collectCount"/>
-            <result column="comment_count" property="commentCount"/>
-            <result column="view_count" property="viewCount"/>
-        </association>
         <collection property="tags" column="id" select="com.wj.blog.mapper.CategoryMapper.selectArticleTags"/>
     </resultMap>
 
@@ -59,18 +52,10 @@
             <id column="category_id" property="id"/>
             <result column="category_name" property="name"/>
         </association>
-        <association property="statistics" javaType="com.wj.blog.model.entity.Statistics">
-            <id column="statistics_id" property="id"/>
-            <result column="like_count" property="likeCount"/>
-            <result column="collect_count" property="collectCount"/>
-            <result column="comment_count" property="commentCount"/>
-            <result column="view_count" property="viewCount"/>
-        </association>
         <collection property="tags" ofType="com.wj.blog.model.entity.Category">
             <id column="tag_id" property="id"/>
             <result column="tag_name" property="name"/>
         </collection>
-        <collection property="comments" column="id" select="com.wj.blog.mapper.CommentMapper.selectCommentListById"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -92,15 +77,9 @@
         u.avatar,
         c.id AS category_id,
         c.name AS category_name,
-        s.id AS statistics_id,
-        s.collect_count,
-        s.comment_count,
-        s.like_count,
-        s.view_count
         FROM article
         LEFT JOIN user u ON u.id = article.user_id
         LEFT JOIN category c ON c.id = article.category_id
-        LEFT JOIN statistics s ON s.source_id = article.id
         <if test="null!=articleQueryParam">
             <trim prefix="WHERE" prefixOverrides="AND">
                 <if test="articleQueryParam.title!=null">
@@ -132,33 +111,15 @@
                article.context,
                thumbnail,
                release_time,
-               u.id    AS user_id,
-               u.name  AS user_name,
+               u.id   AS user_id,
+               u.name AS user_name,
                avatar,
-               c.id    AS tag_id,
-               c.name  AS tag_name,
-               c2.id   AS category_id,
-               c2.name AS category_name,
-               s.id    AS statistics_id,
-               s.collect_count,
-               s.comment_count,
-               s.like_count,
-               s.view_count
+               c.id   AS tag_id,
+               c.name AS tag_name
         FROM article
                  LEFT JOIN user u ON u.id = article.user_id
                  LEFT JOIN category c ON c.id = article.category_id
-                 LEFT JOIN statistics s ON s.source_id = article.id
-                 LEFT JOIN article_tag_ref atr ON article.id = atr.article_id
-                 LEFT JOIN category c2 on c2.id = atr.category_id
-        WHERE article_id = #{id}
+        WHERE article.id = #{id}
     </select>
-
-    <insert id="insertTags">
-        INSERT INTO article_tag_ref(article_id, category_id)
-        VALUES
-        <foreach collection="tags" separator="," item="tag">
-            #{id},#{tag.id}
-        </foreach>
-    </insert>
 
 </mapper>

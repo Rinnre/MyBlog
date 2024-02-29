@@ -26,6 +26,10 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      add-mappings: false
 # 线程池参数
 thread:
   pool:
@@ -47,4 +51,6 @@ aliyun:
     accessKeyId:
     secret:
     bucket:
+
+
 

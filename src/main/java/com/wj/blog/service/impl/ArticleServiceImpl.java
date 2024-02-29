@@ -2,26 +2,16 @@ package com.wj.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.wj.blog.common.aop.annation.NumberCount;
-import com.wj.blog.common.enums.RedisOperationEnum;
-import com.wj.blog.common.enums.StatisticsEnum;
-import com.wj.blog.common.thread.AsyncManager;
-import com.wj.blog.common.thread.TaskFactory;
 import com.wj.blog.mapper.ArticleMapper;
-import com.wj.blog.mapper.CommentMapper;
-import com.wj.blog.mapper.StatisticsMapper;
 import com.wj.blog.model.dto.ArticleDto;
-import com.wj.blog.model.param.ArticleQueryParam;
 import com.wj.blog.model.entity.Article;
 import com.wj.blog.model.entity.Category;
-import com.wj.blog.model.entity.Comment;
-import com.wj.blog.model.entity.Statistics;
+import com.wj.blog.model.param.ArticleQueryParam;
 import com.wj.blog.service.ArticleService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -35,17 +25,7 @@ import java.util.List;
 @Service("articleService")
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
 
-    @Resource
-    private StatisticsMapper statisticsMapper;
 
-    @Resource
-    private CommentMapper commentMapper;
-
-    private final String REDIS_HEAD = "statistics";
-    @Resource
-    private TaskFactory taskFactory;
-
-    @NumberCount(mode = "articleList")
     @Override
     public List<ArticleDto> searchArticleList(ArticleQueryParam articleQueryParam) {
 
@@ -59,7 +39,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return baseMapper.selectArticleList(articleQueryParam);
     }
 
-    @NumberCount(mode = "addView")
     @Override
     public ArticleDto searchArticleDetail(String id) {
         //  访问量增加
@@ -80,14 +59,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         if (tags != null && !tags.isEmpty()) {
             baseMapper.insertTags(tags, article.getId());
         }
-        // 初始化文章附属信息
-        Statistics statistics = new Statistics();
-        statistics.setSourceType(StatisticsEnum.ARTICLE.getValue());
-        statistics.setSourceId(article.getId());
-        // 异步存入redis
-        AsyncManager.me().execute(taskFactory.redisOperation(REDIS_HEAD + article.getId(),
-                statistics, RedisOperationEnum.INSERT_UPDATE.getValue()));
-        statisticsMapper.insert(statistics);
+
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -98,12 +70,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         Article article = baseMapper.selectOne(articleLambdaQueryWrapper);
         if (null != article) {
             baseMapper.deleteById(id);
-            // 移除文章统计数据
-            statisticsMapper.delete(new LambdaQueryWrapper<Statistics>().eq(Statistics::getSourceId, id));
-            AsyncManager.me().execute(taskFactory.redisOperation(REDIS_HEAD + id, null,
-                    RedisOperationEnum.DELETE.getValue()));
-            // 移除文章评论
-            commentMapper.delete(new LambdaQueryWrapper<Comment>().eq(Comment::getSourceId, id));
         }
     }
 }

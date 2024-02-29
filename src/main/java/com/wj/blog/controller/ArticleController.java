@@ -1,11 +1,13 @@
 package com.wj.blog.controller;
 
 
-import com.wj.blog.common.result.ResultEntity;
-import com.wj.blog.common.util.CommentUtil;
+import com.wj.blog.common.result.Result;
 import com.wj.blog.model.dto.ArticleDto;
 import com.wj.blog.model.param.ArticleQueryParam;
-import com.wj.blog.model.vo.*;
+import com.wj.blog.model.vo.ArticleDetailVo;
+import com.wj.blog.model.vo.ArticleIntroductionVo;
+import com.wj.blog.model.vo.CategoryVo;
+import com.wj.blog.model.vo.UserVo;
 import com.wj.blog.service.ArticleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -34,10 +36,10 @@ public class ArticleController {
      * 搜索文章列表
      *
      * @param articleQueryParam 文章查询参数
-     * @return {@link ResultEntity}<{@link List}<{@link ArticleIntroductionVo}>>
+     * @return {@link Result}<{@link List}<{@link ArticleIntroductionVo}>>
      */
     @GetMapping
-    public ResultEntity<List<ArticleIntroductionVo>> searchArticleList(ArticleQueryParam articleQueryParam) {
+    public Result<List<ArticleIntroductionVo>> searchArticleList(ArticleQueryParam articleQueryParam) {
         List<ArticleDto> articleDtoList = articleService.searchArticleList(articleQueryParam);
         List<ArticleIntroductionVo> articleIntroductionVos = new ArrayList<>();
         articleDtoList.forEach(articleDto -> {
@@ -49,25 +51,23 @@ public class ArticleController {
             invertArticleDtoToVo(articleDto, articleIntroductionVo);
             articleIntroductionVos.add(articleIntroductionVo);
         });
-        return ResultEntity.success(articleIntroductionVos);
+        return Result.success(articleIntroductionVos);
     }
 
     /**
      * 搜索文章细节
      *
      * @param id 文章id
-     * @return {@link ResultEntity}<{@link ArticleDetailVo}>
+     * @return {@link Result}<{@link ArticleDetailVo}>
      */
     @GetMapping("/{id}")
-    public ResultEntity<ArticleDetailVo> searchArticleDetail(@PathVariable String id) {
+    public Result<ArticleDetailVo> searchArticleDetail(@PathVariable String id) {
         ArticleDto articleDto = articleService.searchArticleDetail(id);
         ArticleDetailVo articleDetailVo = new ArticleDetailVo();
         BeanUtils.copyProperties(articleDto, articleDetailVo);
         invertArticleDtoToVo(articleDto, articleDetailVo);
         //  comments->commentsVo 评论组装
-        List<CommentDetailVo> commentVos = CommentUtil.assembleComment(articleDto.getComments());
-        articleDetailVo.setComments(commentVos);
-        return ResultEntity.success(articleDetailVo);
+        return Result.success(articleDetailVo);
 
     }
 
@@ -75,12 +75,12 @@ public class ArticleController {
      * 创建文章
      *
      * @param articleDto 文章dto
-     * @return {@link ResultEntity}<{@link String}>
+     * @return {@link Result}<{@link String}>
      */
     @PostMapping
-    public ResultEntity<String> createArticle(@RequestBody @Valid ArticleDto articleDto) {
+    public Result<String> createArticle(@RequestBody @Valid ArticleDto articleDto) {
         articleService.createArticle(articleDto);
-        return ResultEntity.success();
+        return Result.success(null);
     }
 
     /**
@@ -88,13 +88,13 @@ public class ArticleController {
      *
      * @param uid 用户id
      * @param id  文章id
-     * @return {@link ResultEntity}<{@link String}>
+     * @return {@link Result}<{@link String}>
      */
     @DeleteMapping("/{uid}/{id}")
-    public ResultEntity<String> removeArticle(@PathVariable String uid,
-                                              @PathVariable String id) {
+    public Result<String> removeArticle(@PathVariable String uid,
+                                        @PathVariable String id) {
         articleService.removeArticle(uid, id);
-        return ResultEntity.success();
+        return Result.success(null);
     }
 
     /**
@@ -110,12 +110,6 @@ public class ArticleController {
         invertVo(articleDto.getCategory(), categoryVo);
         articleDetailVo.setCategory(categoryVo);
 
-        // statics->staticsVo
-        StatisticsVo statisticsVo = new StatisticsVo();
-        if (articleDto.getStatistics() != null) {
-            invertVo(articleDto.getStatistics(), statisticsVo);
-        }
-        articleDetailVo.setStatisticsVo(statisticsVo);
         // tag->tagVo
         List<CategoryVo> tags = new ArrayList<>();
         if (articleDto.getTags() != null) {

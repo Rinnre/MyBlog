@@ -12,7 +12,7 @@ import java.util.List;
  * 文章简介Vo对象
  *
  * @author wj
- * @date 2023/02/17
+ * {@code @date} 2023/02/17
  */
 @Data
 @NoArgsConstructor
@@ -42,7 +42,5 @@ public class ArticleIntroductionVo {
     @ApiModelProperty("文章所属标签")
     private List<CategoryVo> tags;
 
-    @ApiModelProperty("文章数据统计")
-    private StatisticsVo statisticsVo;
 
 }

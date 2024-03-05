@@ -27,7 +27,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         if (categoryQueryParam != null) {
             Integer page = categoryQueryParam.getPage();
             Integer size = categoryQueryParam.getSize();
-            Integer startNumber = null;
+            int startNumber;
             if (page != null && size != null) {
                 startNumber = (page - 1) * size;
                 categoryQueryParam.setPage(startNumber);

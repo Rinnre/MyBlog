@@ -52,7 +52,7 @@ public class GlobalExceptionHandler {
      *
      * @param e NullPointerException
      * @return
-     * @description 空指针异常定义为前端传参错误，返回400
+     * 空指针异常定义为前端传参错误，返回400
      */
     @ExceptionHandler(value = NullPointerException.class)
     @ResponseBody
@@ -65,7 +65,7 @@ public class GlobalExceptionHandler {
      * 处理404异常
      *
      * @param e NoHandlerFoundException
-     * @return
+     * @return 404异常返回结果
      */
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseBody
@@ -78,7 +78,7 @@ public class GlobalExceptionHandler {
      * 处理请求方式错误(405)异常
      *
      * @param e HttpRequestMethodNotSupportedException
-     * @return
+     * @return 操作结果
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     @ResponseBody

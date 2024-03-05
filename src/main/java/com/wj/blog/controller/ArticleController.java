@@ -25,7 +25,7 @@ import java.util.List;
  * @since 2023-02-15
  */
 @RestController
-@RequestMapping("/blog/article")
+@RequestMapping("/blog")
 @Slf4j
 public class ArticleController {
 
@@ -38,7 +38,7 @@ public class ArticleController {
      * @param articleQueryParam 文章查询参数
      * @return {@link Result}<{@link List}<{@link ArticleIntroductionVo}>>
      */
-    @GetMapping
+    @PostMapping("/article")
     public Result<List<ArticleIntroductionVo>> searchArticleList(ArticleQueryParam articleQueryParam) {
         List<ArticleDto> articleDtoList = articleService.searchArticleList(articleQueryParam);
         List<ArticleIntroductionVo> articleIntroductionVos = new ArrayList<>();
@@ -57,7 +57,7 @@ public class ArticleController {
      * @param id 文章id
      * @return {@link Result}<{@link ArticleDetailVo}>
      */
-    @GetMapping("/{id}")
+    @GetMapping("article/{id}")
     public Result<ArticleDetailVo> searchArticleDetail(@PathVariable String id) {
         ArticleDto articleDto = articleService.searchArticleDetail(id);
         ArticleDetailVo articleDetailVo = new ArticleDetailVo();
@@ -73,7 +73,7 @@ public class ArticleController {
      * @param articleDto 文章dto
      * @return {@link Result}<{@link String}>
      */
-    @PostMapping
+    @PostMapping("createArticle")
     public Result<String> createArticle(@RequestBody @Valid ArticleDto articleDto) {
         articleService.createArticle(articleDto);
         return Result.success(null);

@@ -38,5 +38,7 @@ public class ArticleIntroductionVo {
     @ApiModelProperty("文章所属分类")
     private CategoryVo category;
 
+    @ApiModelProperty("评论总数")
+    private Integer commentCount;
 
 }

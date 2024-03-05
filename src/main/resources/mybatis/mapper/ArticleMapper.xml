@@ -25,6 +25,7 @@
         <result column="thumbnail" property="thumbnail"/>
         <result column="release_time" property="releaseTime"/>
         <result column="source_link" property="sourceLink"/>
+        <result column="commentCount" property="commentCount"/>
         <association property="category" javaType="com.wj.blog.model.entity.Category">
             <id column="category_id" property="id"/>
             <result column="category_name" property="name"/>
@@ -72,8 +73,15 @@
         u.name AS user_name,
         u.avatar,
         c.id AS category_id,
-        c.name AS category_name
+        c.name AS category_name,
+        IFNULL(comment.commment_count,0) as commentCount
         FROM article
+        LEFT JOIN (
+        SELECT source_id article_id,count(*) as commment_count
+        FROM comment
+        GROUP BY article_id
+        ) comment
+        ON article.id = comment.article_id
         LEFT JOIN user u ON u.id = article.user_id
         LEFT JOIN category c ON c.id = article.category_id
         <if test="null!=articleQueryParam">

@@ -32,4 +32,7 @@ public class ArticleDto extends Article {
     @ApiModelProperty("文章作者")
     private UserDto author;
 
+    @ApiModelProperty("评论数量")
+    private Integer commentCount;
+
 }

@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 /**
  * 文章详细vo
  *
@@ -23,5 +25,8 @@ public class ArticleDetailVo extends ArticleIntroductionVo {
 
     @ApiModelProperty("文章转载链接")
     private String sourceLink;
+
+    @ApiModelProperty("评论")
+    private List<CommentDetailVo> comments;
 
 }

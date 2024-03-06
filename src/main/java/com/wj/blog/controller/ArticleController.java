@@ -2,12 +2,10 @@ package com.wj.blog.controller;
 
 
 import com.wj.blog.common.result.Result;
+import com.wj.blog.common.util.CommentUtil;
 import com.wj.blog.model.dto.ArticleDto;
 import com.wj.blog.model.param.ArticleQueryParam;
-import com.wj.blog.model.vo.ArticleDetailVo;
-import com.wj.blog.model.vo.ArticleIntroductionVo;
-import com.wj.blog.model.vo.CategoryVo;
-import com.wj.blog.model.vo.UserVo;
+import com.wj.blog.model.vo.*;
 import com.wj.blog.service.ArticleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -63,6 +61,9 @@ public class ArticleController {
         ArticleDetailVo articleDetailVo = new ArticleDetailVo();
         BeanUtils.copyProperties(articleDto, articleDetailVo);
         invertArticleDtoToVo(articleDto, articleDetailVo);
+        articleDetailVo.setCommentCount(articleDto.getComments().size());
+        List<CommentDetailVo> commentVos = CommentUtil.assembleComment(articleDto.getComments());
+        articleDetailVo.setComments(commentVos);
         return Result.success(articleDetailVo);
 
     }

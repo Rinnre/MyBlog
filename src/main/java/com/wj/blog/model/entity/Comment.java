@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author w
- * @since 2024-03-05
+ * @since 2023-02-15
  */
 @TableName("comment")
 @ApiModel(value = "Comment对象", description = "评论")
@@ -33,11 +33,11 @@ public class Comment implements Serializable {
     @TableField("replay_user_id")
     private String replayUserId;
 
-    @ApiModelProperty("评论所属id")
+    @ApiModelProperty("评论所属文章、动态、留言")
     @TableField("source_id")
     private String sourceId;
 
-    @ApiModelProperty("所属类型(0:留言，1：文章，2：动态)")
+    @ApiModelProperty("所属类型")
     @TableField("source_type")
     private Integer sourceType;
 
@@ -49,7 +49,7 @@ public class Comment implements Serializable {
     @TableField(value = "create_time", fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
-    @ApiModelProperty("评论发布人（0:匿名评论）")
+    @ApiModelProperty("评论发布人")
     @TableField("user_id")
     private String userId;
 
@@ -57,10 +57,9 @@ public class Comment implements Serializable {
     @TableField("status")
     private Integer status;
 
-    @ApiModelProperty("是否删除")
+    @ApiModelProperty("评论状态")
     @TableField("is_delete")
-    @TableLogic
-    private Integer isDelete;
+    private Boolean isDelete;
 
     public String getId() {
         return id;
@@ -143,13 +142,12 @@ public class Comment implements Serializable {
         return this;
     }
 
-    public Integer getIsDelete() {
+    public Boolean getDelete() {
         return isDelete;
     }
 
-    public Comment setIsDelete(Integer isDelete) {
-        this.isDelete = isDelete;
-        return this;
+    public void setDelete(Boolean delete) {
+        isDelete = delete;
     }
 
     @Override
@@ -164,7 +162,6 @@ public class Comment implements Serializable {
                 ", createTime=" + createTime +
                 ", userId=" + userId +
                 ", status=" + status +
-                ", isDelete=" + isDelete +
                 "}";
     }
 }

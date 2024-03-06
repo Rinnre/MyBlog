@@ -16,9 +16,43 @@
         <result column="is_delete" property="isDelete"/>
     </resultMap>
 
+    <resultMap id="CommentListResultMap" type="com.wj.blog.model.dto.CommentDto">
+        <id column="id" property="id"/>
+        <result column="pid" property="pid"/>
+        <result column="context" property="context"/>
+        <result column="create_time" property="createTime"/>
+        <association property="user" javaType="com.wj.blog.model.dto.UserDto">
+            <id column="user_id" property="id"/>
+            <result column="user_name" property="name"/>
+            <result column="user_avatar" property="avatar"/>
+        </association>
+        <association property="replayUser" javaType="com.wj.blog.model.dto.UserDto">
+            <id column="replay_id" property="id"/>
+            <result column="replay_name" property="name"/>
+            <result column="replay_avatar" property="avatar"/>
+        </association>
+    </resultMap>
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id, pid, replay_user_id, source_id, source_type, context, create_time, user_id, status, is_delete
     </sql>
+
+    <select id="selectCommentListById" resultMap="CommentListResultMap">
+        SELECT c.id,
+               pid,
+               context,
+               create_time,
+               u.id     AS user_id,
+               u.name   AS user_name,
+               u.avatar AS user_avatar,
+               r.id     AS replay_id,
+               r.name   AS replay_name,
+               r.avatar    replay_avatar
+        FROM comment c
+                 JOIN user u on u.id = c.user_id
+                 LEFT JOIN user r on r.id = c.replay_user_id
+        WHERE source_id = #{sourceId}
+    </select>
 
 </mapper>

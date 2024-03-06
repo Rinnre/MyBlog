@@ -47,11 +47,13 @@
             <id column="user_id" property="id"/>
             <result column="user_name" property="name"/>
             <result column="avatar" property="avatar"/>
+            <result column="description" property="description"/>
         </association>
         <association property="category" javaType="com.wj.blog.model.entity.Category">
             <id column="category_id" property="id"/>
             <result column="category_name" property="name"/>
         </association>
+        <collection property="comments" column="id" select="com.wj.blog.mapper.CommentMapper.selectCommentListById"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -118,6 +120,7 @@
                u.id   AS user_id,
                u.name AS user_name,
                avatar,
+               u.description,
                c.id   AS tag_id,
                c.name AS tag_name
         FROM article

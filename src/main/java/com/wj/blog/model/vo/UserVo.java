@@ -24,4 +24,7 @@ public class UserVo {
     @ApiModelProperty("头像")
     private String avatar;
 
+    @ApiModelProperty("个签")
+    private String description;
+
 }

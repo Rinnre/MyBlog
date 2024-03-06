@@ -35,4 +35,7 @@ public class ArticleDto extends Article {
     @ApiModelProperty("评论数量")
     private Integer commentCount;
 
+    @ApiModelProperty("评论")
+    private List<CommentDto> comments;
+
 }

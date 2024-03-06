@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
  * 文章详细vo
  *
  * @author wj
- * @date 2023/02/17
+ * {@code @date} 2023/02/17
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
